@@ -54,16 +54,12 @@
     <!-- Header with Logo -->
     <header class="bg-white shadow-sm py-4">
         <div class="container mx-auto px-4">
-         <!-- Logo Space -->
-<!-- Logo Space -->
-<!-- Logo Space -->
+            <!-- Logo Space -->
 <div class="flex justify-center mb-6">
     <img src="https://i.imgur.com/15Cqa82.png" 
          alt="Logo de la Tienda" 
          class="max-w-full h-auto object-contain p-2 bg-white rounded-lg shadow-sm">
 </div>
-
-
 
             </div>
             
@@ -89,7 +85,7 @@
                         <img id="frontImage" src="" alt="Frente del certificado" class="w-full h-auto rounded border border-gray-300">
                         <div class="mt-4 flex justify-center">
                             <button onclick="downloadPDF()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded flex items-center">
-                                <i class="fas fa-file-pdf mr-2"></i> Descargar PDF
+                                <i class="fas fa-file-pdf mr-2"></i> Descargar PDF Completo
                             </button>
                         </div>
                     </div>
@@ -99,11 +95,6 @@
                 <div class="certificate-container flex-1">
                     <div class="certificate bg-gray-100 p-4 rounded-lg shadow-md">
                         <img id="backImage" src="" alt="Reverso del certificado" class="w-full h-auto rounded border border-gray-300">
-                        <div class="mt-4 flex justify-center">
-                            <button onclick="downloadPDF('back')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded flex items-center">
-                                <i class="fas fa-file-pdf mr-2"></i> Descargar PDF
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -111,7 +102,7 @@
             <!-- Certificate Information Table -->
             <div class="bg-gray-50 rounded-lg shadow-sm p-6">
                 <h3 class="text-xl font-semibold text-emerald-800 mb-4">Información del Certificado</h3>
-                <div class="overflow-x-auto">
+                <div>
                     <table id="certificateInfo" class="w-full text-left border-collapse">
                         <tbody>
                             <tr class="border-b border-gray-200">
@@ -564,7 +555,9 @@
         </button>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+        const { jsPDF } = window.jspdf;
         // Load certificates from localStorage or use default sample
         let certificatesDB = JSON.parse(localStorage.getItem('certificatesDB')) || {
             "123456": {
@@ -627,9 +620,27 @@
         function downloadPDF() {
             const code = document.getElementById('certCode').textContent;
             const cert = certificatesDB[code];
-            alert(`Generando PDF con ambas imágenes del certificado ${code}...`);
-            // In a real implementation, this would generate a PDF with both images
-            // and download it with a filename like "Certificado_${code}.pdf"
+            
+            // Create a new jsPDF instance
+            const doc = new jsPDF();
+            
+            // Add front image
+            const frontImg = new Image();
+            frontImg.src = cert.frontImage;
+            frontImg.onload = function() {
+                doc.addImage(frontImg, 'JPEG', 15, 15, 180, 120);
+                
+                // Add back image on a new page
+                const backImg = new Image();
+                backImg.src = cert.backImage || cert.frontImage;
+                backImg.onload = function() {
+                    doc.addPage();
+                    doc.addImage(backImg, 'JPEG', 15, 15, 180, 120);
+                    
+                    // Save the PDF
+                    doc.save(`Certificado_${code}.pdf`);
+                };
+            };
         }
 
         // Edit mode functions
