@@ -54,13 +54,11 @@
     <!-- Header with Logo -->
     <header class="bg-white shadow-sm py-4">
         <div class="container mx-auto px-4">
-            <!-- Logo Space -->
-<div class="flex justify-center mb-6">
-    <img src="https://i.imgur.com/15Cqa82.png" 
-         alt="Logo de la Tienda" 
-         class="max-w-full h-auto object-contain p-2 bg-white rounded-lg shadow-sm">
-</div>
-
+            <div class="flex justify-center mb-6">
+                <!-- Logo Space - Replace with your actual logo -->
+                <div class="w-64 h-32 bg-emerald-100 flex items-center justify-center rounded-lg border border-emerald-300">
+                    <span class="text-emerald-800 font-bold text-xl">LOGO DE LA TIENDA</span>
+                </div>
             </div>
             
             <!-- Search Bar -->
@@ -578,13 +576,29 @@
 
         // Save certificates to localStorage
         function saveCertificates() {
-            localStorage.setItem('certificatesDB', JSON.stringify(certificatesDB));
+            try {
+                localStorage.setItem('certificatesDB', JSON.stringify(certificatesDB));
+                console.log('Certificados guardados:', certificatesDB);
+            } catch (e) {
+                console.error('Error al guardar certificados:', e);
+                alert('Error al guardar los certificados. Intente nuevamente.');
+            }
         }
 
         // Search function
         function searchCertificate() {
             const searchInput = document.getElementById('certificateSearch');
             const code = searchInput.value.trim();
+            
+            // Recargar datos del localStorage para asegurar que tenemos la última versión
+            try {
+                const storedData = localStorage.getItem('certificatesDB');
+                if (storedData) {
+                    certificatesDB = JSON.parse(storedData);
+                }
+            } catch (e) {
+                console.error('Error al cargar certificados:', e);
+            }
             
             if (certificatesDB[code]) {
                 displayCertificate(code);
@@ -779,40 +793,49 @@
             
             // Get form values
             const newCert = {
-                frontImage: certificatesDB[code] ? certificatesDB[code].frontImage : "",
-                backImage: certificatesDB[code] ? certificatesDB[code].backImage : "",
+                frontImage: document.getElementById('frontImageUrl').value.trim(),
+                backImage: document.getElementById('backImageUrl').value.trim() || document.getElementById('frontImageUrl').value.trim(),
                 info: {
                     code: code,
-                    weight: document.getElementById('adminWeight').value,
-                    shine: document.getElementById('adminShine').value,
-                    shape: document.getElementById('adminShape').value,
-                    dimensions: document.getElementById('adminDimensions').value,
-                    material: document.getElementById('adminMaterial').value,
-                    origin: document.getElementById('adminOrigin').value,
-                    treatment: document.getElementById('adminTreatment').value
+                    weight: document.getElementById('adminWeight').value.trim(),
+                    shine: document.getElementById('adminShine').value.trim(),
+                    shape: document.getElementById('adminShape').value.trim(),
+                    dimensions: document.getElementById('adminDimensions').value.trim(),
+                    material: document.getElementById('adminMaterial').value.trim(),
+                    origin: document.getElementById('adminOrigin').value.trim(),
+                    treatment: document.getElementById('adminTreatment').value.trim()
                 }
             };
             
-            // Get image URLs
-            const frontImageUrl = document.getElementById('frontImageUrl').value.trim();
-            const backImageUrl = document.getElementById('backImageUrl').value.trim();
-            
-            if (!frontImageUrl) {
+            if (!newCert.frontImage) {
                 alert("Por favor ingrese la URL de la imagen frontal");
                 return;
             }
             
-            newCert.frontImage = frontImageUrl;
-            newCert.backImage = backImageUrl || frontImageUrl; // Use front image if back not provided
+            // Validar que todos los campos requeridos estén completos
+            const requiredFields = ['weight', 'shine', 'shape', 'dimensions', 'material', 'origin', 'treatment'];
+            for (const field of requiredFields) {
+                if (!newCert.info[field]) {
+                    alert(`Por favor complete el campo: ${field}`);
+                    return;
+                }
+            }
             
             certificatesDB[code] = newCert;
             saveCertificates();
-            alert("Certificado actualizado correctamente");
+            alert("Certificado guardado correctamente");
             loadCertificatesList();
             
-            // Clear URL inputs
+            // Clear form
             document.getElementById('frontImageUrl').value = "";
             document.getElementById('backImageUrl').value = "";
+            document.getElementById('adminWeight').value = "";
+            document.getElementById('adminShine').value = "";
+            document.getElementById('adminShape').value = "";
+            document.getElementById('adminDimensions').value = "";
+            document.getElementById('adminMaterial').value = "";
+            document.getElementById('adminOrigin').value = "";
+            document.getElementById('adminTreatment').value = "";
         }
 
         // Allow search on Enter key
