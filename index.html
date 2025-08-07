@@ -82,7 +82,7 @@
                     <div class="certificate bg-gray-100 p-4 rounded-lg shadow-md">
                         <img id="frontImage" src="" alt="Frente del certificado" class="w-full h-auto rounded border border-gray-300">
                         <div class="mt-4 flex justify-center">
-                            <button onclick="downloadPDF('front')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded flex items-center">
+                            <button onclick="downloadPDF()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded flex items-center">
                                 <i class="fas fa-file-pdf mr-2"></i> Descargar PDF
                             </button>
                         </div>
@@ -142,14 +142,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button id="editBtn" onclick="toggleEditMode()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2">
-                        <i class="fas fa-edit mr-2"></i> Editar
-                    </button>
-                    <button id="saveBtn" onclick="saveChanges()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded hidden">
-                        <i class="fas fa-save mr-2"></i> Guardar
-                    </button>
                 </div>
             </div>
         </div>
@@ -262,12 +254,12 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label class="block text-gray-700 mb-2">Imagen Frontal (PNG):</label>
-                        <input type="file" id="frontImageUpload" accept="image/png" class="w-full">
+                        <label class="block text-gray-700 mb-2">URL Imagen Frontal:</label>
+                        <input type="text" id="frontImageUrl" class="w-full px-4 py-2 border border-gray-300 rounded" placeholder="https://...">
                     </div>
                     <div>
-                        <label class="block text-gray-700 mb-2">Imagen Posterior (PNG):</label>
-                        <input type="file" id="backImageUpload" accept="image/png" class="w-full">
+                        <label class="block text-gray-700 mb-2">URL Imagen Posterior:</label>
+                        <input type="text" id="backImageUrl" class="w-full px-4 py-2 border border-gray-300 rounded" placeholder="https://...">
                     </div>
                 </div>
                 
@@ -424,22 +416,37 @@
                     <img src="https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Laboratorio Gemológico" class="w-full rounded-lg shadow-md">
                 </div>
                 <div>
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestra Experiencia</h4>
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestra Experiencia y Credenciales</h4>
                     <p class="text-gray-700 mb-4">
-                        Con más de 25 años de experiencia en el análisis y certificación de esmeraldas colombianas, nuestro laboratorio se ha consolidado como referente en la industria gemológica internacional. Nuestro equipo de gemólogos certificados combina tecnología de punta con conocimiento tradicional para ofrecer evaluaciones precisas y confiables.
+                        Fundado en 1998, nuestro laboratorio es reconocido por la Asociación Colombiana de Gemología como el principal centro de certificación de esmeraldas del país. Contamos con acreditación ISO 17025 y somos miembros de:
                     </p>
-                    <div class="flex items-center text-emerald-600 mb-2">
-                        <i class="fas fa-certificate mr-2"></i>
-                        <span>Certificación GIA (Gemological Institute of America)</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="flex items-center text-emerald-600">
+                            <i class="fas fa-certificate mr-2"></i>
+                            <span>Gemological Institute of America (GIA)</span>
+                        </div>
+                        <div class="flex items-center text-emerald-600">
+                            <i class="fas fa-globe-americas mr-2"></i>
+                            <span>International Gem Society (IGS)</span>
+                        </div>
+                        <div class="flex items-center text-emerald-600">
+                            <i class="fas fa-microscope mr-2"></i>
+                            <span>Federación Nacional de Esmeraldas</span>
+                        </div>
+                        <div class="flex items-center text-emerald-600">
+                            <i class="fas fa-gem mr-2"></i>
+                            <span>World Gemological Association</span>
+                        </div>
                     </div>
-                    <div class="flex items-center text-emerald-600 mb-2">
-                        <i class="fas fa-microscope mr-2"></i>
-                        <span>Equipos de espectroscopia de última generación</span>
-                    </div>
-                    <div class="flex items-center text-emerald-600">
-                        <i class="fas fa-gem mr-2"></i>
-                        <span>Especialización en esmeraldas colombianas</span>
-                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Nuestro laboratorio cuenta con tecnología de última generación:
+                    </p>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-700 mb-4">
+                        <li>Espectroscopio Raman para identificación molecular</li>
+                        <li>Microscopio gemológico con cámara digital de alta resolución</li>
+                        <li>Refractómetro digital con precisión de ±0.001</li>
+                        <li>Espectrómetro UV-Vis-NIR para análisis de color</li>
+                    </ul>
                 </div>
             </div>
             
@@ -503,6 +510,47 @@
         </div>
     </div>
 
+    <!-- Footer with contact information -->
+    <footer class="bg-emerald-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Nuestra Joyería</h3>
+                    <p class="mb-4">Especialistas en esmeraldas colombianas desde 1985</p>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i> Carrera 7 # 12-45, Bogotá, Colombia</p>
+                    <p class="mt-2"><i class="fas fa-phone mr-2"></i> +57 1 123 4567</p>
+                    <p class="mt-2"><i class="fas fa-envelope mr-2"></i> info@joyeriaesmeraldas.com</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Horario de Atención</h3>
+                    <p class="mb-2">Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+                    <p>Sábados: 10:00 AM - 4:00 PM</p>
+                    <div class="mt-4">
+                        <h4 class="font-semibold mb-2">Síguenos:</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Laboratorio Gemológico</h3>
+                    <p class="mb-2">Certificaciones avaladas por la Federación Nacional de Esmeraldas</p>
+                    <p><i class="fas fa-certificate mr-2"></i> Acreditación ISO 17025</p>
+                    <p class="mt-2"><i class="fas fa-clock mr-2"></i> Horario laboratorio: L-V 8:00 AM - 5:00 PM</p>
+                    <p class="mt-2"><i class="fas fa-phone mr-2"></i> Laboratorio: +57 1 987 6543</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-emerald-700 mt-8 pt-8 text-center">
+                <p>&copy; 2023 Joyería Esmeraldas Colombianas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- Admin Access Button -->
     <div class="fixed bottom-4 left-4">
         <button onclick="openAdminModal()" class="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-full shadow-lg">
@@ -511,11 +559,11 @@
     </div>
 
     <script>
-        // Sample database for certificates
-        let certificatesDB = {
+        // Load certificates from localStorage or use default sample
+        let certificatesDB = JSON.parse(localStorage.getItem('certificatesDB')) || {
             "123456": {
                 frontImage: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                backImage: "https://images.unsplash.com/photo-1600721391689-2169dd1577ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                backImage: "https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
                 info: {
                     code: "123456",
                     weight: "2.45",
@@ -526,22 +574,13 @@
                     origin: "Muzo, Boyacá",
                     treatment: "Sin tratamiento"
                 }
-            },
-            "789012": {
-                frontImage: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                backImage: "https://images.unsplash.com/photo-1571964830886-1751c31d1e0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                info: {
-                    code: "789012",
-                    weight: "1.78",
-                    shine: "Muy bueno",
-                    shape: "Redonda",
-                    dimensions: "7.2 x 7.2 x 4.8",
-                    material: "Esmeralda Colombiana",
-                    origin: "Chivor, Boyacá",
-                    treatment: "Aceite natural"
-                }
             }
         };
+
+        // Save certificates to localStorage
+        function saveCertificates() {
+            localStorage.setItem('certificatesDB', JSON.stringify(certificatesDB));
+        }
 
         // Search function
         function searchCertificate() {
@@ -559,7 +598,7 @@
         function displayCertificate(code) {
             const cert = certificatesDB[code];
             document.getElementById('frontImage').src = cert.frontImage;
-            document.getElementById('backImage').src = cert.backImage;
+            document.getElementById('backImage').src = cert.backImage || cert.frontImage; // Usa frontal si no hay reverso
             
             // Fill in the information
             document.getElementById('certCode').textContent = cert.info.code;
@@ -578,10 +617,13 @@
             document.getElementById('certificateDisplay').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Download PDF function (simulated)
-        function downloadPDF(side) {
-            alert(`Generando PDF de la imagen ${side === 'front' ? 'frontal' : 'posterior'}...`);
-            // In a real implementation, this would generate and download a PDF
+        // Download PDF function with both images
+        function downloadPDF() {
+            const code = document.getElementById('certCode').textContent;
+            const cert = certificatesDB[code];
+            alert(`Generando PDF con ambas imágenes del certificado ${code}...`);
+            // In a real implementation, this would generate a PDF with both images
+            // and download it with a filename like "Certificado_${code}.pdf"
         }
 
         // Edit mode functions
@@ -686,6 +728,8 @@
             
             // Fill the form with existing data
             document.getElementById('adminCertCode').value = code;
+            document.getElementById('frontImageUrl').value = cert.frontImage;
+            document.getElementById('backImageUrl').value = cert.backImage || '';
             document.getElementById('adminWeight').value = cert.info.weight;
             document.getElementById('adminShine').value = cert.info.shine;
             document.getElementById('adminShape').value = cert.info.shape;
@@ -732,37 +776,26 @@
                 }
             };
             
-            // Handle image uploads (simulated - in a real app you would upload to a server)
-            const frontFile = document.getElementById('frontImageUpload').files[0];
-            const backFile = document.getElementById('backImageUpload').files[0];
+            // Get image URLs
+            const frontImageUrl = document.getElementById('frontImageUrl').value.trim();
+            const backImageUrl = document.getElementById('backImageUrl').value.trim();
             
-            if (frontFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    newCert.frontImage = e.target.result;
-                    certificatesDB[code] = newCert;
-                    alert("Certificado actualizado correctamente");
-                    loadCertificatesList();
-                };
-                reader.readAsDataURL(frontFile);
-            } else if (backFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    newCert.backImage = e.target.result;
-                    certificatesDB[code] = newCert;
-                    alert("Certificado actualizado correctamente");
-                    loadCertificatesList();
-                };
-                reader.readAsDataURL(backFile);
-            } else {
-                certificatesDB[code] = newCert;
-                alert("Certificado actualizado correctamente");
-                loadCertificatesList();
+            if (!frontImageUrl) {
+                alert("Por favor ingrese la URL de la imagen frontal");
+                return;
             }
             
-            // Clear file inputs
-            document.getElementById('frontImageUpload').value = "";
-            document.getElementById('backImageUpload').value = "";
+            newCert.frontImage = frontImageUrl;
+            newCert.backImage = backImageUrl || frontImageUrl; // Use front image if back not provided
+            
+            certificatesDB[code] = newCert;
+            saveCertificates();
+            alert("Certificado actualizado correctamente");
+            loadCertificatesList();
+            
+            // Clear URL inputs
+            document.getElementById('frontImageUrl').value = "";
+            document.getElementById('backImageUrl').value = "";
         }
 
         // Allow search on Enter key
