@@ -36,6 +36,9 @@
         .search-box {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+        .border-red-500 {
+            border-color: #ef4444;
+        }
         .search-btn {
             transition: all 0.3s;
         }
@@ -545,21 +548,16 @@
             });
             
             function searchCertificate() {
-                const code = certificateCode.value.trim();
+                const code = certificateCode.value.trim().toUpperCase();
                 
                 if (code) {
-                    // Simulación de búsqueda (en un caso real sería una llamada AJAX)
+                    // Simulación de búsqueda
+                    certificateCode.classList.remove('border-red-500');
                     setTimeout(() => {
-                        if (code.toUpperCase().startsWith('ESM')) {
-                            // Mostrar resultados
-                            updateCertificateData(code);
-                            resultsSection.classList.remove('hidden');
-                            noResults.classList.add('hidden');
-                        } else {
-                            // Mostrar mensaje de no encontrado
-                            resultsSection.classList.add('hidden');
-                            noResults.classList.remove('hidden');
-                        }
+                        // Para demo, mostrará resultados con cualquier código ingresado
+                        updateCertificateData(code);
+                        resultsSection.classList.remove('hidden');
+                        noResults.classList.add('hidden');
                     }, 800);
                 }
             }
@@ -597,10 +595,20 @@
                         origin: 'Colombia (Chivor)',
                         issueDate: '22/07/2023',
                         description: 'Magnífica esmeralda de Chivor con tonos azulados únicos. Tallada en corte esmeralda para destacar su pureza y color.'
+                    },
+                    // Datos genéricos para cualquier código que no coincida exactamente
+                    'DEFAULT': {
+                        weight: (Math.random() * 5).toFixed(2),
+                        color: ['Verde intenso', 'Verde oscuro', 'Verde azulado'][Math.floor(Math.random() * 3)],
+                        clarity: ['VVS1', 'VVS2', 'VS1', 'VS2'][Math.floor(Math.random() * 4)],
+                        shape: ['Redonda', 'Oval', 'Esmeralda', 'Perilla'][Math.floor(Math.random() * 4)],
+                        origin: 'Colombia',
+                        issueDate: new Date().toLocaleDateString(),
+                        description: 'Esmeralda colombiana de alta calidad certificada por nuestro laboratorio gemológico. Esta piedra preciosa ha sido cuidadosamente seleccionada y certificada para garantizar su autenticidad y valor.'
                     }
                 };
                 
-                const data = sampleData[code] || sampleData['ESM-2023-002'];
+                const data = sampleData[code] || sampleData['DEFAULT'];
                 
                 document.getElementById('weight').textContent = data.weight;
                 document.getElementById('color').textContent = data.color;
