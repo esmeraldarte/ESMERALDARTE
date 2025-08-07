@@ -81,16 +81,16 @@
 
         <!-- Botón de cuidados especiales -->
         <div class="mb-6 text-center">
-            <button id="careBtn" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105">
+            <a href="#" id="careBtn" class="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105">
                 <i class="fas fa-gem mr-2"></i> Cuidados Especiales para mis Joyas
-            </button>
+            </a>
         </div>
 
         <!-- Botón de laboratorio gemológico -->
         <div class="mb-6 text-center">
-            <button id="labBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105">
+            <a href="#" id="labBtn" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105">
                 <i class="fas fa-microscope mr-2"></i> Laboratorio Gemológico
-            </button>
+            </a>
         </div>
 
         <!-- Botón para subir certificados -->
@@ -156,142 +156,6 @@
             </div>
         </div>
 
-        <!-- Sección de laboratorio gemológico (inicialmente oculta) -->
-        <div id="labSection" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-800 mb-6 text-center">Laboratorio Gemológico Certificado</h2>
-            
-            <div class="flex flex-col md:flex-row gap-6 mb-8">
-                <div class="md:w-1/3">
-                    <div class="bg-blue-50 rounded-lg p-4 h-full">
-                        <div class="text-center mb-4">
-                            <i class="fas fa-certificate text-5xl text-blue-600 mb-2"></i>
-                            <h3 class="font-bold text-blue-700">Certificación Internacional</h3>
-                        </div>
-                        <p class="text-gray-700">Nuestro laboratorio cuenta con acreditación ISO 17025 y es miembro de:</p>
-                        <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
-                            <li>International Gemological Institute (IGI)</li>
-                            <li>World Gemological Foundation (WGF)</li>
-                            <li>Federación Latinoamericana de Gemólogos (FLAG)</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="md:w-2/3">
-                    <div class="bg-blue-50 rounded-lg p-4 h-full">
-                        <h3 class="font-bold text-blue-700 mb-3"><i class="fas fa-flask mr-2"></i>Tecnología de Vanguardia</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <h4 class="font-semibold text-blue-600">Espectroscopía Raman</h4>
-                                <p class="text-sm text-gray-700">Identificación precisa de inclusiones y tratamientos</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-blue-600">Microscopía Digital</h4>
-                                <p class="text-sm text-gray-700">Análisis de inclusiones a 1000x aumento</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-blue-600">Fluorescencia UV</h4>
-                                <p class="text-sm text-gray-700">Detección de tratamientos con resinas</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-blue-600">Refractometría</h4>
-                                <p class="text-sm text-gray-700">Medición precisa de índices de refracción</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-blue-100 rounded-lg p-6 mb-6">
-                <h3 class="font-bold text-blue-800 mb-3 text-center">Nuestro Equipo de Expertos</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="text-center">
-                        <div class="bg-white rounded-full w-24 h-24 mx-auto mb-3 flex items-center justify-center shadow">
-                            <i class="fas fa-user-tie text-3xl text-blue-600"></i>
-                        </div>
-                        <h4 class="font-bold text-blue-700">Dr. Carlos Mendez</h4>
-                        <p class="text-sm text-gray-600">Gemólogo Senior (FGA, GG)</p>
-                        <p class="text-xs text-gray-500">25 años de experiencia</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-white rounded-full w-24 h-24 mx-auto mb-3 flex items-center justify-center shadow">
-                            <i class="fas fa-atom text-3xl text-blue-600"></i>
-                        </div>
-                        <h4 class="font-bold text-blue-700">Dra. Laura Jiménez</h4>
-                        <p class="text-sm text-gray-600">Especialista en Espectroscopía</p>
-                        <p class="text-xs text-gray-500">PhD en Mineralogía</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-white rounded-full w-24 h-24 mx-auto mb-3 flex items-center justify-center shadow">
-                            <i class="fas fa-gem text-3xl text-blue-600"></i>
-                        </div>
-                        <h4 class="font-bold text-blue-700">Ing. Javier Rojas</h4>
-                        <p class="text-sm text-gray-600">Experto en Esmeraldas Colombianas</p>
-                        <p class="text-xs text-gray-500">Certificado por Fedesmeraldas</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-blue-200 pt-4">
-                <h3 class="font-bold text-blue-700 mb-2"><i class="fas fa-shield-alt mr-2"></i>Garantía de Autenticidad</h3>
-                <p class="text-gray-700 mb-4">Cada certificado emitido por nuestro laboratorio incluye:</p>
-                <ul class="list-disc pl-5 space-y-1 text-gray-700">
-                    <li>Reporte completo de características gemológicas</li>
-                    <li>Fotografías microscópicas de identificación</li>
-                    <li>Espectrograma Raman único</li>
-                    <li>Código QR de verificación en línea</li>
-                    <li>Garantía contra falsificación</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Sección de cuidados especiales (inicialmente oculta) -->
-        <div id="careSection" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-green-800 mb-4 text-center">Cuidados Especiales para tus Joyas de Esmeralda</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-green-50 rounded-lg p-4">
-                    <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-hand-sparkles mr-2"></i> Limpieza</h3>
-                    <ul class="list-disc pl-5 space-y-1 text-gray-700">
-                        <li>Limpia con un paño suave y seco regularmente</li>
-                        <li>Usa agua tibia con jabón neutro solo cuando sea necesario</li>
-                        <li>Seca inmediatamente después de lavar</li>
-                        <li>Evita productos químicos agresivos</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-green-50 rounded-lg p-4">
-                    <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-shield-alt mr-2"></i> Almacenamiento</h3>
-                    <ul class="list-disc pl-5 space-y-1 text-gray-700">
-                        <li>Guarda cada pieza por separado en bolsas de tela suave</li>
-                        <li>Evita el contacto con otras joyas para prevenir rayones</li>
-                        <li>Mantén en un lugar seco y a temperatura estable</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-green-50 rounded-lg p-4">
-                    <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-running mr-2"></i> Uso Diario</h3>
-                    <ul class="list-disc pl-5 space-y-1 text-gray-700">
-                        <li>Quítate las joyas al hacer deporte o tareas domésticas</li>
-                        <li>Evita el contacto con perfumes, cremas y maquillaje</li>
-                        <li>No exponer a cambios bruscos de temperatura</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-green-50 rounded-lg p-4">
-                    <h3 class="font-bold text-green-700 mb-2"><i class="fas fa-calendar-check mr-2"></i> Mantenimiento</h3>
-                    <ul class="list-disc pl-5 space-y-1 text-gray-700">
-                        <li>Revisa los engarces periódicamente</li>
-                        <li>Lleva tus joyas a limpieza profesional cada 6 meses</li>
-                        <li>Verifica el estado de los cierres y eslabones</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="mt-6 bg-green-100 border-l-4 border-green-600 p-4 rounded-r-lg">
-                <h3 class="font-bold text-green-800 mb-2"><i class="fas fa-info-circle mr-2"></i> Consejo Profesional</h3>
-                <p class="text-gray-700">Las esmeraldas son piedras preciosas más blandas que los diamantes. Su cuidado especial prolongará su belleza y valor por generaciones. Ante cualquier duda, consulta con nuestros expertos en Joyeria Esmeraldas.</p>
-            </div>
-        </div>
 
         <!-- Resultados (inicialmente oculto) -->
         <div id="resultsSection" class="hidden">
@@ -525,9 +389,7 @@
             const flipBtn = document.getElementById('flipBtn');
             const searchBtn = document.getElementById('searchBtn');
             const careBtn = document.getElementById('careBtn');
-            const careSection = document.getElementById('careSection');
             const labBtn = document.getElementById('labBtn');
-            const labSection = document.getElementById('labSection');
             const certificateCode = document.getElementById('certificateCode');
             const resultsSection = document.getElementById('resultsSection');
             const noResults = document.getElementById('noResults');
@@ -619,6 +481,53 @@
                 document.getElementById('description').innerHTML = `<p class="mb-4">${data.description}</p>`;
             }
             
+            // Mostrar/ocultar sección de cuidados
+            document.getElementById('hideCareBtn').addEventListener('click', function() {
+                document.getElementById('careSection').classList.add('hidden');
+            });
+
+            // Mostrar/ocultar sección de laboratorio
+            document.getElementById('hideLabBtn').addEventListener('click', function() {
+                document.getElementById('labSection').classList.add('hidden');
+            });
+
+            // Botones para mostrar secciones ocultas
+            const showCareBtn = document.createElement('button');
+            showCareBtn.id = 'showCareBtn';
+            showCareBtn.className = 'inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105 mb-6 text-center w-full';
+            showCareBtn.innerHTML = '<i class="fas fa-gem mr-2"></i> Mostrar Cuidados Especiales';
+            showCareBtn.addEventListener('click', function() {
+                document.getElementById('careSection').classList.remove('hidden');
+                this.remove();
+            });
+
+            const showLabBtn = document.createElement('button');
+            showLabBtn.id = 'showLabBtn';
+            showLabBtn.className = 'inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105 mb-6 text-center w-full';
+            showLabBtn.innerHTML = '<i class="fas fa-microscope mr-2"></i> Mostrar Laboratorio Gemológico';
+            showLabBtn.addEventListener('click', function() {
+                document.getElementById('labSection').classList.remove('hidden');
+                this.remove();
+            });
+
+            // Insertar botones si las secciones están ocultas
+            function checkSections() {
+                if (document.getElementById('careSection').classList.contains('hidden')) {
+                    if (!document.getElementById('showCareBtn')) {
+                        document.getElementById('careSection').parentNode.insertBefore(showCareBtn, document.getElementById('careSection'));
+                    }
+                }
+                if (document.getElementById('labSection').classList.contains('hidden')) {
+                    if (!document.getElementById('showLabBtn')) {
+                        document.getElementById('labSection').parentNode.insertBefore(showLabBtn, document.getElementById('labSection'));
+                    }
+                }
+            }
+
+            // Verificar al cargar y cuando se ocultan secciones
+            document.getElementById('hideCareBtn').addEventListener('click', checkSections);
+            document.getElementById('hideLabBtn').addEventListener('click', checkSections);
+
             // Intentar de nuevo
             tryAgainBtn.addEventListener('click', function() {
                 noResults.classList.add('hidden');
@@ -626,27 +535,6 @@
                 certificateCode.focus();
             });
             
-            // Mostrar/ocultar sección de cuidados
-            careBtn.addEventListener('click', function() {
-                careSection.classList.toggle('hidden');
-                labSection.classList.add('hidden');
-                if (!careSection.classList.contains('hidden')) {
-                    // Si se muestra, ocultar otros elementos
-                    resultsSection.classList.add('hidden');
-                    noResults.classList.add('hidden');
-                }
-            });
-
-            // Mostrar/ocultar sección de laboratorio
-            labBtn.addEventListener('click', function() {
-                labSection.classList.toggle('hidden');
-                careSection.classList.add('hidden');
-                if (!labSection.classList.contains('hidden')) {
-                    // Si se muestra, ocultar otros elementos
-                    resultsSection.classList.add('hidden');
-                    noResults.classList.add('hidden');
-                }
-            });
 
             // Descargar PDF (simulado)
             downloadBtn.addEventListener('click', function() {
