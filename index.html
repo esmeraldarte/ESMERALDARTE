@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joyeria Esmeraldas - Certificados</title>
+    <title>Certificados Gemológicos de Esmeraldas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,583 +11,765 @@
             perspective: 1000px;
         }
         .certificate {
-            transition: transform 0.8s;
+            transition: transform 0.5s;
             transform-style: preserve-3d;
-            position: relative;
         }
-        .certificate.flipped {
-            transform: rotateY(180deg);
+        .certificate:hover {
+            transform: rotateY(10deg);
         }
-        .certificate-front, .certificate-back {
-            backface-visibility: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
+        .admin-panel {
+            display: none;
         }
-        .certificate-back {
-            transform: rotateY(180deg);
+        .info-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
         }
-        .flip-btn {
-            transition: all 0.3s;
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .flip-btn:hover {
-            transform: scale(1.05);
-        }
-        .search-box {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .border-red-500 {
-            border-color: #ef4444;
-        }
-        .search-btn {
-            transition: all 0.3s;
-        }
-        .search-btn:hover {
-            transform: translateY(-2px);
-        }
-        .download-btn {
-            transition: all 0.3s;
-        }
-        .download-btn:hover {
-            transform: translateY(-2px);
+        .modal {
+            transition: opacity 0.3s ease;
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Logo de la joyería -->
-        <div class="text-center mb-8">
-            <div class="flex justify-center mb-4">
-                <div class="bg-green-700 text-white rounded-full p-4 w-24 h-24 flex items-center justify-center shadow-lg">
-                    <i class="fas fa-gem text-4xl"></i>
-                </div>
-            </div>
-            <h1 class="text-3xl font-bold text-green-800">Joyeria Esmeraldas</h1>
-            <p class="text-gray-600 mt-2">Certificados de autenticidad</p>
-        </div>
+<body class="bg-gray-50 font-sans">
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/573000000000?text=Hola,%20me%20interesan%20sus%20certificados%20gemológicos" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-        <!-- Buscador -->
-        <div class="mb-8">
-            <div class="search-box bg-white rounded-lg p-4 shadow-md">
-                <div class="flex">
-                    <input type="text" id="certificateCode" placeholder="Ingrese el código del certificado" 
-                           class="flex-grow px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-600">
-                    <button id="searchBtn" class="search-btn bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-r-lg font-medium">
-                        <i class="fas fa-search mr-2"></i> Buscar
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Botón de cuidados especiales -->
-        <div class="mb-6 text-center">
-            <a href="#" id="careBtn" class="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105">
-                <i class="fas fa-gem mr-2"></i> Cuidados Especiales para mis Joyas
-            </a>
-        </div>
-
-        <!-- Botón de laboratorio gemológico -->
-        <div class="mb-6 text-center">
-            <a href="#" id="labBtn" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105">
-                <i class="fas fa-microscope mr-2"></i> Laboratorio Gemológico
-            </a>
-        </div>
-
-        <!-- Botón para subir certificados -->
-        <div class="mb-12 text-center">
-            <button id="uploadBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105">
-                <i class="fas fa-upload mr-2"></i> Subir Certificados
-            </button>
-        </div>
-
-        <!-- Sección de información sobre esmeraldas -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-green-800 mb-6 text-center">Las Esmeraldas Colombianas</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="text-center">
-                    <div class="bg-green-100 rounded-lg p-4 h-full">
-                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                             alt="Esmeralda colombiana" class="w-full h-48 object-cover rounded-lg mb-4">
-                        <h3 class="font-bold text-green-700 mb-2">Origen y Calidad</h3>
-                        <p class="text-gray-700">Las esmeraldas colombianas son reconocidas mundialmente por su intenso color verde y pureza excepcional, especialmente las de las minas de Muzo, Chivor y Coscuez.</p>
-                    </div>
-                </div>
-                
-                <div class="text-center">
-                    <div class="bg-green-100 rounded-lg p-4 h-full">
-                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                             alt="Proceso de tallado" class="w-full h-48 object-cover rounded-lg mb-4">
-                        <h3 class="font-bold text-green-700 mb-2">Proceso Artesanal</h3>
-                        <p class="text-gray-700">Cada esmeralda es cuidadosamente seleccionada y tallada por maestros artesanos para resaltar su belleza natural y maximizar su brillo.</p>
-                    </div>
-                </div>
-                
-                <div class="text-center">
-                    <div class="bg-green-100 rounded-lg p-4 h-full">
-                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                             alt="Certificación" class="w-full h-48 object-cover rounded-lg mb-4">
-                        <h3 class="font-bold text-green-700 mb-2">Certificación</h3>
-                        <p class="text-gray-700">Todas nuestras esmeraldas incluyen certificado de autenticidad emitido por laboratorios gemológicos internacionales reconocidos.</p>
-                    </div>
+    <!-- Header with Logo -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center mb-6">
+                <!-- Logo Space - Replace with your actual logo -->
+                <div class="w-64 h-32 bg-emerald-100 flex items-center justify-center rounded-lg border border-emerald-300">
+                    <span class="text-emerald-800 font-bold text-xl">LOGO DE LA TIENDA</span>
                 </div>
             </div>
             
-            <div class="bg-green-50 rounded-lg p-6">
-                <h3 class="font-bold text-green-800 mb-4 text-center">¿Por qué elegir nuestras esmeraldas?</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <h4 class="font-semibold text-green-700 mb-2"><i class="fas fa-check-circle text-green-600 mr-2"></i>Calidad Garantizada</h4>
-                        <p class="text-gray-700 text-sm">Seleccionamos solo las mejores piedras con los más altos estándares de calidad.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-green-700 mb-2"><i class="fas fa-check-circle text-green-600 mr-2"></i>Origen Ético</h4>
-                        <p class="text-gray-700 text-sm">Trabajamos directamente con mineros locales bajo prácticas responsables.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-green-700 mb-2"><i class="fas fa-check-circle text-green-600 mr-2"></i>Expertise</h4>
-                        <p class="text-gray-700 text-sm">Más de 30 años de experiencia en el mercado de esmeraldas colombianas.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-green-700 mb-2"><i class="fas fa-check-circle text-green-600 mr-2"></i>Valor de Inversión</h4>
-                        <p class="text-gray-700 text-sm">Las esmeraldas colombianas mantienen y aumentan su valor con el tiempo.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Resultados (inicialmente oculto) -->
-        <div id="resultsSection" class="hidden">
-            <!-- Certificado -->
-            <div class="certificate-container mb-8">
-                <div id="certificate" class="certificate w-full h-96 mx-auto relative">
-                    <!-- Parte delantera del certificado -->
-                    <div class="certificate-front w-full h-full bg-white rounded-xl shadow-lg p-6 border-2 border-green-200">
-                        <div class="flex justify-between items-start mb-6">
-                            <div>
-                                <h2 class="text-2xl font-bold text-green-800">Certificado de Autenticidad</h2>
-                                <p class="text-gray-600">Joyeria Esmeraldas</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-sm text-gray-500">Código:</p>
-                                <p id="certCodeFront" class="font-mono font-bold">ESM-2023-XXXX</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                            <div class="col-span-2">
-                                <div class="bg-green-50 rounded-lg p-4 h-full">
-                                    <h3 class="font-bold text-green-700 mb-2">Detalles de la Esmeralda</h3>
-                                    <div class="space-y-2">
-                                        <p><span class="font-semibold">Peso:</span> <span id="weight">2.45</span> quilates</p>
-                                        <p><span class="font-semibold">Color:</span> <span id="color">Verde intenso</span></p>
-                                        <p><span class="font-semibold">Claridad:</span> <span id="clarity">VS1</span></p>
-                                        <p><span class="font-semibold">Forma:</span> <span id="shape">Oval</span></p>
-                                        <p><span class="font-semibold">Origen:</span> <span id="origin">Colombia</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <div class="bg-gradient-to-br from-green-100 to-green-200 rounded-full w-32 h-32 flex items-center justify-center shadow-inner">
-                                    <i class="fas fa-gem text-6xl text-green-700"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="border-t border-gray-200 pt-4">
-                            <p class="text-sm text-gray-600">Este certificado garantiza la autenticidad y características de la esmeralda descrita.</p>
-                            <div class="flex justify-between items-center mt-4">
-                                <div>
-                                    <p class="text-sm text-gray-500">Fecha de emisión:</p>
-                                    <p id="issueDate" class="font-medium">15/06/2023</p>
-                                </div>
-                                <div class="text-right">
-                                    <div class="w-24 h-10 bg-green-700 text-white flex items-center justify-center text-xs font-bold rounded">
-                                        VÁLIDO
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Parte trasera del certificado -->
-                    <div class="certificate-back w-full h-full bg-white rounded-xl shadow-lg p-6 border-2 border-green-200">
-                        <div class="flex justify-between items-start mb-6">
-                            <div>
-                                <h2 class="text-2xl font-bold text-green-800">Certificado de Autenticidad</h2>
-                                <p class="text-gray-600">Joyeria Esmeraldas - Parte trasera</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-sm text-gray-500">Código:</p>
-                                <p id="certCodeBack" class="font-mono font-bold">ESM-2023-XXXX</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-green-50 rounded-lg p-4 mb-6">
-                            <h3 class="font-bold text-green-700 mb-2">Términos y Condiciones</h3>
-                            <div class="text-sm space-y-2">
-                                <p>1. Este certificado es válido únicamente para la esmeralda descrita.</p>
-                                <p>2. Joyeria Esmeraldas garantiza la autenticidad de la piedra.</p>
-                                <p>3. Las características pueden variar ligeramente debido a métodos de medición.</p>
-                                <p>4. Para cualquier consulta, contacte a nuestro servicio al cliente.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <div>
-                                <h4 class="font-semibold text-green-700 mb-2">Información de Contacto</h4>
-                                <p class="text-sm"><i class="fas fa-map-marker-alt mr-2 text-green-600"></i> Calle Principal 123, Bogotá</p>
-                                <p class="text-sm"><i class="fas fa-phone mr-2 text-green-600"></i> +57 1 2345678</p>
-                                <p class="text-sm"><i class="fas fa-envelope mr-2 text-green-600"></i> info@joyeriaesmeraldas.com</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-green-700 mb-2">Garantía</h4>
-                                <p class="text-sm">Este certificado garantiza la autenticidad de la esmeralda por un período de 5 años a partir de la fecha de emisión.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="border-t border-gray-200 pt-4">
-                            <div class="flex justify-center">
-                                <div class="text-center">
-                                    <div class="w-24 h-24 bg-gray-100 mx-auto mb-2 flex items-center justify-center">
-                                        <i class="fas fa-qrcode text-3xl text-gray-400"></i>
-                                    </div>
-                                    <p class="text-xs text-gray-500">Escanee para verificar autenticidad</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Botón para voltear certificado -->
-                <div class="flex justify-center mt-4">
-                    <button id="flipBtn" class="flip-btn bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full font-medium flex items-center">
-                        <i class="fas fa-exchange-alt mr-2"></i> Voltear Certificado
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Botón de descarga -->
-            <div class="flex justify-center mb-12">
-                <button id="downloadBtn" class="download-btn bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-lg font-medium flex items-center shadow-md">
-                    <i class="fas fa-file-pdf mr-2"></i> Descargar Certificado (PDF)
+            <!-- Search Bar -->
+            <div class="max-w-2xl mx-auto relative">
+                <input type="text" id="certificateSearch" placeholder="Buscar certificado por código numérico..." 
+                       class="w-full px-4 py-3 rounded-full border-2 border-emerald-300 focus:border-emerald-500 focus:outline-none shadow-sm">
+                <button onclick="searchCertificate()" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition">
+                    <i class="fas fa-search"></i>
                 </button>
             </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Certificate Display Area (initially hidden) -->
+        <div id="certificateDisplay" class="hidden bg-white rounded-xl shadow-md overflow-hidden p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-8 mb-8">
+                <!-- Front Certificate -->
+                <div class="certificate-container flex-1">
+                    <div class="certificate bg-gray-100 p-4 rounded-lg shadow-md">
+                        <img id="frontImage" src="" alt="Frente del certificado" class="w-full h-auto rounded border border-gray-300">
+                        <div class="mt-4 flex justify-center">
+                            <button onclick="downloadPDF('front')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded flex items-center">
+                                <i class="fas fa-file-pdf mr-2"></i> Descargar PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Back Certificate -->
+                <div class="certificate-container flex-1">
+                    <div class="certificate bg-gray-100 p-4 rounded-lg shadow-md">
+                        <img id="backImage" src="" alt="Reverso del certificado" class="w-full h-auto rounded border border-gray-300">
+                        <div class="mt-4 flex justify-center">
+                            <button onclick="downloadPDF('back')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded flex items-center">
+                                <i class="fas fa-file-pdf mr-2"></i> Descargar PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-            <!-- Descripción -->
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-                <h3 class="text-xl font-bold text-green-800 mb-4">Descripción de la Esmeralda</h3>
-                <div id="description" class="text-gray-700">
-                    <p class="mb-4">Esta excepcional esmeralda colombiana de <span class="font-semibold">2.45 quilates</span> presenta un <span class="font-semibold">color verde intenso</span> característico de las mejores minas de Muzo. Con una claridad VS1, la piedra muestra excelente transparencia con inclusiones naturales mínimas que confirman su origen natural.</p>
-                    <p class="mb-4">El tallado oval realza el color y brillo de la gema, con proporciones cuidadosamente calculadas para maximizar su belleza. La esmeralda ha sido tratada con aceite de resina tradicional para mejorar su durabilidad, práctica común y aceptada en el comercio de esmeraldas de alta calidad.</p>
-                    <p>Esta gema representa lo mejor de la tradición minera colombiana, con certificación de autenticidad que garantiza su procedencia y características.</p>
+            <!-- Certificate Information Table -->
+            <div class="bg-gray-50 rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-semibold text-emerald-800 mb-4">Información del Certificado</h3>
+                <div class="overflow-x-auto">
+                    <table id="certificateInfo" class="w-full text-left border-collapse">
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Código</td>
+                                <td id="certCode" class="py-3 px-4 text-gray-600 editable">123456</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Peso (quilates)</td>
+                                <td id="weight" class="py-3 px-4 text-gray-600 editable">2.45</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Brillo</td>
+                                <td id="shine" class="py-3 px-4 text-gray-600 editable">Excelente</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Forma</td>
+                                <td id="shape" class="py-3 px-4 text-gray-600 editable">Oval</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Medidas (mm)</td>
+                                <td id="dimensions" class="py-3 px-4 text-gray-600 editable">8.5 x 6.2 x 4.3</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Material</td>
+                                <td id="material" class="py-3 px-4 text-gray-600 editable">Esmeralda Colombiana</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Origen</td>
+                                <td id="origin" class="py-3 px-4 text-gray-600 editable">Muzo, Boyacá</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Tratamiento</td>
+                                <td id="treatment" class="py-3 px-4 text-gray-600 editable">Sin tratamiento</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button id="editBtn" onclick="toggleEditMode()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2">
+                        <i class="fas fa-edit mr-2"></i> Editar
+                    </button>
+                    <button id="saveBtn" onclick="saveChanges()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded hidden">
+                        <i class="fas fa-save mr-2"></i> Guardar
+                    </button>
                 </div>
             </div>
         </div>
         
-        <!-- Mensaje cuando no hay resultados -->
-        <div id="noResults" class="hidden text-center py-12">
-            <div class="bg-white rounded-xl shadow-lg p-8 max-w-md mx-auto">
-                <div class="text-6xl text-gray-300 mb-4">
-                    <i class="fas fa-gem"></i>
+        <!-- Action Buttons -->
+        <div class="flex flex-col md:flex-row gap-4 justify-center my-12">
+            <button onclick="openCareModal()" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-gem text-2xl mr-3"></i>
+                    <span class="text-lg font-semibold">Cuidados Especiales para Mis Joyas</span>
                 </div>
-                <h3 class="text-xl font-bold text-gray-700 mb-2">Certificado no encontrado</h3>
-                <p class="text-gray-600 mb-4">El código ingresado no corresponde a ningún certificado válido en nuestros registros.</p>
-                <button id="tryAgainBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium">
-                    Intentar con otro código
+            </button>
+            
+            <button onclick="openLabModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-microscope text-2xl mr-3"></i>
+                    <span class="text-lg font-semibold">Laboratorio Gemológico</span>
+                </div>
+            </button>
+        </div>
+        
+        <!-- Emerald Information Section -->
+        <div class="info-section rounded-xl shadow-md overflow-hidden my-12">
+            <div class="p-8">
+                <h2 class="text-2xl font-bold text-emerald-800 mb-6">Datos Interesantes sobre las Esmeraldas</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Info Card 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                        <div class="text-emerald-600 text-4xl mb-3">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Origen Colombiano</h3>
+                        <p class="text-gray-600">Colombia produce entre el 70-90% de las esmeraldas más finas del mundo, con minas legendarias en Muzo, Chivor y Coscuez.</p>
+                    </div>
+                    
+                    <!-- Info Card 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                        <div class="text-emerald-600 text-4xl mb-3">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Color Único</h3>
+                        <p class="text-gray-600">El verde intenso de las esmeraldas colombianas se debe a trazas de cromo y vanadio, creando un tono inigualable.</p>
+                    </div>
+                    
+                    <!-- Info Card 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                        <div class="text-emerald-600 text-4xl mb-3">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Historia Milenaria</h3>
+                        <p class="text-gray-600">Los muiscas usaban esmeraldas en rituales sagrados hace más de 1000 años. Muchas piezas del tesoro de El Dorado incluían esmeraldas.</p>
+                    </div>
+                </div>
+                
+                <!-- Image Gallery -->
+                <div class="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="overflow-hidden rounded-lg shadow-md">
+                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Esmeralda en bruto" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                    </div>
+                    <div class="overflow-hidden rounded-lg shadow-md">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Mina de esmeraldas" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                    </div>
+                    <div class="overflow-hidden rounded-lg shadow-md">
+                        <img src="https://images.unsplash.com/photo-1600721391689-2169dd1577ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Joya con esmeralda" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-md">
+            <h3 class="text-2xl font-bold text-emerald-800 mb-6 text-center">Acceso Administrativo</h3>
+            <div class="mb-4">
+                <label for="adminPassword" class="block text-gray-700 mb-2">Contraseña:</label>
+                <input type="password" id="adminPassword" class="w-full px-4 py-2 border border-gray-300 rounded focus:border-emerald-500 focus:outline-none">
+            </div>
+            <div class="flex justify-between">
+                <button onclick="closeAdminModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">
+                    Cancelar
+                </button>
+                <button onclick="checkAdminPassword()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
+                    Ingresar
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal para ingresar clave de acceso -->
-    <div id="accessModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Acceso Administrativo</h3>
-            <p class="text-gray-600 mb-4">Ingrese la clave de acceso para subir certificados:</p>
-            <input type="password" id="accessKey" class="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4" placeholder="Clave de acceso">
-            <div class="flex justify-end space-x-3">
-                <button id="cancelAccess" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700">Cancelar</button>
-                <button id="confirmAccess" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Ingresar</button>
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel fixed inset-0 bg-white z-50 overflow-y-auto p-6">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-emerald-800">Panel de Administración</h2>
+                <button onclick="closeAdminPanel()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
             </div>
-            <p id="accessError" class="text-red-500 text-sm mt-2 hidden">Clave incorrecta. Intente nuevamente.</p>
-        </div>
-    </div>
-
-    <!-- Modal para subir certificados -->
-    <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Subir Nuevo Certificado (PNG)</h3>
-            <form id="uploadForm">
-                <div class="mb-4">
-                    <label class="block text-gray-700 mb-2">Código del Certificado</label>
-                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 mb-2">Imagen del Certificado (PNG)</label>
-                    <input type="file" class="w-full px-4 py-2 border border-gray-300 rounded-lg" accept=".png" required>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 mb-2">Datos del Certificado (JSON)</label>
-                    <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg h-32" placeholder='{"weight": "1.85", "color": "Verde oscuro", ...}' required></textarea>
-                </div>
-                <div class="flex justify-end space-x-3">
-                    <button type="button" id="cancelUpload" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Subir</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- WhatsApp floating button -->
-    <div class="fixed bottom-6 right-6 z-50">
-        <a href="https://wa.me/573001234567" target="_blank" class="bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110">
-            <i class="fab fa-whatsapp text-3xl"></i>
-        </a>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-green-800 text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Joyeria Esmeraldas</h3>
-                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> Carrera 7 # 12-45, Bogotá, Colombia</p>
-                    <p class="mb-2"><i class="fas fa-phone mr-2"></i> +57 1 234 5678</p>
-                    <p class="mb-2"><i class="fas fa-envelope mr-2"></i> info@joyeriaesmeraldas.com</p>
-                    <p class="mb-2"><i class="fas fa-clock mr-2"></i> Lunes a Viernes: 9am - 6pm</p>
+            
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm mb-8">
+                <h3 class="text-xl font-semibold text-emerald-700 mb-4">Subir Nuevo Certificado</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Código del Certificado:</label>
+                        <input type="text" id="adminCertCode" class="w-full px-4 py-2 border border-gray-300 rounded">
+                    </div>
                 </div>
                 
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Certificaciones</h3>
-                    <ul class="space-y-2">
-                        <li><i class="fas fa-certificate mr-2"></i> Fedesmeraldas</li>
-                        <li><i class="fas fa-certificate mr-2"></i> IGI - International Gemological Institute</li>
-                        <li><i class="fas fa-certificate mr-2"></i> GIA - Gemological Institute of America</li>
-                        <li><i class="fas fa-certificate mr-2"></i> ISO 9001 - Sistema de calidad</li>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Imagen Frontal (PNG):</label>
+                        <input type="file" id="frontImageUpload" accept="image/png" class="w-full">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Imagen Posterior (PNG):</label>
+                        <input type="file" id="backImageUpload" accept="image/png" class="w-full">
+                    </div>
+                </div>
+                
+                <h4 class="font-medium text-gray-700 mb-3">Información del Certificado:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-gray-700 mb-1">Peso (quilates):</label>
+                        <input type="text" id="adminWeight" class="w-full px-3 py-1 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Brillo:</label>
+                        <input type="text" id="adminShine" class="w-full px-3 py-1 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Forma:</label>
+                        <input type="text" id="adminShape" class="w-full px-3 py-1 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Medidas (mm):</label>
+                        <input type="text" id="adminDimensions" class="w-full px-3 py-1 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Material:</label>
+                        <input type="text" id="adminMaterial" class="w-full px-3 py-1 border border-gray-300 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-1">Origen:</label>
+                        <input type="text" id="adminOrigin" class="w-full px-3 py-1 border border-gray-300 rounded">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-gray-700 mb-1">Tratamiento:</label>
+                        <input type="text" id="adminTreatment" class="w-full px-3 py-1 border border-gray-300 rounded">
+                    </div>
+                </div>
+                
+                <div class="flex justify-end">
+                    <button onclick="uploadCertificate()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
+                        <i class="fas fa-upload mr-2"></i> Subir Certificado
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                <h3 class="text-xl font-semibold text-emerald-700 mb-4">Certificados Existentes</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="py-2 px-4 text-left">Código</th>
+                                <th class="py-2 px-4 text-left">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="certificatesList">
+                            <!-- Certificates will be listed here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Care Modal -->
+    <div id="careModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-2xl font-bold text-emerald-800">Cuidados Especiales para Joyas con Esmeraldas</h3>
+                <button onclick="closeCareModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-emerald-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
+                        <i class="fas fa-hand-sparkles mr-2"></i> Limpieza
+                    </h4>
+                    <p class="text-gray-700">
+                        Las esmeraldas requieren un cuidado especial debido a sus inclusiones naturales y posibles tratamientos:
+                    </p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>Limpie con un paño suave y seco para eliminar la grasa y el polvo</li>
+                        <li>Puede usar agua tibia con jabón neutro, pero evite remojar por mucho tiempo</li>
+                        <li>Nunca use limpiadores ultrasónicos o vapor, pueden dañar la piedra</li>
+                        <li>Evite productos químicos como perfumes, cloro o limpiadores domésticos</li>
                     </ul>
                 </div>
                 
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Síguenos</h3>
-                    <div class="flex space-x-4 mb-4">
-                        <a href="#" class="text-white hover:text-green-300 text-2xl"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-white hover:text-green-300 text-2xl"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white hover:text-green-300 text-2xl"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white hover:text-green-300 text-2xl"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                    <p>© 2023 Joyeria Esmeraldas. Todos los derechos reservados.</p>
+                <div class="bg-emerald-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
+                        <i class="fas fa-calendar-times mr-2"></i> Almacenamiento
+                    </h4>
+                    <p class="text-gray-700">
+                        Guarde sus joyas con esmeraldas correctamente para prevenir daños:
+                    </p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>Almacene por separado para evitar rayones con otras joyas</li>
+                        <li>Use una caja forrada en tela o un joyero con compartimentos individuales</li>
+                        <li>Evite cambios bruscos de temperatura y humedad</li>
+                        <li>No guarde en lugares con exposición directa a la luz solar prolongada</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-emerald-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
+                        <i class="fas fa-running mr-2"></i> Uso Diario
+                    </h4>
+                    <p class="text-gray-700">
+                        Precauciones al usar sus joyas con esmeraldas:
+                    </p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>Quítese las joyas antes de actividades físicas intensas o deportes</li>
+                        <li>Evite el contacto con superficies duras que puedan causar fracturas</li>
+                        <li>No use esmeraldas en piscinas o jacuzzis (el cloro es especialmente dañino)</li>
+                        <li>Retire las joyas antes de aplicar cosméticos o productos para el cabello</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-emerald-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
+                        <i class="fas fa-clipboard-check mr-2"></i> Mantenimiento Profesional
+                    </h4>
+                    <p class="text-gray-700">
+                        Recomendaciones para el cuidado a largo plazo:
+                    </p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>Haga revisar los engarces cada 2-3 años por un joyero profesional</li>
+                        <li>Las esmeraldas engarzadas en anillos pueden requerir más revisiones por el desgaste</li>
+                        <li>Considere un seguro especial para joyas con piedras preciosas</li>
+                        <li>Para limpiezas profundas, acuda a un especialista en gemas</li>
+                    </ul>
                 </div>
             </div>
+            
+            <div class="mt-8 text-center">
+                <button onclick="closeCareModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
+                    Cerrar
+                </button>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- Lab Modal -->
+    <div id="labModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-2xl font-bold text-emerald-800">Laboratorio Gemológico Especializado en Esmeraldas Colombianas</h3>
+                <button onclick="closeLabModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Laboratorio Gemológico" class="w-full rounded-lg shadow-md">
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestra Experiencia</h4>
+                    <p class="text-gray-700 mb-4">
+                        Con más de 25 años de experiencia en el análisis y certificación de esmeraldas colombianas, nuestro laboratorio se ha consolidado como referente en la industria gemológica internacional. Nuestro equipo de gemólogos certificados combina tecnología de punta con conocimiento tradicional para ofrecer evaluaciones precisas y confiables.
+                    </p>
+                    <div class="flex items-center text-emerald-600 mb-2">
+                        <i class="fas fa-certificate mr-2"></i>
+                        <span>Certificación GIA (Gemological Institute of America)</span>
+                    </div>
+                    <div class="flex items-center text-emerald-600 mb-2">
+                        <i class="fas fa-microscope mr-2"></i>
+                        <span>Equipos de espectroscopia de última generación</span>
+                    </div>
+                    <div class="flex items-center text-emerald-600">
+                        <i class="fas fa-gem mr-2"></i>
+                        <span>Especialización en esmeraldas colombianas</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Metodología de Análisis</h4>
+                    <p class="text-gray-700 mb-3">
+                        Nuestro proceso de certificación sigue los más altos estándares internacionales:
+                    </p>
+                    <ol class="list-decimal pl-5 space-y-2 text-gray-700">
+                        <li><strong>Examen Visual:</strong> Identificación inicial de características gemológicas bajo iluminación controlada</li>
+                        <li><strong>Análisis de Inclusión:</strong> Estudio microscópico de las inclusiones naturales (jardín) para determinar origen</li>
+                        <li><strong>Pruebas Ópticas:</strong> Medición de índices de refracción y birrefringencia</li>
+                        <li><strong>Espectroscopia:</strong> Identificación de elementos cromóforos (cromo, vanadio, hierro)</li>
+                        <li><strong>Evaluación de Tratamientos:</strong> Detección de aceites, resinas u otros tratamientos de estabilización</li>
+                        <li><strong>Medición Precisas:</strong> Peso exacto en quilates y dimensiones en milímetros</li>
+                    </ol>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestros Servicios</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border-l-4 border-emerald-500 pl-4">
+                            <h5 class="font-medium text-gray-800">Certificación Gemológica</h5>
+                            <p class="text-sm text-gray-600">Documento completo con todas las características de la esmeralda</p>
+                        </div>
+                        <div class="border-l-4 border-emerald-500 pl-4">
+                            <h5 class="font-medium text-gray-800">Evaluación de Origen</h5>
+                            <p class="text-sm text-gray-600">Determinación precisa de la procedencia (Muzo, Chivor, Coscuez, etc.)</p>
+                        </div>
+                        <div class="border-l-4 border-emerald-500 pl-4">
+                            <h5 class="font-medium text-gray-800">Detección de Tratamientos</h5>
+                            <p class="text-sm text-gray-600">Identificación y clasificación de cualquier tratamiento aplicado</p>
+                        </div>
+                        <div class="border-l-4 border-emerald-500 pl-4">
+                            <h5 class="font-medium text-gray-800">Valuación Comercial</h5>
+                            <p class="text-sm text-gray-600">Estimación de valor basada en características gemológicas y mercado</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestro Compromiso</h4>
+                    <p class="text-gray-700">
+                        En nuestro laboratorio entendemos que cada esmeralda es única. Nos comprometemos a:
+                    </p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>Precisión científica en todos nuestros informes</li>
+                        <li>Ética profesional y confidencialidad absoluta</li>
+                        <li>Educación continua sobre los últimos avances en gemología</li>
+                        <li>Preservación de la reputación de las esmeraldas colombianas en el mundo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <button onclick="closeLabModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Access Button -->
+    <div class="fixed bottom-4 left-4">
+        <button onclick="openAdminModal()" class="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-full shadow-lg">
+            <i class="fas fa-lock"></i>
+        </button>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const certificate = document.getElementById('certificate');
-            const flipBtn = document.getElementById('flipBtn');
-            const searchBtn = document.getElementById('searchBtn');
-            const careBtn = document.getElementById('careBtn');
-            const labBtn = document.getElementById('labBtn');
-            const certificateCode = document.getElementById('certificateCode');
-            const resultsSection = document.getElementById('resultsSection');
-            const noResults = document.getElementById('noResults');
-            const tryAgainBtn = document.getElementById('tryAgainBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
-            
-            // Voltear certificado
-            flipBtn.addEventListener('click', function() {
-                certificate.classList.toggle('flipped');
-            });
-            
-            // Buscar certificado
-            searchBtn.addEventListener('click', searchCertificate);
-            certificateCode.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    searchCertificate();
+        // Sample database for certificates
+        let certificatesDB = {
+            "123456": {
+                frontImage: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                backImage: "https://images.unsplash.com/photo-1600721391689-2169dd1577ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                info: {
+                    code: "123456",
+                    weight: "2.45",
+                    shine: "Excelente",
+                    shape: "Oval",
+                    dimensions: "8.5 x 6.2 x 4.3",
+                    material: "Esmeralda Colombiana",
+                    origin: "Muzo, Boyacá",
+                    treatment: "Sin tratamiento"
                 }
-            });
-            
-            function searchCertificate() {
-                const code = certificateCode.value.trim().toUpperCase();
-                
-                if (code) {
-                    // Simulación de búsqueda
-                    certificateCode.classList.remove('border-red-500');
-                    setTimeout(() => {
-                        // Para demo, mostrará resultados con cualquier código ingresado
-                        updateCertificateData(code);
-                        resultsSection.classList.remove('hidden');
-                        noResults.classList.add('hidden');
-                    }, 800);
+            },
+            "789012": {
+                frontImage: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                backImage: "https://images.unsplash.com/photo-1571964830886-1751c31d1e0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+                info: {
+                    code: "789012",
+                    weight: "1.78",
+                    shine: "Muy bueno",
+                    shape: "Redonda",
+                    dimensions: "7.2 x 7.2 x 4.8",
+                    material: "Esmeralda Colombiana",
+                    origin: "Chivor, Boyacá",
+                    treatment: "Aceite natural"
                 }
             }
+        };
+
+        // Search function
+        function searchCertificate() {
+            const searchInput = document.getElementById('certificateSearch');
+            const code = searchInput.value.trim();
             
-            function updateCertificateData(code) {
-                // Actualizar datos del certificado según el código
-                document.getElementById('certCodeFront').textContent = code;
-                document.getElementById('certCodeBack').textContent = code;
-                
-                // Estos datos normalmente vendrían de una base de datos
-                const sampleData = {
-                    'ESM-2023-001': {
-                        weight: '1.85',
-                        color: 'Verde oscuro',
-                        clarity: 'VVS2',
-                        shape: 'Redonda',
-                        origin: 'Colombia (Muzo)',
-                        issueDate: '10/05/2023',
-                        description: 'Esmeralda excepcional de Muzo con color verde oscuro intenso y excelente claridad. Tallada en forma redonda para maximizar su brillo.'
-                    },
-                    'ESM-2023-002': {
-                        weight: '2.45',
-                        color: 'Verde intenso',
-                        clarity: 'VS1',
-                        shape: 'Oval',
-                        origin: 'Colombia',
-                        issueDate: '15/06/2023',
-                        description: 'Esta excepcional esmeralda colombiana de 2.45 quilates presenta un color verde intenso característico de las mejores minas de Muzo. Con una claridad VS1, la piedra muestra excelente transparencia con inclusiones naturales mínimas que confirman su origen natural.'
-                    },
-                    'ESM-2023-003': {
-                        weight: '3.20',
-                        color: 'Verde azulado',
-                        clarity: 'VS2',
-                        shape: 'Esmeralda',
-                        origin: 'Colombia (Chivor)',
-                        issueDate: '22/07/2023',
-                        description: 'Magnífica esmeralda de Chivor con tonos azulados únicos. Tallada en corte esmeralda para destacar su pureza y color.'
-                    },
-                    // Datos genéricos para cualquier código que no coincida exactamente
-                    'DEFAULT': {
-                        weight: (Math.random() * 5).toFixed(2),
-                        color: ['Verde intenso', 'Verde oscuro', 'Verde azulado'][Math.floor(Math.random() * 3)],
-                        clarity: ['VVS1', 'VVS2', 'VS1', 'VS2'][Math.floor(Math.random() * 4)],
-                        shape: ['Redonda', 'Oval', 'Esmeralda', 'Perilla'][Math.floor(Math.random() * 4)],
-                        origin: 'Colombia',
-                        issueDate: new Date().toLocaleDateString(),
-                        description: 'Esmeralda colombiana de alta calidad certificada por nuestro laboratorio gemológico. Esta piedra preciosa ha sido cuidadosamente seleccionada y certificada para garantizar su autenticidad y valor.'
-                    }
+            if (certificatesDB[code]) {
+                displayCertificate(code);
+            } else {
+                alert("Certificado no encontrado. Por favor verifique el código.");
+            }
+        }
+
+        // Display certificate
+        function displayCertificate(code) {
+            const cert = certificatesDB[code];
+            document.getElementById('frontImage').src = cert.frontImage;
+            document.getElementById('backImage').src = cert.backImage;
+            
+            // Fill in the information
+            document.getElementById('certCode').textContent = cert.info.code;
+            document.getElementById('weight').textContent = cert.info.weight;
+            document.getElementById('shine').textContent = cert.info.shine;
+            document.getElementById('shape').textContent = cert.info.shape;
+            document.getElementById('dimensions').textContent = cert.info.dimensions;
+            document.getElementById('material').textContent = cert.info.material;
+            document.getElementById('origin').textContent = cert.info.origin;
+            document.getElementById('treatment').textContent = cert.info.treatment;
+            
+            // Show the certificate display
+            document.getElementById('certificateDisplay').classList.remove('hidden');
+            
+            // Scroll to the certificate
+            document.getElementById('certificateDisplay').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Download PDF function (simulated)
+        function downloadPDF(side) {
+            alert(`Generando PDF de la imagen ${side === 'front' ? 'frontal' : 'posterior'}...`);
+            // In a real implementation, this would generate and download a PDF
+        }
+
+        // Edit mode functions
+        function toggleEditMode() {
+            const editables = document.querySelectorAll('.editable');
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            if (editBtn.textContent.includes('Editar')) {
+                // Enable editing
+                editables.forEach(el => {
+                    const original = el.textContent;
+                    el.innerHTML = `<input type="text" value="${original}" class="w-full px-2 py-1 border border-gray-300 rounded">`;
+                });
+                editBtn.classList.add('hidden');
+                saveBtn.classList.remove('hidden');
+            } else {
+                // Disable editing
+                editables.forEach(el => {
+                    el.textContent = el.querySelector('input').value;
+                });
+                editBtn.classList.remove('hidden');
+                saveBtn.classList.add('hidden');
+            }
+        }
+
+        function saveChanges() {
+            toggleEditMode();
+            alert("Cambios guardados correctamente");
+            // In a real implementation, this would save to the database
+        }
+
+        // Modal functions
+        function openCareModal() {
+            document.getElementById('careModal').classList.remove('hidden');
+        }
+
+        function closeCareModal() {
+            document.getElementById('careModal').classList.add('hidden');
+        }
+
+        function openLabModal() {
+            document.getElementById('labModal').classList.remove('hidden');
+        }
+
+        function closeLabModal() {
+            document.getElementById('labModal').classList.add('hidden');
+        }
+
+        // Admin functions
+        function openAdminModal() {
+            document.getElementById('adminLoginModal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+        }
+
+        function checkAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === "07082025") {
+                closeAdminModal();
+                openAdminPanel();
+                loadCertificatesList();
+            } else {
+                alert("Contraseña incorrecta");
+            }
+        }
+
+        function openAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'block';
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        function loadCertificatesList() {
+            const listContainer = document.getElementById('certificatesList');
+            listContainer.innerHTML = '';
+            
+            for (const code in certificatesDB) {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-200 hover:bg-gray-100';
+                row.innerHTML = `
+                    <td class="py-3 px-4">${code}</td>
+                    <td class="py-3 px-4">
+                        <button onclick="editCertificate('${code}')" class="bg-blue-100 text-blue-700 px-3 py-1 rounded mr-2">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deleteCertificate('${code}')" class="bg-red-100 text-red-700 px-3 py-1 rounded">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                listContainer.appendChild(row);
+            }
+        }
+
+        function editCertificate(code) {
+            const cert = certificatesDB[code];
+            
+            // Fill the form with existing data
+            document.getElementById('adminCertCode').value = code;
+            document.getElementById('adminWeight').value = cert.info.weight;
+            document.getElementById('adminShine').value = cert.info.shine;
+            document.getElementById('adminShape').value = cert.info.shape;
+            document.getElementById('adminDimensions').value = cert.info.dimensions;
+            document.getElementById('adminMaterial').value = cert.info.material;
+            document.getElementById('adminOrigin').value = cert.info.origin;
+            document.getElementById('adminTreatment').value = cert.info.treatment;
+            
+            // Scroll to the form
+            document.querySelector('#adminPanel .container').scrollTo({ top: 0, behavior: 'smooth' });
+            
+            alert(`Modo edición para certificado ${code}. Actualice los campos y haga clic en "Subir Certificado" para guardar.`);
+        }
+
+        function deleteCertificate(code) {
+            if (confirm(`¿Está seguro que desea eliminar el certificado ${code}?`)) {
+                delete certificatesDB[code];
+                loadCertificatesList();
+                alert(`Certificado ${code} eliminado.`);
+            }
+        }
+
+        function uploadCertificate() {
+            const code = document.getElementById('adminCertCode').value.trim();
+            
+            if (!code) {
+                alert("Por favor ingrese un código para el certificado");
+                return;
+            }
+            
+            // Get form values
+            const newCert = {
+                frontImage: certificatesDB[code] ? certificatesDB[code].frontImage : "",
+                backImage: certificatesDB[code] ? certificatesDB[code].backImage : "",
+                info: {
+                    code: code,
+                    weight: document.getElementById('adminWeight').value,
+                    shine: document.getElementById('adminShine').value,
+                    shape: document.getElementById('adminShape').value,
+                    dimensions: document.getElementById('adminDimensions').value,
+                    material: document.getElementById('adminMaterial').value,
+                    origin: document.getElementById('adminOrigin').value,
+                    treatment: document.getElementById('adminTreatment').value
+                }
+            };
+            
+            // Handle image uploads (simulated - in a real app you would upload to a server)
+            const frontFile = document.getElementById('frontImageUpload').files[0];
+            const backFile = document.getElementById('backImageUpload').files[0];
+            
+            if (frontFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newCert.frontImage = e.target.result;
+                    certificatesDB[code] = newCert;
+                    alert("Certificado actualizado correctamente");
+                    loadCertificatesList();
                 };
-                
-                const data = sampleData[code] || sampleData['DEFAULT'];
-                
-                document.getElementById('weight').textContent = data.weight;
-                document.getElementById('color').textContent = data.color;
-                document.getElementById('clarity').textContent = data.clarity;
-                document.getElementById('shape').textContent = data.shape;
-                document.getElementById('origin').textContent = data.origin;
-                document.getElementById('issueDate').textContent = data.issueDate;
-                document.getElementById('description').innerHTML = `<p class="mb-4">${data.description}</p>`;
+                reader.readAsDataURL(frontFile);
+            } else if (backFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newCert.backImage = e.target.result;
+                    certificatesDB[code] = newCert;
+                    alert("Certificado actualizado correctamente");
+                    loadCertificatesList();
+                };
+                reader.readAsDataURL(backFile);
+            } else {
+                certificatesDB[code] = newCert;
+                alert("Certificado actualizado correctamente");
+                loadCertificatesList();
             }
             
-            // Mostrar/ocultar sección de cuidados
-            document.getElementById('hideCareBtn').addEventListener('click', function() {
-                document.getElementById('careSection').classList.add('hidden');
-            });
+            // Clear file inputs
+            document.getElementById('frontImageUpload').value = "";
+            document.getElementById('backImageUpload').value = "";
+        }
 
-            // Mostrar/ocultar sección de laboratorio
-            document.getElementById('hideLabBtn').addEventListener('click', function() {
-                document.getElementById('labSection').classList.add('hidden');
-            });
-
-            // Botones para mostrar secciones ocultas
-            const showCareBtn = document.createElement('button');
-            showCareBtn.id = 'showCareBtn';
-            showCareBtn.className = 'inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105 mb-6 text-center w-full';
-            showCareBtn.innerHTML = '<i class="fas fa-gem mr-2"></i> Mostrar Cuidados Especiales';
-            showCareBtn.addEventListener('click', function() {
-                document.getElementById('careSection').classList.remove('hidden');
-                this.remove();
-            });
-
-            const showLabBtn = document.createElement('button');
-            showLabBtn.id = 'showLabBtn';
-            showLabBtn.className = 'inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium shadow-md transition-all duration-300 transform hover:scale-105 mb-6 text-center w-full';
-            showLabBtn.innerHTML = '<i class="fas fa-microscope mr-2"></i> Mostrar Laboratorio Gemológico';
-            showLabBtn.addEventListener('click', function() {
-                document.getElementById('labSection').classList.remove('hidden');
-                this.remove();
-            });
-
-            // Insertar botones si las secciones están ocultas
-            function checkSections() {
-                if (document.getElementById('careSection').classList.contains('hidden')) {
-                    if (!document.getElementById('showCareBtn')) {
-                        document.getElementById('careSection').parentNode.insertBefore(showCareBtn, document.getElementById('careSection'));
-                    }
-                }
-                if (document.getElementById('labSection').classList.contains('hidden')) {
-                    if (!document.getElementById('showLabBtn')) {
-                        document.getElementById('labSection').parentNode.insertBefore(showLabBtn, document.getElementById('labSection'));
-                    }
-                }
+        // Allow search on Enter key
+        document.getElementById('certificateSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchCertificate();
             }
-
-            // Verificar al cargar y cuando se ocultan secciones
-            document.getElementById('hideCareBtn').addEventListener('click', checkSections);
-            document.getElementById('hideLabBtn').addEventListener('click', checkSections);
-
-            // Intentar de nuevo
-            tryAgainBtn.addEventListener('click', function() {
-                noResults.classList.add('hidden');
-                certificateCode.value = '';
-                certificateCode.focus();
-            });
-            
-
-            // Descargar PDF (simulado)
-            downloadBtn.addEventListener('click', function() {
-                // En una implementación real, esto generaría o descargaría un PDF
-                alert('Descargando certificado PNG... (simulación)');
-            });
-
-            // Acceso para subir certificados
-            const uploadBtn = document.getElementById('uploadBtn');
-            const accessModal = document.getElementById('accessModal');
-            const uploadModal = document.getElementById('uploadModal');
-            const cancelAccess = document.getElementById('cancelAccess');
-            const confirmAccess = document.getElementById('confirmAccess');
-            const accessKey = document.getElementById('accessKey');
-            const accessError = document.getElementById('accessError');
-            const cancelUpload = document.getElementById('cancelUpload');
-            const uploadForm = document.getElementById('uploadForm');
-
-            // Clave de acceso válida (en producción esto debería ser más seguro)
-            const VALID_ACCESS_KEY = "07082025";
-
-            uploadBtn.addEventListener('click', function() {
-                accessModal.classList.remove('hidden');
-            });
-
-            cancelAccess.addEventListener('click', function() {
-                accessModal.classList.add('hidden');
-                accessKey.value = '';
-                accessError.classList.add('hidden');
-            });
-
-            confirmAccess.addEventListener('click', function() {
-                if (accessKey.value === VALID_ACCESS_KEY) {
-                    accessModal.classList.add('hidden');
-                    uploadModal.classList.remove('hidden');
-                    accessKey.value = '';
-                    accessError.classList.add('hidden');
-                } else {
-                    accessError.classList.remove('hidden');
-                }
-            });
-
-            cancelUpload.addEventListener('click', function() {
-                uploadModal.classList.add('hidden');
-                uploadForm.reset();
-            });
-
-            uploadForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Certificado subido exitosamente (simulación)');
-                uploadModal.classList.add('hidden');
-                uploadForm.reset();
-            });
         });
     </script>
 </body>
