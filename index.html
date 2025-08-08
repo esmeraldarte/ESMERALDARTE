@@ -7,42 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-</head>
-<body>
-    <header>
-        <img src="logo.png" alt="Logo" class="logo">
-    </header>
-
-    <main>
-        <section class="buscador">
-            <input type="text" id="codigoBusqueda" placeholder="2085">
-            <button onclick="buscarCertificado()">Buscar</button>
-        </section>
-
-        <section id="resultado">
-            <div class="imagenes">
-                <img id="imgFrente" src="" alt="https://i.imgur.com/BFagvjv.png">
-                <img id="imgReverso" src="" alt="https://i.imgur.com/H1R6Hd0.png">
-            </div>
-
-            <table id="tablaDatos">
-                <tr><th>Peso</th><td></td></tr>
-                <tr><th>Brillo</th><td></td></tr>
-                <tr><th>Forma</th><td></td></tr>
-                <tr><th>Medidas</th><td></td></tr>
-                <tr><th>Material</th><td></td></tr>
-            </table>
-
-            <button onclick="descargarPDF()">Descargar PDF</button>
-        </section>
-    </main>
-
-    <footer>
-        <a href="cuidados.html">Cuidados especiales</a> |
-        <a href="laboratorio.html">Laboratorio gemológico</a>
-    </footer>
-</body>
-</html>
         .certificate-container {
             perspective: 1000px;
         }
@@ -79,6 +43,26 @@
         .modal {
             transition: opacity 0.3s ease;
         }
+        .preview-image {
+            max-height: 150px;
+            object-fit: contain;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .file-input-label {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .file-input-label:hover {
+            background-color: #e0e0e0;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -99,8 +83,8 @@
             
             <!-- Search Bar -->
             <div class="max-w-2xl mx-auto relative">
-                <input type="text" id="certificateSearch" placeholder="Buscar certificado por código numérico..." 
-                       class="w-full px-4 py-3 rounded-full border-2 border-emerald-300 focus:border-emerald-500 focus:outline-none shadow-sm">
+                <input type="text" id="certificateSearch" placeholder="Buscar certificado por código numérico..."
+                        class="w-full px-4 py-3 rounded-full border-2 border-emerald-300 focus:border-emerald-500 focus:outline-none shadow-sm">
                 <button onclick="searchCertificate()" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition">
                     <i class="fas fa-search"></i>
                 </button>
@@ -285,12 +269,30 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label class="block text-gray-700 mb-2">URL Imagen Frontal:</label>
-                        <input type="text" id="frontImageUrl" class="w-full px-4 py-2 border border-gray-300 rounded" placeholder="https://...">
+                        <label class="block text-gray-700 mb-2">Imagen Frontal:</label>
+                        <label for="frontImageFile" class="file-input-label">
+                            <i class="fas fa-upload mr-2"></i> Seleccionar archivo
+                        </label>
+                        <input type="file" id="frontImageFile" accept="image/*" class="hidden" onchange="previewImage(this, 'frontImagePreview')">
+                        <div id="frontImagePreviewContainer" class="hidden">
+                            <img id="frontImagePreview" class="preview-image" src="" alt="Vista previa frontal">
+                            <button onclick="removeImage('frontImageFile', 'frontImagePreviewContainer')" class="mt-2 text-red-600 text-sm">
+                                <i class="fas fa-trash mr-1"></i> Eliminar
+                            </button>
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-gray-700 mb-2">URL Imagen Posterior:</label>
-                        <input type="text" id="backImageUrl" class="w-full px-4 py-2 border border-gray-300 rounded" placeholder="https://...">
+                        <label class="block text-gray-700 mb-2">Imagen Posterior:</label>
+                        <label for="backImageFile" class="file-input-label">
+                            <i class="fas fa-upload mr-2"></i> Seleccionar archivo
+                        </label>
+                        <input type="file" id="backImageFile" accept="image/*" class="hidden" onchange="previewImage(this, 'backImagePreview')">
+                        <div id="backImagePreviewContainer" class="hidden">
+                            <img id="backImagePreview" class="preview-image" src="" alt="Vista previa posterior">
+                            <button onclick="removeImage('backImageFile', 'backImagePreviewContainer')" class="mt-2 text-red-600 text-sm">
+                                <i class="fas fa-trash mr-1"></i> Eliminar
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -593,8 +595,31 @@
     <script>
         const { jsPDF } = window.jspdf;
         // Load certificates from localStorage or use default sample
-        let certificatesDB = JSON.parse(localStorage.getItem('certificatesDB')) || {
-            "123456": {
+        // Inicializar base de datos con el certificado 2788
+        let certificatesDB = JSON.parse(localStorage.getItem('certificatesDB')) || {};
+        
+        // Asegurarse que el certificado 2788 siempre existe con los datos correctos
+        if (!certificatesDB["2788"]) {
+            certificatesDB["2788"] = {
+                frontImage: "https://i.imgur.com/XxtpbE5.png",
+                backImage: "https://i.imgur.com/BATKv5X.png",
+                info: {
+                    code: "2788",
+                    weight: "0.10",
+                    shine: "Claro",
+                    shape: "Lágrima",
+                    dimensions: "10mm",
+                    material: "Esmeralda Colombiana",
+                    origin: "Colombia",
+                    treatment: "Natural"
+                }
+            };
+            saveCertificates(); // Guardar inmediatamente
+        }
+        
+        // También inicializar el certificado de ejemplo si no existe
+        if (!certificatesDB["123456"]) {
+            certificatesDB["123456"] = {
                 frontImage: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
                 backImage: "https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
                 info: {
@@ -607,8 +632,9 @@
                     origin: "Muzo, Boyacá",
                     treatment: "Sin tratamiento"
                 }
-            }
-        };
+            };
+            saveCertificates(); // Guardar inmediatamente
+        }
 
         // Save certificates to localStorage
         function saveCertificates() {
@@ -626,7 +652,7 @@
             const searchInput = document.getElementById('certificateSearch');
             const code = searchInput.value.trim();
             
-            // Recargar datos del localStorage para asegurar que tenemos la última versión
+            // Forzar recarga de datos del localStorage
             try {
                 const storedData = localStorage.getItem('certificatesDB');
                 if (storedData) {
@@ -636,8 +662,16 @@
                 console.error('Error al cargar certificados:', e);
             }
             
-            if (certificatesDB[code]) {
+            // Buscar el certificado (incluyendo el 2788)
+            const cert = certificatesDB[code];
+            if (cert) {
                 displayCertificate(code);
+                
+                // Mostrar automáticamente el botón de descarga PDF
+                const pdfBtn = document.querySelector('.certificate button');
+                if (pdfBtn) {
+                    pdfBtn.style.display = 'flex';
+                }
             } else {
                 alert("Certificado no encontrado. Por favor verifique el código.");
             }
@@ -671,25 +705,52 @@
             const code = document.getElementById('certCode').textContent;
             const cert = certificatesDB[code];
             
+            if (!cert) {
+                alert("No se puede generar el PDF: certificado no encontrado");
+                return;
+            }
+            
             // Create a new jsPDF instance
             const doc = new jsPDF();
             
             // Add front image
             const frontImg = new Image();
+            frontImg.crossOrigin = "Anonymous"; // Para evitar problemas con CORS
             frontImg.src = cert.frontImage;
+            
             frontImg.onload = function() {
-                doc.addImage(frontImg, 'JPEG', 15, 15, 180, 120);
-                
-                // Add back image on a new page
-                const backImg = new Image();
-                backImg.src = cert.backImage || cert.frontImage;
-                backImg.onload = function() {
-                    doc.addPage();
-                    doc.addImage(backImg, 'JPEG', 15, 15, 180, 120);
+                try {
+                    doc.addImage(frontImg, 'JPEG', 15, 15, 180, 120);
                     
-                    // Save the PDF
-                    doc.save(`Certificado_${code}.pdf`);
-                };
+                    // Add back image on a new page
+                    const backImg = new Image();
+                    backImg.crossOrigin = "Anonymous";
+                    backImg.src = cert.backImage || cert.frontImage;
+                    
+                    backImg.onload = function() {
+                        try {
+                            doc.addPage();
+                            doc.addImage(backImg, 'JPEG', 15, 15, 180, 120);
+                            
+                            // Save the PDF
+                            doc.save(`Certificado_${code}.pdf`);
+                        } catch (e) {
+                            console.error("Error al agregar imagen posterior:", e);
+                            alert("Error al generar el PDF. Intente nuevamente.");
+                        }
+                    };
+                    
+                    backImg.onerror = function() {
+                        alert("Error al cargar la imagen posterior para el PDF");
+                    };
+                } catch (e) {
+                    console.error("Error al agregar imagen frontal:", e);
+                    alert("Error al generar el PDF. Intente nuevamente.");
+                }
+            };
+            
+            frontImg.onerror = function() {
+                alert("Error al cargar la imagen frontal para el PDF");
             };
         }
 
@@ -795,8 +856,18 @@
             
             // Fill the form with existing data
             document.getElementById('adminCertCode').value = code;
-            document.getElementById('frontImageUrl').value = cert.frontImage;
-            document.getElementById('backImageUrl').value = cert.backImage || '';
+            
+            // Mostrar las imágenes existentes como vistas previas
+            if (cert.frontImage && cert.frontImage.startsWith('data:')) {
+                document.getElementById('frontImagePreview').src = cert.frontImage;
+                document.getElementById('frontImagePreviewContainer').classList.remove('hidden');
+            }
+            
+            if (cert.backImage && cert.backImage.startsWith('data:')) {
+                document.getElementById('backImagePreview').src = cert.backImage;
+                document.getElementById('backImagePreviewContainer').classList.remove('hidden');
+            }
+            
             document.getElementById('adminWeight').value = cert.info.weight;
             document.getElementById('adminShine').value = cert.info.shine;
             document.getElementById('adminShape').value = cert.info.shape;
@@ -814,11 +885,37 @@
         function deleteCertificate(code) {
             if (confirm(`¿Está seguro que desea eliminar el certificado ${code}?`)) {
                 delete certificatesDB[code];
+                saveCertificates();
                 loadCertificatesList();
                 alert(`Certificado ${code} eliminado.`);
             }
         }
 
+        // Preview image function
+        function previewImage(input, previewId) {
+            const previewContainerId = previewId + 'Container';
+            const preview = document.getElementById(previewId);
+            const previewContainer = document.getElementById(previewContainerId);
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Remove image function
+        function removeImage(inputId, previewContainerId) {
+            document.getElementById(inputId).value = '';
+            document.getElementById(previewContainerId).classList.add('hidden');
+        }
+
+        // Upload certificate function with image upload
         function uploadCertificate() {
             const code = document.getElementById('adminCertCode').value.trim();
             
@@ -829,8 +926,6 @@
             
             // Get form values
             const newCert = {
-                frontImage: document.getElementById('frontImageUrl').value.trim(),
-                backImage: document.getElementById('backImageUrl').value.trim() || document.getElementById('frontImageUrl').value.trim(),
                 info: {
                     code: code,
                     weight: document.getElementById('adminWeight').value.trim(),
@@ -843,11 +938,45 @@
                 }
             };
             
-            if (!newCert.frontImage) {
-                alert("Por favor ingrese la URL de la imagen frontal");
+            // Handle front image upload
+            const frontImageFile = document.getElementById('frontImageFile').files[0];
+            if (frontImageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newCert.frontImage = e.target.result;
+                    completeUpload(newCert, code);
+                };
+                reader.readAsDataURL(frontImageFile);
+            } else if (certificatesDB[code] && certificatesDB[code].frontImage) {
+                // Keep existing image if not uploading a new one
+                newCert.frontImage = certificatesDB[code].frontImage;
+                completeUpload(newCert, code);
+            } else {
+                alert("Por favor seleccione una imagen frontal");
                 return;
             }
             
+            // Handle back image upload
+            const backImageFile = document.getElementById('backImageFile').files[0];
+            if (backImageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newCert.backImage = e.target.result;
+                    completeUpload(newCert, code);
+                };
+                reader.readAsDataURL(backImageFile);
+            } else if (certificatesDB[code] && certificatesDB[code].backImage) {
+                // Keep existing image if not uploading a new one
+                newCert.backImage = certificatesDB[code].backImage;
+                completeUpload(newCert, code);
+            } else {
+                // If no back image is provided, use the front image
+                newCert.backImage = newCert.frontImage;
+                completeUpload(newCert, code);
+            }
+        }
+        
+        function completeUpload(newCert, code) {
             // Validar que todos los campos requeridos estén completos
             const requiredFields = ['weight', 'shine', 'shape', 'dimensions', 'material', 'origin', 'treatment'];
             for (const field of requiredFields) {
@@ -863,8 +992,10 @@
             loadCertificatesList();
             
             // Clear form
-            document.getElementById('frontImageUrl').value = "";
-            document.getElementById('backImageUrl').value = "";
+            document.getElementById('frontImageFile').value = "";
+            document.getElementById('backImageFile').value = "";
+            document.getElementById('frontImagePreviewContainer').classList.add('hidden');
+            document.getElementById('backImagePreviewContainer').classList.add('hidden');
             document.getElementById('adminWeight').value = "";
             document.getElementById('adminShine').value = "";
             document.getElementById('adminShape').value = "";
