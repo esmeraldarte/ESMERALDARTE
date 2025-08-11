@@ -102,8 +102,8 @@
     <header class="gradient-bg py-6 shadow-md">
         <div class="container mx-auto px-4">
             <div class="flex flex-col items-center">
-                <!-- Logo - Replace with your actual logo URL -->
-                <img src="https://via.placeholder.com/200x80?text=Emerald+Jewelry" alt="Joyeria de Esmeraldas" class="h-20 mb-6">
+                <!-- Logo - Updated with your logo -->
+                <img src="https://i.imgur.com/d65hZqr.png" alt="Joyeria de Esmeraldas" class="h-32 mb-6">
                 
                 <!-- Search by Certificate Code -->
                 <div class="w-full max-w-md">
@@ -234,7 +234,7 @@
                                 <img src="https://via.placeholder.com/600x200?text=Inspeccion+Visual" alt="Inspección visual" class="mt-2 rounded-lg shadow w-full max-w-md">
                             </div>
                         </div>
-                                                
+                                                                
                         <!-- Step 2 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -245,7 +245,7 @@
                                 <p class="text-gray-700">Medición del índice de refracción para confirmar identidad como esmeralda.</p>
                             </div>
                         </div>
-                                                
+                                                                
                         <!-- Step 3 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -257,7 +257,7 @@
                                 <img src="https://via.placeholder.com/600x200?text=Espectroscopia" alt="Espectroscopía" class="mt-2 rounded-lg shadow w-full max-w-md">
                             </div>
                         </div>
-                                                
+                                                                
                         <!-- Step 4 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -268,7 +268,7 @@
                                 <p class="text-gray-700">Evaluación de reacción bajo luz ultravioleta para detectar tratamientos.</p>
                             </div>
                         </div>
-                                                
+                                                                
                         <!-- Step 5 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -370,30 +370,42 @@
                                 <p>Heart</p>
                             </div>
                         </div>
-                                                
+                                                                
                         <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <h4 class="text-lg font-medium text-emerald-600 mb-2">Calculadora de medidas</h4>
+                            <h4 class="text-lg font-medium text-emerald-600 mb-2">Calculadora de quilates</h4>
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label class="block text-gray-700 mb-1">Largo (mm)</label>
-                                    <input type="number" id="length" class="w-full px-3 py-2 border border-gray-300 rounded" value="6.5">
+                                    <input type="number" id="length" class="w-full px-3 py-2 border border-gray-300 rounded" value="6.5" step="0.1">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Ancho (mm)</label>
-                                    <input type="number" id="width" class="w-full px-3 py-2 border border-gray-300 rounded" value="5">
+                                    <input type="number" id="width" class="w-full px-3 py-2 border border-gray-300 rounded" value="5" step="0.1">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Profundidad (mm)</label>
-                                    <input type="number" id="depth" class="w-full px-3 py-2 border border-gray-300 rounded" value="3.5">
+                                    <input type="number" id="depth" class="w-full px-3 py-2 border border-gray-300 rounded" value="3.5" step="0.1">
                                 </div>
                                 <div>
-                                    <label class="block text-gray-700 mb-1">Peso (ct)</label>
-                                    <input type="number" id="weight" class="w-full px-3 py-2 border border-gray-300 rounded" value="1.0">
+                                    <label class="block text-gray-700 mb-1">Forma</label>
+                                    <select id="shape" class="w-full px-3 py-2 border border-gray-300 rounded">
+                                        <option value="emerald">Emerald</option>
+                                        <option value="oval">Oval</option>
+                                        <option value="round">Round</option>
+                                        <option value="pear">Pear</option>
+                                        <option value="cushion">Cushion</option>
+                                        <option value="heart">Heart</option>
+                                    </select>
                                 </div>
                             </div>
-                            <button onclick="calculateDimensions()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
-                                Calcular
+                            <button onclick="calculateCarats()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
+                                Calcular Quilates
                             </button>
+                            <div id="caratResult" class="mt-4 p-3 bg-emerald-100 rounded-lg hidden">
+                                <h4 class="font-medium text-emerald-700 mb-1">Resultado:</h4>
+                                <p class="text-emerald-800 font-bold" id="caratValue">0.00 ct</p>
+                                <p class="text-sm text-gray-600 mt-1" id="dimensionText">Dimensiones: 0mm × 0mm × 0mm</p>
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center justify-center">
@@ -459,7 +471,7 @@
                         <img src="https://via.placeholder.com/500x300?text=Historia+de+las+Esmeraldas" alt="Historia de las esmeraldas" class="rounded-lg shadow mt-4">
                     </div>
                 </div>
-                                
+                                                
                 <!-- Cutting Styles -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Estilos de tallado</h3>
@@ -503,7 +515,7 @@
                     </div>
                     <img src="https://via.placeholder.com/500x200?text=Tipos+de+Tallado" alt="Tipos de tallado" class="rounded-lg shadow mt-4">
                 </div>
-                                
+                                                
                 <!-- Colombian vs Other Emeralds -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Esmeraldas colombianas vs. otras</h3>
@@ -546,7 +558,7 @@
                         </table>
                     </div>
                 </div>
-                                
+                                                
                 <!-- Chemical Composition -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Composición química y propiedades</h3>
@@ -574,8 +586,8 @@
             
             <div class="prose max-w-none text-gray-700">
                 <h3 class="text-xl font-semibold text-emerald-700">Recopilación de información</h3>
-                <p>Recopilamos información personal cuando usted busca un certificado, se comunica con nosotros o utiliza nuestras herramientas interactivas. Esta información puede incluir su nombre, dirección de correo electrónico y detalles de contacto.</p>
-                                
+                <p>Recopilamos información personal cuando usted busca un certificado, se comunica con nosotros o utiliza nuestras herramientas interactivas. Esta información puede incluir su nombre, address de correo electrónico y detalles de contacto.</p>
+                                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Uso de la información</h3>
                 <p>Utilizamos su información para:</p>
                 <ul class="list-disc pl-5">
@@ -584,19 +596,19 @@
                     <li>Responder a sus consultas y solicitudes</li>
                     <li>Enviar información relevante sobre nuestros productos y servicios (solo si ha dado su consentimiento)</li>
                 </ul>
-                                
+                                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Protección de datos</h3>
                 <p>Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos personales contra accesos no autorizados, alteración, divulgación o destrucción.</p>
-                                
+                                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Cookies y tecnologías similares</h3>
                 <p>Utilizamos cookies para mejorar su experiencia en nuestro sitio web. Puede controlar el uso de cookies a través de la configuración de su navegador.</p>
-                                
+                                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Sus derechos</h3>
                 <p>Usted tiene derecho a acceder, corregir o eliminar sus datos personales. Para ejercer estos derechos, puede contactarnos a través de los medios proporcionados en este sitio.</p>
-                                
+                                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Cambios en esta política</h3>
                 <p>Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en el sitio.</p>
-                                
+                                                
                 <p class="mt-6">Última actualización: 15 de junio, 2023</p>
             </div>
         </div>
@@ -813,77 +825,63 @@
                     const shapeDisplay = document.getElementById('shapeDisplay');
                     shapeDisplay.querySelector('img').src = `https://via.placeholder.com/300x300?text=${shape.charAt(0).toUpperCase() + shape.slice(1)}+Cut`;
                     
-                    // Update default dimensions based on shape
-                    const lengthInput = document.getElementById('length');
-                    const widthInput = document.getElementById('width');
-                    const depthInput = document.getElementById('depth');
-                    const weightInput = document.getElementById('weight');
-                    
-                    // These are example values - in a real app you'd have more precise calculations
-                    if (shape === 'emerald') {
-                        lengthInput.value = '6.5';
-                        widthInput.value = '5';
-                        depthInput.value = '3.5';
-                        weightInput.value = '1.0';
-                    } else if (shape === 'oval') {
-                        lengthInput.value = '7.0';
-                        widthInput.value = '5.0';
-                        depthInput.value = '3.0';
-                        weightInput.value = '1.0';
-                    } else if (shape === 'round') {
-                        lengthInput.value = '6.0';
-                        widthInput.value = '6.0';
-                        depthInput.value = '3.7';
-                        weightInput.value = '1.0';
-                    } else if (shape === 'pear') {
-                        lengthInput.value = '8.0';
-                        widthInput.value = '5.0';
-                        depthInput.value = '3.0';
-                        weightInput.value = '1.0';
-                    } else if (shape === 'cushion') {
-                        lengthInput.value = '5.5';
-                        widthInput.value = '5.5';
-                        depthInput.value = '4.0';
-                        weightInput.value = '1.0';
-                    } else if (shape === 'heart') {
-                        lengthInput.value = '6.5';
-                        widthInput.value = '6.5';
-                        depthInput.value = '3.5';
-                        weightInput.value = '1.0';
-                    }
-                    
-                    // Update display
-                    updateDimensionDisplay();
+                    // Update the select dropdown
+                    document.getElementById('shape').value = shape;
                 });
             });
-            
+
             // Set first shape as active by default
             if (shapeSelectors.length > 0) {
                 shapeSelectors[0].classList.add('active');
             }
-            
-            // Add event listeners to dimension inputs
-            const dimensionInputs = document.querySelectorAll('#length, #width, #depth, #weight');
-            dimensionInputs.forEach(input => {
-                input.addEventListener('input', updateDimensionDisplay);
-            });
         });
 
-        // Calculate dimensions and weight
-        function calculateDimensions() {
-            // In a real app, this would do precise calculations based on shape and dimensions
-            // For demo, we'll just update the display with the entered values
-            updateDimensionDisplay();
-        }
-
-        function updateDimensionDisplay() {
-            const length = document.getElementById('length').value;
-            const width = document.getElementById('width').value;
-            const depth = document.getElementById('depth').value;
-            const weight = document.getElementById('weight').value;
+        // Calculate carats based on dimensions and shape
+        function calculateCarats() {
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const depth = parseFloat(document.getElementById('depth').value) || 0;
+            const shape = document.getElementById('shape').value;
             
+            // Calculate average diameter for round shapes
+            const avgDiameter = (length + width) / 2;
+            
+            // Shape factors (approximate conversion factors for different shapes)
+            const shapeFactors = {
+                'emerald': 0.0025,
+                'oval': 0.0023,
+                'round': 0.0021,
+                'pear': 0.0024,
+                'cushion': 0.0026,
+                'heart': 0.0027
+            };
+            
+            // Basic carat calculation formula (simplified)
+            let carats;
+            if (shape === 'round') {
+                carats = avgDiameter * avgDiameter * depth * shapeFactors[shape];
+            } else {
+                carats = length * width * depth * shapeFactors[shape];
+            }
+            
+            // Round to 2 decimal places
+            carats = Math.round(carats * 100) / 100;
+            
+            // Display the result
+            const resultElement = document.getElementById('caratResult');
+            document.getElementById('caratValue').textContent = `${carats} ct`;
+            document.getElementById('dimensionText').textContent = `Dimensiones: ${length}mm × ${width}mm × ${depth}mm`;
+            resultElement.classList.remove('hidden');
+            
+            // Also update the shape display dimensions
+            updateDimensionDisplay(length, width, depth, carats);
+        }
+        
+        function updateDimensionDisplay(length, width, depth, carats) {
             const display = document.getElementById('dimensionDisplay');
-            display.innerHTML = `<p class="text-center">${length}mm × ${width}mm × ${depth}mm ≈ ${weight} ct</p>`;
+            if (length && width && depth && carats) {
+                display.innerHTML = `<p class="text-center">${length}mm × ${width}mm × ${depth}mm ≈ ${carats} ct</p>`;
+            }
         }
     </script>
 </body>
