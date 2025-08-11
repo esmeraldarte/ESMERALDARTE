@@ -6,7 +6,6 @@
     <title>Certificados Gemológicos de Esmeraldas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .certificate-container {
             perspective: 1000px;
@@ -63,50 +62,6 @@
         }
         .file-input-label:hover {
             background-color: #e0e0e0;
-        }
-        .shape-preview {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
-            background-color: #10b981;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .map-container {
-            height: 400px;
-            background-color: #f0f0f0;
-            position: relative;
-            overflow: hidden;
-        }
-        .map-region {
-            position: absolute;
-            background-color: rgba(16, 185, 129, 0.5);
-            border: 2px solid #10b981;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .map-region:hover {
-            background-color: rgba(16, 185, 129, 0.8);
-            transform: scale(1.1);
-        }
-        .map-tooltip {
-            position: absolute;
-            background-color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 100;
-            display: none;
         }
     </style>
 </head>
@@ -221,20 +176,6 @@
                     <span class="text-lg font-semibold">Laboratorio Gemológico</span>
                 </div>
             </button>
-
-            <button onclick="openAuthenticityModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-certificate text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Reconocer Esmeraldas</span>
-                </div>
-            </button>
-
-            <button onclick="openToolsModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-tools text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Herramientas Interactivas</span>
-                </div>
-            </button>
         </div>
         
         <!-- Emerald Information Section -->
@@ -281,107 +222,6 @@
                     </div>
                     <div class="overflow-hidden rounded-lg shadow-md">
                         <img src="https://images.unsplash.com/photo-1600721391689-2169dd1577ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Joya con esmeralda" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Blog Section -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden my-12 p-8">
-            <h2 class="text-2xl font-bold text-emerald-800 mb-6">Blog Gemológico</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Blog Post 1 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tendencias en joyería" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Tendencias 2023 en Joyería con Esmeraldas</h3>
-                        <p class="text-gray-600 text-sm mb-3">Publicado el 15 de junio, 2023</p>
-                        <p class="text-gray-700 mb-4">Descubre las últimas tendencias en diseños de joyería con esmeraldas colombianas para este año.</p>
-                        <button class="text-emerald-600 font-medium">Leer más →</button>
-                    </div>
-                </div>
-                
-                <!-- Blog Post 2 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Hallazgo gemológico" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Nuevo Hallazgo en Minas de Muzo</h3>
-                        <p class="text-gray-600 text-sm mb-3">Publicado el 2 de mayo, 2023</p>
-                        <p class="text-gray-700 mb-4">Un descubrimiento extraordinario de esmeraldas con características únicas en las minas de Muzo.</p>
-                        <button class="text-emerald-600 font-medium">Leer más →</button>
-                    </div>
-                </div>
-                
-                <!-- Blog Post 3 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tecnología gemológica" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Avances Tecnológicos en Gemología</h3>
-                        <p class="text-gray-600 text-sm mb-3">Publicado el 20 de abril, 2023</p>
-                        <p class="text-gray-700 mb-4">Cómo la tecnología está revolucionando la identificación y certificación de esmeraldas.</p>
-                        <button class="text-emerald-600 font-medium">Leer más →</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Privacy Policy Accordion -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden my-12">
-            <div class="p-6">
-                <h2 class="text-2xl font-bold text-emerald-800 mb-6">Políticas de Privacidad y Uso de Datos</h2>
-                
-                <div class="space-y-4">
-                    <!-- Policy 1 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy1')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Recopilación de Información</span>
-                            <i id="policy1Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy1" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>Recopilamos información personal cuando usted utiliza nuestro sitio web, incluyendo pero no limitado a: nombre, dirección de correo electrónico, información de contacto y detalles de certificados gemológicos consultados. Esta información se utiliza únicamente para brindarle los servicios solicitados y mejorar su experiencia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Policy 2 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy2')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Uso de la Información</span>
-                            <i id="policy2Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy2" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>La información recopilada se utiliza para: (1) Proporcionar y mantener nuestros servicios; (2) Notificarle sobre cambios en nuestros servicios; (3) Permitirle participar en funciones interactivas de nuestro servicio cuando así lo desee; (4) Proporcionar atención al cliente; (5) Recopilar análisis o información valiosa para mejorar nuestro servicio; (6) Monitorear el uso de nuestro servicio; (7) Detectar, prevenir y abordar problemas técnicos.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Policy 3 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy3')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Seguridad de los Datos</span>
-                            <i id="policy3Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy3" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>La seguridad de sus datos es importante para nosotros, pero recuerde que ningún método de transmisión por Internet o método de almacenamiento electrónico es 100% seguro. Si bien nos esforzamos por utilizar medios comercialmente aceptables para proteger su información personal, no podemos garantizar su seguridad absoluta. Implementamos medidas de seguridad físicas, electrónicas y administrativas para proteger contra el acceso no autorizado, la alteración, divulgación o destrucción de su información personal.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Policy 4 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy4')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Divulgación a Terceros</span>
-                            <i id="policy4Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy4" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>No vendemos, comerciamos ni transferimos de otra manera su información personal identificable a terceros sin su consentimiento, excepto en las siguientes circunstancias: (1) A proveedores de servicios de confianza que nos ayudan a operar nuestro sitio web o realizar nuestro negocio, siempre que estas partes acuerden mantener esta información confidencial; (2) Cuando creemos que la divulgación es apropiada para cumplir con la ley, hacer cumplir las políticas de nuestro sitio, o proteger nuestros derechos, propiedad o seguridad, o los de otros; (3) En caso de una fusión, adquisición o venta de activos, notificaremos a los usuarios antes de que su información personal sea transferida y esté sujeta a una política de privacidad diferente.</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -703,232 +543,6 @@
         </div>
     </div>
 
-    <!-- Authenticity Modal -->
-    <div id="authenticityModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-start mb-6">
-                <h3 class="text-2xl font-bold text-emerald-800">Cómo Reconocer una Esmeralda Auténtica</h3>
-                <button onclick="closeAuthenticityModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="space-y-6">
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Características de las Esmeraldas Auténticas</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <img src="https://images.unsplash.com/photo-1600721391689-2169dd1577ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Esmeralda auténtica" class="w-full rounded-lg shadow-md mb-3">
-                            <p class="text-gray-700"><strong>Esmeralda auténtica:</strong> Notar el color verde profundo y las inclusiones naturales ("jardín") que son características de las esmeraldas colombianas genuinas.</p>
-                        </div>
-                        <div>
-                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Esmeralda sintética" class="w-full rounded-lg shadow-md mb-3">
-                            <p class="text-gray-700"><strong>Esmeralda sintética/imitativa:</strong> Color demasiado perfecto, falta de inclusiones naturales, y patrones de crecimiento anormales visibles bajo lupa.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Proceso de Análisis Gemológico Paso a Paso</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">1. Examen Visual</h5>
-                            <p class="text-sm text-gray-600">Evaluación inicial del color, claridad y características de la piedra bajo iluminación controlada.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">2. Microscopía</h5>
-                            <p class="text-sm text-gray-600">Análisis de inclusiones naturales (jardín) que sirven como "huella digital" de la esmeralda.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">3. Refractometría</h5>
-                            <p class="text-sm text-gray-600">Medición del índice de refracción para confirmar la identidad del material.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">4. Espectroscopia</h5>
-                            <p class="text-sm text-gray-600">Identificación de elementos cromóforos (cromo, vanadio) que dan el color característico.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">5. Fluorescencia UV</h5>
-                            <p class="text-sm text-gray-600">Evaluación de la reacción a luz ultravioleta para detectar tratamientos.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">6. Confirmación Final</h5>
-                            <p class="text-sm text-gray-600">Correlación de todos los datos para emitir veredicto sobre autenticidad.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Glosario Gemológico</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <h5 class="font-medium text-gray-800">Birrefringencia</h5>
-                            <p class="text-sm text-gray-600">Doble refracción de la luz al pasar por un cristal anisotrópico como la esmeralda.</p>
-                        </div>
-                        <div>
-                            <h5 class="font-medium text-gray-800">Jardín</h5>
-                            <p class="text-sm text-gray-600">Inclusiones características en esmeraldas que ayudan a identificar su origen.</p>
-                        </div>
-                        <div>
-                            <h5 class="font-medium text-gray-800">Pleocroísmo</h5>
-                            <p class="text-sm text-gray-600">Fenómeno óptico donde el mineral muestra diferentes colores según el ángulo de observación.</p>
-                        </div>
-                        <div>
-                            <h5 class="font-medium text-gray-800">Tratamiento</h5>
-                            <p class="text-sm text-gray-600">Proceso para mejorar apariencia o durabilidad, como aceitado o resinas en esmeraldas.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center">
-                <button onclick="closeAuthenticityModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tools Modal -->
-    <div id="toolsModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-start mb-6">
-                <h3 class="text-2xl font-bold text-emerald-800">Herramientas Interactivas</h3>
-                <button onclick="closeToolsModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="space-y-8">
-                <!-- Shape Simulator -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-4">Simulador de Talla de Esmeralda</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Seleccione la forma:</label>
-                                <select id="shapeSelect" class="w-full px-4 py-2 border border-gray-300 rounded focus:border-emerald-500 focus:outline-none" onchange="updateShapePreview()">
-                                    <option value="oval">Oval</option>
-                                    <option value="round">Redonda</option>
-                                    <option value="pear">Perilla/Lágrima</option>
-                                    <option value="emerald">Esmeralda (escalonada)</option>
-                                    <option value="cushion">Cojín</option>
-                                    <option value="heart">Corazón</option>
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Tamaño (mm):</label>
-                                <input type="range" id="sizeSlider" min="5" max="15" step="0.5" value="10" class="w-full" oninput="updateShapePreview()">
-                                <div class="text-center mt-2">
-                                    <span id="sizeValue" class="font-medium">10 mm</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <div id="shapePreview" class="shape-preview" style="width: 150px; height: 150px; clip-path: ellipse(40% 50% at 50% 50%);"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Weight Calculator -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-4">Calculadora de Peso y Quilates</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Forma:</label>
-                                <select id="weightShape" class="w-full px-4 py-2 border border-gray-300 rounded focus:border-emerald-500 focus:outline-none" onchange="calculateWeight()">
-                                    <option value="round">Redonda</option>
-                                    <option value="oval">Oval</option>
-                                    <option value="pear">Perilla/Lágrima</option>
-                                    <option value="emerald">Esmeralda (rectangular)</option>
-                                    <option value="cushion">Cojín</option>
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Largo (mm):</label>
-                                <input type="number" id="lengthInput" min="1" max="20" step="0.1" value="6" class="w-full px-4 py-2 border border-gray-300 rounded" oninput="calculateWeight()">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Ancho (mm):</label>
-                                <input type="number" id="widthInput" min="1" max="20" step="0.1" value="4" class="w-full px-4 py-2 border border-gray-300 rounded" oninput="calculateWeight()">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Profundidad (mm):</label>
-                                <input type="number" id="depthInput" min="1" max="10" step="0.1" value="3" class="w-full px-4 py-2 border border-gray-300 rounded" oninput="calculateWeight()">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="bg-white p-6 rounded-lg shadow-sm border border-emerald-200 h-full flex flex-col justify-center">
-                                <h5 class="font-semibold text-center text-lg mb-4">Resultados</h5>
-                                <div class="text-center mb-2">
-                                    <span class="block text-gray-600">Peso estimado:</span>
-                                    <span id="weightResult" class="text-2xl font-bold text-emerald-700">0.75 ct</span>
-                                </div>
-                                <div class="text-center">
-                                    <span class="block text-gray-600">Relación largo/ancho:</span>
-                                    <span id="ratioResult" class="text-xl font-medium">1.50</span>
-                                </div>
-                                <div class="mt-6 text-sm text-gray-500">
-                                    <p>Nota: Este cálculo es una estimación basada en fórmulas gemológicas estándar. Para medidas exactas, consulte a un gemólogo certificado.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Colombia Map -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-4">Mapa de Zonas Productoras en Colombia</h4>
-                    <div class="map-container relative">
-                        <!-- Background map image -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Colombia_-_Mao_%28orthographic_projection%29.svg/1200px-Colombia_-_Mao_%28orthographic_projection%29.svg.png" alt="Mapa de Colombia" class="w-full h-full object-contain">
-                        
-                        <!-- Mining regions -->
-                        <div id="muzoRegion" class="map-region" style="width: 80px; height: 80px; left: 30%; top: 40%;" onmouseover="showTooltip(event, 'Muzo, Boyacá')" onmouseout="hideTooltip()">
-                            Muzo
-                        </div>
-                        <div id="chivorRegion" class="map-region" style="width: 70px; height: 70px; left: 50%; top: 45%;" onmouseover="showTooltip(event, 'Chivor, Boyacá')" onmouseout="hideTooltip()">
-                            Chivor
-                        </div>
-                        <div id="coscuezRegion" class="map-region" style="width: 60px; height: 60px; left: 35%; top: 45%;" onmouseover="showTooltip(event, 'Coscuez, Boyacá')" onmouseout="hideTooltip()">
-                            Coscuez
-                        </div>
-                        <div id="gachalaRegion" class="map-region" style="width: 50px; height: 50px; left: 45%; top: 50%;" onmouseover="showTooltip(event, 'Gachalá, Cundinamarca')" onmouseout="hideTooltip()">
-                            Gachalá
-                        </div>
-                        
-                        <div id="mapTooltip" class="map-tooltip"></div>
-                    </div>
-                    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
-                            <span class="text-sm">Muzo: Esmeraldas más valiosas</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-600 rounded-full mr-2"></div>
-                            <span class="text-sm">Chivor: Color azulado único</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-700 rounded-full mr-2"></div>
-                            <span class="text-sm">Coscuez: Alta producción</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-800 rounded-full mr-2"></div>
-                            <span class="text-sm">Gachalá: Calidad excepcional</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center">
-                <button onclick="closeToolsModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer with contact information -->
     <footer class="bg-emerald-900 text-white py-12">
         <div class="container mx-auto px-4">
@@ -951,9 +565,6 @@
                             <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-facebook"></i></a>
                             <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-instagram"></i></a>
                             <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-tiktok"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-youtube"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -986,7 +597,7 @@
         // Load certificates from localStorage or use default sample
         // Inicializar base de datos con el certificado 2788
         let certificatesDB = JSON.parse(localStorage.getItem('certificatesDB')) || {};
-                
+        
         // Asegurarse que el certificado 2788 siempre existe con los datos correctos
         if (!certificatesDB["2788"]) {
             certificatesDB["2788"] = {
@@ -1005,7 +616,7 @@
             };
             saveCertificates(); // Guardar inmediatamente
         }
-                
+        
         // También inicializar el certificado de ejemplo si no existe
         if (!certificatesDB["123456"]) {
             certificatesDB["123456"] = {
@@ -1041,50 +652,136 @@
             const searchInput = document.getElementById('certificateSearch');
             const code = searchInput.value.trim();
             
-            if (!code) {
-                alert("Por favor ingrese un código de certificado");
-                return;
-            }
-
+            // Forzar recarga de datos del localStorage
             try {
                 const storedData = localStorage.getItem('certificatesDB');
                 if (storedData) {
                     certificatesDB = JSON.parse(storedData);
                 }
-                
-                const cert = certificatesDB[code];
-                if (cert) {
-                    displayCertificate(code);
-                } else {
-                    alert("Certificado no encontrado. Por favor verifique el código.");
-                }
             } catch (e) {
-                console.error('Error:', e);
-                alert("Ocurrió un error al buscar el certificado");
+                console.error('Error al cargar certificados:', e);
+            }
+            
+            // Buscar el certificado (incluyendo el 2788)
+            const cert = certificatesDB[code];
+            if (cert) {
+                displayCertificate(code);
+                
+                // Mostrar automáticamente el botón de descarga PDF
+                const pdfBtn = document.querySelector('.certificate button');
+                if (pdfBtn) {
+                    pdfBtn.style.display = 'flex';
+                }
+            } else {
+                alert("Certificado no encontrado. Por favor verifique el código.");
             }
         }
 
-        // PDF Download function
+        // Display certificate
+        function displayCertificate(code) {
+            const cert = certificatesDB[code];
+            document.getElementById('frontImage').src = cert.frontImage;
+            document.getElementById('backImage').src = cert.backImage || cert.frontImage; // Usa frontal si no hay reverso
+            
+            // Fill in the information
+            document.getElementById('certCode').textContent = cert.info.code;
+            document.getElementById('weight').textContent = cert.info.weight;
+            document.getElementById('shine').textContent = cert.info.shine;
+            document.getElementById('shape').textContent = cert.info.shape;
+            document.getElementById('dimensions').textContent = cert.info.dimensions;
+            document.getElementById('material').textContent = cert.info.material;
+            document.getElementById('origin').textContent = cert.info.origin;
+            document.getElementById('treatment').textContent = cert.info.treatment;
+            
+            // Show the certificate display
+            document.getElementById('certificateDisplay').classList.remove('hidden');
+            
+            // Scroll to the certificate
+            document.getElementById('certificateDisplay').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Download PDF function with both images
         function downloadPDF() {
             const code = document.getElementById('certCode').textContent;
             const cert = certificatesDB[code];
             
             if (!cert) {
-                alert("No se puede generar PDF: certificado no encontrado");
+                alert("No se puede generar el PDF: certificado no encontrado");
                 return;
             }
+            
+            // Create a new jsPDF instance
+            const doc = new jsPDF();
+            
+            // Add front image
+            const frontImg = new Image();
+            frontImg.crossOrigin = "Anonymous"; // Para evitar problemas con CORS
+            frontImg.src = cert.frontImage;
+            
+            frontImg.onload = function() {
+                try {
+                    doc.addImage(frontImg, 'JPEG', 15, 15, 180, 120);
+                    
+                    // Add back image on a new page
+                    const backImg = new Image();
+                    backImg.crossOrigin = "Anonymous";
+                    backImg.src = cert.backImage || cert.frontImage;
+                    
+                    backImg.onload = function() {
+                        try {
+                            doc.addPage();
+                            doc.addImage(backImg, 'JPEG', 15, 15, 180, 120);
+                            
+                            // Save the PDF
+                            doc.save(`Certificado_${code}.pdf`);
+                        } catch (e) {
+                            console.error("Error al agregar imagen posterior:", e);
+                            alert("Error al generar el PDF. Intente nuevamente.");
+                        }
+                    };
+                    
+                    backImg.onerror = function() {
+                        alert("Error al cargar la imagen posterior para el PDF");
+                    };
+                } catch (e) {
+                    console.error("Error al agregar imagen frontal:", e);
+                    alert("Error al generar el PDF. Intente nuevamente.");
+                }
+            };
+            
+            frontImg.onerror = function() {
+                alert("Error al cargar la imagen frontal para el PDF");
+            };
+        }
 
-            try {
-                const doc = new jsPDF();
-                doc.text(`Certificado Gemológico - Código: ${code}`, 10, 10);
-                doc.text(`Peso: ${cert.info.weight} quilates`, 10, 20);
-                doc.text(`Forma: ${cert.info.shape}`, 10, 30);
-                doc.text(`Origen: ${cert.info.origin}`, 10, 40);
-                doc.save(`certificado_${code}.pdf`);
-            } catch (e) {
-                console.error('Error al generar PDF:', e);
-                alert("Error al generar el PDF");
+        // Edit mode functions
+        function toggleEditMode() {
+            const editables = document.querySelectorAll('.editable');
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            if (editBtn.textContent.includes('Editar')) {
+                // Enable editing
+                editables.forEach(el => {
+                    const original = el.textContent;
+                    el.innerHTML = `<input type="text" value="${original}" class="w-full px-2 py-1 border border-gray-300 rounded">`;
+                });
+                editBtn.classList.add('hidden');
+                saveBtn.classList.remove('hidden');
+            } else {
+                // Disable editing
+                editables.forEach(el => {
+                    el.textContent = el.querySelector('input').value;
+                });
+                editBtn.classList.remove('hidden');
+                saveBtn.classList.add('hidden');
             }
+        }
+
+        function saveChanges() {
+            toggleEditMode();
+            alert("Cambios guardados correctamente");
+            // In a real implementation, this would save to the database
         }
 
         // Modal functions
@@ -1104,22 +801,6 @@
             document.getElementById('labModal').classList.add('hidden');
         }
 
-        function openAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.remove('hidden');
-        }
-
-        function closeAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.add('hidden');
-        }
-
-        function openToolsModal() {
-            document.getElementById('toolsModal').classList.remove('hidden');
-        }
-
-        function closeToolsModal() {
-            document.getElementById('toolsModal').classList.add('hidden');
-        }
-
         // Admin functions
         function openAdminModal() {
             document.getElementById('adminLoginModal').classList.remove('hidden');
@@ -1131,162 +812,205 @@
 
         function checkAdminPassword() {
             const password = document.getElementById('adminPassword').value;
-            if (password === "admin123") { // Cambia esto por una contraseña segura
+            if (password === "07082025") {
                 closeAdminModal();
-                document.getElementById('adminPanel').style.display = 'block';
+                openAdminPanel();
+                loadCertificatesList();
             } else {
                 alert("Contraseña incorrecta");
             }
+        }
+
+        function openAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'block';
         }
 
         function closeAdminPanel() {
             document.getElementById('adminPanel').style.display = 'none';
         }
 
-        // Display certificate
-        function displayCertificate(code) {
+        function loadCertificatesList() {
+            const listContainer = document.getElementById('certificatesList');
+            listContainer.innerHTML = '';
+            
+            for (const code in certificatesDB) {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-200 hover:bg-gray-100';
+                row.innerHTML = `
+                    <td class="py-3 px-4">${code}</td>
+                    <td class="py-3 px-4">
+                        <button onclick="editCertificate('${code}')" class="bg-blue-100 text-blue-700 px-3 py-1 rounded mr-2">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deleteCertificate('${code}')" class="bg-red-100 text-red-700 px-3 py-1 rounded">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                listContainer.appendChild(row);
+            }
+        }
+
+        function editCertificate(code) {
             const cert = certificatesDB[code];
-            document.getElementById('frontImage').src = cert.frontImage;
-            document.getElementById('backImage').src = cert.backImage || cert.frontImage;
             
-            // Fill in the information
-            document.getElementById('certCode').textContent = cert.info.code;
-            document.getElementById('weight').textContent = cert.info.weight;
-            document.getElementById('shine').textContent = cert.info.shine;
-            document.getElementById('shape').textContent = cert.info.shape;
-            document.getElementById('dimensions').textContent = cert.info.dimensions;
-            document.getElementById('material').textContent = cert.info.material;
-            document.getElementById('origin').textContent = cert.info.origin;
-            document.getElementById('treatment').textContent = cert.info.treatment;
+            // Fill the form with existing data
+            document.getElementById('adminCertCode').value = code;
             
-            // Show the certificate display
-            document.getElementById('certificateDisplay').classList.remove('hidden');
+            // Mostrar las imágenes existentes como vistas previas
+            if (cert.frontImage && cert.frontImage.startsWith('data:')) {
+                document.getElementById('frontImagePreview').src = cert.frontImage;
+                document.getElementById('frontImagePreviewContainer').classList.remove('hidden');
+            }
             
-            // Scroll to the certificate
-            document.getElementById('certificateDisplay').scrollIntoView({ behavior: 'smooth' });
+            if (cert.backImage && cert.backImage.startsWith('data:')) {
+                document.getElementById('backImagePreview').src = cert.backImage;
+                document.getElementById('backImagePreviewContainer').classList.remove('hidden');
+            }
+            
+            document.getElementById('adminWeight').value = cert.info.weight;
+            document.getElementById('adminShine').value = cert.info.shine;
+            document.getElementById('adminShape').value = cert.info.shape;
+            document.getElementById('adminDimensions').value = cert.info.dimensions;
+            document.getElementById('adminMaterial').value = cert.info.material;
+            document.getElementById('adminOrigin').value = cert.info.origin;
+            document.getElementById('adminTreatment').value = cert.info.treatment;
+            
+            // Scroll to the form
+            document.querySelector('#adminPanel .container').scrollTo({ top: 0, behavior: 'smooth' });
+            
+            alert(`Modo edición para certificado ${code}. Actualice los campos y haga clic en "Subir Certificado" para guardar.`);
         }
 
-        // Modal functions for new modals
-        function openAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.remove('hidden');
-        }
-
-        function closeAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.add('hidden');
-        }
-
-        function openToolsModal() {
-            document.getElementById('toolsModal').classList.remove('hidden');
-        }
-
-        function closeToolsModal() {
-            document.getElementById('toolsModal').classList.add('hidden');
-        }
-
-        // Shape preview functions
-        function updateShapePreview() {
-            const shapeSelect = document.getElementById('shapeSelect');
-            const sizeSlider = document.getElementById('sizeSlider');
-            const shapePreview = document.getElementById('shapePreview');
-            const sizeValue = document.getElementById('sizeValue');
-            
-            sizeValue.textContent = `${sizeSlider.value} mm`;
-            
-            switch(shapeSelect.value) {
-                case 'oval':
-                    shapePreview.style.clipPath = 'ellipse(40% 50% at 50% 50%)';
-                    break;
-                case 'round':
-                    shapePreview.style.clipPath = 'circle(50% at 50% 50%)';
-                    break;
-                case 'pear':
-                    shapePreview.style.clipPath = 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)';
-                    break;
-                case 'emerald':
-                    shapePreview.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)';
-                    break;
-                case 'cushion':
-                    shapePreview.style.clipPath = 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)';
-                    break;
-                case 'heart':
-                    shapePreview.style.clipPath = 'path("M10 6 Q15 -10 25 6 T40 6 Q50 -10 60 6 T80 6 Q100 30 50 80 Q0 30 20 6 Q25 -10 30 6 T40 6")';
-                    break;
+        function deleteCertificate(code) {
+            if (confirm(`¿Está seguro que desea eliminar el certificado ${code}?`)) {
+                delete certificatesDB[code];
+                saveCertificates();
+                loadCertificatesList();
+                alert(`Certificado ${code} eliminado.`);
             }
         }
 
-        // Weight calculator function
-        function calculateWeight() {
-            const shape = document.getElementById('weightShape').value;
-            const length = parseFloat(document.getElementById('lengthInput').value);
-            const width = parseFloat(document.getElementById('widthInput').value);
-            const depth = parseFloat(document.getElementById('depthInput').value);
+        // Preview image function
+        function previewImage(input, previewId) {
+            const previewContainerId = previewId + 'Container';
+            const preview = document.getElementById(previewId);
+            const previewContainer = document.getElementById(previewContainerId);
             
-            let weight = 0;
-            const ratio = (length / width).toFixed(2);
-            
-            // Simplified calculation based on shape
-            switch(shape) {
-                case 'round':
-                    weight = (Math.pow((length/2), 2) * depth * 0.0061).toFixed(2);
-                    break;
-                case 'oval':
-                    weight = (length * width * depth * 0.0062).toFixed(2);
-                    break;
-                case 'pear':
-                    weight = (length * width * depth * 0.00615).toFixed(2);
-                    break;
-                case 'emerald':
-                    weight = (length * width * depth * 0.0080).toFixed(2);
-                    break;
-                case 'cushion':
-                    weight = (length * width * depth * 0.0091).toFixed(2);
-                    break;
-            }
-            
-            document.getElementById('weightResult').textContent = `${weight} ct`;
-            document.getElementById('ratioResult').textContent = ratio;
-        }
-
-        // Map tooltip functions
-        function showTooltip(event, text) {
-            const tooltip = document.getElementById('mapTooltip');
-            tooltip.textContent = text;
-            tooltip.style.display = 'block';
-            tooltip.style.left = `${event.clientX + 10}px`;
-            tooltip.style.top = `${event.clientY + 10}px`;
-        }
-
-        function hideTooltip() {
-            document.getElementById('mapTooltip').style.display = 'none';
-        }
-
-        // Accordion function
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            const icon = document.getElementById(`${id}Icon`);
-            
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            }
-        }
-
-        // Initialize interactive tools
-        document.addEventListener('DOMContentLoaded', function() {
-            updateShapePreview();
-            calculateWeight();
-            
-            // Allow search on Enter key
-            document.getElementById('certificateSearch').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    searchCertificate();
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
                 }
-            });
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Remove image function
+        function removeImage(inputId, previewContainerId) {
+            document.getElementById(inputId).value = '';
+            document.getElementById(previewContainerId).classList.add('hidden');
+        }
+
+        // Upload certificate function with image upload
+        function uploadCertificate() {
+            const code = document.getElementById('adminCertCode').value.trim();
+            
+            if (!code) {
+                alert("Por favor ingrese un código para el certificado");
+                return;
+            }
+            
+            // Get form values
+            const newCert = {
+                info: {
+                    code: code,
+                    weight: document.getElementById('adminWeight').value.trim(),
+                    shine: document.getElementById('adminShine').value.trim(),
+                    shape: document.getElementById('adminShape').value.trim(),
+                    dimensions: document.getElementById('adminDimensions').value.trim(),
+                    material: document.getElementById('adminMaterial').value.trim(),
+                    origin: document.getElementById('adminOrigin').value.trim(),
+                    treatment: document.getElementById('adminTreatment').value.trim()
+                }
+            };
+            
+            // Handle front image upload
+            const frontImageFile = document.getElementById('frontImageFile').files[0];
+            if (frontImageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newCert.frontImage = e.target.result;
+                    completeUpload(newCert, code);
+                };
+                reader.readAsDataURL(frontImageFile);
+            } else if (certificatesDB[code] && certificatesDB[code].frontImage) {
+                // Keep existing image if not uploading a new one
+                newCert.frontImage = certificatesDB[code].frontImage;
+                completeUpload(newCert, code);
+            } else {
+                alert("Por favor seleccione una imagen frontal");
+                return;
+            }
+            
+            // Handle back image upload
+            const backImageFile = document.getElementById('backImageFile').files[0];
+            if (backImageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newCert.backImage = e.target.result;
+                    completeUpload(newCert, code);
+                };
+                reader.readAsDataURL(backImageFile);
+            } else if (certificatesDB[code] && certificatesDB[code].backImage) {
+                // Keep existing image if not uploading a new one
+                newCert.backImage = certificatesDB[code].backImage;
+                completeUpload(newCert, code);
+            } else {
+                // If no back image is provided, use the front image
+                newCert.backImage = newCert.frontImage;
+                completeUpload(newCert, code);
+            }
+        }
+        
+        function completeUpload(newCert, code) {
+            // Validar que todos los campos requeridos estén completos
+            const requiredFields = ['weight', 'shine', 'shape', 'dimensions', 'material', 'origin', 'treatment'];
+            for (const field of requiredFields) {
+                if (!newCert.info[field]) {
+                    alert(`Por favor complete el campo: ${field}`);
+                    return;
+                }
+            }
+            
+            certificatesDB[code] = newCert;
+            saveCertificates();
+            alert("Certificado guardado correctamente");
+            loadCertificatesList();
+            
+            // Clear form
+            document.getElementById('frontImageFile').value = "";
+            document.getElementById('backImageFile').value = "";
+            document.getElementById('frontImagePreviewContainer').classList.add('hidden');
+            document.getElementById('backImagePreviewContainer').classList.add('hidden');
+            document.getElementById('adminWeight').value = "";
+            document.getElementById('adminShine').value = "";
+            document.getElementById('adminShape').value = "";
+            document.getElementById('adminDimensions').value = "";
+            document.getElementById('adminMaterial').value = "";
+            document.getElementById('adminOrigin').value = "";
+            document.getElementById('adminTreatment').value = "";
+        }
+
+        // Allow search on Enter key
+        document.getElementById('certificateSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchCertificate();
+            }
         });
+    </script>
 </body>
 </html>
