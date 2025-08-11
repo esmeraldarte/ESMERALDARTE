@@ -77,6 +77,18 @@
         .whatsapp-float:hover .tooltip {
             opacity: 1;
         }
+        .certificate-code {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2e7d32;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -96,9 +108,9 @@
                 <!-- Search by Certificate Code -->
                 <div class="w-full max-w-md">
                     <div class="relative">
-                        <input type="text" id="certificateSearch" placeholder="Buscar certificado por código" 
-                               class="w-full px-4 py-3 rounded-full border-2 border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <button onclick="searchCertificate()" 
+                        <input type="text" id="certificateSearch" placeholder="Buscar certificado por código"
+                                class="w-full px-4 py-3 rounded-full border-2 border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <button onclick="searchCertificate()"
                                 class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-700 text-white px-4 py-2 rounded-full hover:bg-emerald-800 transition">
                             <i class="fas fa-search"></i>
                         </button>
@@ -113,19 +125,19 @@
         <!-- Action Buttons -->
         <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
             <!-- Special Care Button -->
-            <button onclick="toggleCareGuide()" 
+            <button onclick="toggleCareGuide()"
                     class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
                 <i class="fas fa-gem"></i> Cuidados especiales para mis joyas
             </button>
             
             <!-- Gemological Lab Button -->
-            <button onclick="toggleGemLab()" 
+            <button onclick="toggleGemLab()"
                     class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
                 <i class="fas fa-microscope"></i> Laboratorio Gemológico
             </button>
             
             <!-- Interactive Tools Button -->
-            <button onclick="toggleInteractiveTools()" 
+            <button onclick="toggleInteractiveTools()"
                     class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
                 <i class="fas fa-tools"></i> Herramientas interactivas
             </button>
@@ -222,7 +234,7 @@
                                 <img src="https://via.placeholder.com/600x200?text=Inspeccion+Visual" alt="Inspección visual" class="mt-2 rounded-lg shadow w-full max-w-md">
                             </div>
                         </div>
-                        
+                                                
                         <!-- Step 2 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -233,7 +245,7 @@
                                 <p class="text-gray-700">Medición del índice de refracción para confirmar identidad como esmeralda.</p>
                             </div>
                         </div>
-                        
+                                                
                         <!-- Step 3 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -245,7 +257,7 @@
                                 <img src="https://via.placeholder.com/600x200?text=Espectroscopia" alt="Espectroscopía" class="mt-2 rounded-lg shadow w-full max-w-md">
                             </div>
                         </div>
-                        
+                                                
                         <!-- Step 4 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -256,7 +268,7 @@
                                 <p class="text-gray-700">Evaluación de reacción bajo luz ultravioleta para detectar tratamientos.</p>
                             </div>
                         </div>
-                        
+                                                
                         <!-- Step 5 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -358,7 +370,7 @@
                                 <p>Heart</p>
                             </div>
                         </div>
-                        
+                                                
                         <div class="bg-gray-50 p-4 rounded-lg mb-4">
                             <h4 class="text-lg font-medium text-emerald-600 mb-2">Calculadora de medidas</h4>
                             <div class="grid grid-cols-2 gap-4 mb-4">
@@ -447,7 +459,7 @@
                         <img src="https://via.placeholder.com/500x300?text=Historia+de+las+Esmeraldas" alt="Historia de las esmeraldas" class="rounded-lg shadow mt-4">
                     </div>
                 </div>
-                
+                                
                 <!-- Cutting Styles -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Estilos de tallado</h3>
@@ -491,7 +503,7 @@
                     </div>
                     <img src="https://via.placeholder.com/500x200?text=Tipos+de+Tallado" alt="Tipos de tallado" class="rounded-lg shadow mt-4">
                 </div>
-                
+                                
                 <!-- Colombian vs Other Emeralds -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Esmeraldas colombianas vs. otras</h3>
@@ -534,7 +546,7 @@
                         </table>
                     </div>
                 </div>
-                
+                                
                 <!-- Chemical Composition -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Composición química y propiedades</h3>
@@ -563,7 +575,7 @@
             <div class="prose max-w-none text-gray-700">
                 <h3 class="text-xl font-semibold text-emerald-700">Recopilación de información</h3>
                 <p>Recopilamos información personal cuando usted busca un certificado, se comunica con nosotros o utiliza nuestras herramientas interactivas. Esta información puede incluir su nombre, dirección de correo electrónico y detalles de contacto.</p>
-                
+                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Uso de la información</h3>
                 <p>Utilizamos su información para:</p>
                 <ul class="list-disc pl-5">
@@ -572,19 +584,19 @@
                     <li>Responder a sus consultas y solicitudes</li>
                     <li>Enviar información relevante sobre nuestros productos y servicios (solo si ha dado su consentimiento)</li>
                 </ul>
-                
+                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Protección de datos</h3>
                 <p>Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos personales contra accesos no autorizados, alteración, divulgación o destrucción.</p>
-                
+                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Cookies y tecnologías similares</h3>
                 <p>Utilizamos cookies para mejorar su experiencia en nuestro sitio web. Puede controlar el uso de cookies a través de la configuración de su navegador.</p>
-                
+                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Sus derechos</h3>
                 <p>Usted tiene derecho a acceder, corregir o eliminar sus datos personales. Para ejercer estos derechos, puede contactarnos a través de los medios proporcionados en este sitio.</p>
-                
+                                
                 <h3 class="text-xl font-semibold text-emerald-700 mt-4">Cambios en esta política</h3>
                 <p>Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en el sitio.</p>
-                
+                                
                 <p class="mt-6">Última actualización: 15 de junio, 2023</p>
             </div>
         </div>
@@ -652,12 +664,15 @@
                 </div>
                 
                 <div class="certificate-container grid md:grid-cols-2 gap-6 mb-6">
-                    <!-- Replace these with your actual certificate images -->
-                    <div class="certificate-image">
-                        <img src="https://via.placeholder.com/600x800?text=Frente+Certificado" alt="Frente del Certificado" class="w-full rounded-lg shadow">
+                    <!-- Certificate Front -->
+                    <div class="certificate-image relative">
+                        <div id="certificateCode" class="certificate-code">Código: 7788</div>
+                        <img id="certificateFront" src="https://via.placeholder.com/600x800/ffffff/2e7d32?text=Frente+Certificado+7788" alt="Frente del Certificado" class="w-full rounded-lg shadow">
                     </div>
-                    <div class="certificate-image">
-                        <img src="https://via.placeholder.com/600x800?text=Reverso+Certificado" alt="Reverso del Certificado" class="w-full rounded-lg shadow">
+                    <!-- Certificate Back -->
+                    <div class="certificate-image relative">
+                        <div id="certificateCodeBack" class="certificate-code">Código: 7788</div>
+                        <img id="certificateBack" src="https://via.placeholder.com/600x800/ffffff/2e7d32?text=Reverso+Certificado+7788" alt="Reverso del Certificado" class="w-full rounded-lg shadow">
                     </div>
                 </div>
                 
@@ -673,31 +688,8 @@
                 
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold text-emerald-700 mb-3">Análisis Gemológico</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <h4 class="font-medium text-emerald-600 mb-1">Identificación</h4>
-                            <p class="text-sm text-gray-700">Esmeralda natural (Berilo verde)</p>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <h4 class="font-medium text-emerald-600 mb-1">Peso</h4>
-                            <p class="text-sm text-gray-700">1.25 quilates</p>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <h4 class="font-medium text-emerald-600 mb-1">Dimensiones</h4>
-                            <p class="text-sm text-gray-700">6.5 × 5 × 3.5 mm</p>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <h4 class="font-medium text-emerald-600 mb-1">Color</h4>
-                            <p class="text-sm text-gray-700">Verde intenso (Vivid Green)</p>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <h4 class="font-medium text-emerald-600 mb-1">Claridad</h4>
-                            <p class="text-sm text-gray-700">Ligeramente incluida (SI1)</p>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border border-gray-200">
-                            <h4 class="font-medium text-emerald-600 mb-1">Origen</h4>
-                            <p class="text-sm text-gray-700">Muzo, Colombia</p>
-                        </div>
+                    <div class="grid md:grid-cols-2 gap-4" id="certificateDetails">
+                        <!-- Details will be populated by JavaScript -->
                     </div>
                 </div>
                 
@@ -720,11 +712,41 @@
         // Certificate Search Function
         function searchCertificate() {
             const code = document.getElementById('certificateSearch').value.trim();
-            if (code) {
-                // In a real implementation, this would check against a database
-                // For demo purposes, we'll just show the modal for any non-empty code
+            if (code === '7788' || code === '2025' || code === '2026' || code === '2027') {
+                // Show the modal with appropriate certificate
                 document.getElementById('certificateModal').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
+                
+                // Update images and details based on specific code
+                switch(code) {
+                    case '7788':
+                        document.getElementById('certificateFront').src = `https://via.placeholder.com/600x800/ffffff/2e7d32?text=Frente+Certificado+${code}`;
+                        document.getElementById('certificateBack').src = `https://via.placeholder.com/600x800/ffffff/2e7d32?text=Reverso+Certificado+${code}`;
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '2025':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/V79AlHz.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/bvvThXl.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '2026':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/ejemplo2026frente.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/ejemplo2026reverso.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '2027':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/ejemplo2027frente.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/ejemplo2027reverso.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                }
+                updateCertificateDetails(code);
+            } else if (code) {
+                alert('Certificado no encontrado. Por favor verifique el código e intente nuevamente.');
             } else {
                 alert('Por favor ingrese un código de certificado válido');
             }
@@ -733,6 +755,27 @@
         function closeCertificateModal() {
             document.getElementById('certificateModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
+        }
+
+        function updateCertificateDetails(code) {
+            const detailsContainer = document.getElementById('certificateDetails');
+            let details = [];
+            
+            const allDetails = [
+                { title: 'Identificación', value: 'Esmeralda natural (Berilo verde)' },
+                { title: 'Origen', value: 'Colombia' }
+            ];
+            
+            // Clear and repopulate the container
+            detailsContainer.innerHTML = '';
+            allDetails.forEach(detail => {
+                detailsContainer.innerHTML += `
+                    <div class="bg-white p-3 rounded-lg border border-gray-200">
+                        <h4 class="font-medium text-emerald-600 mb-1">${detail.title}</h4>
+                        <p class="text-sm text-gray-700">${detail.value}</p>
+                    </div>
+                `;
+            });
         }
 
         // Toggle Sections
