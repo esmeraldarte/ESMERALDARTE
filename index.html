@@ -3,26 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificados Gemológicos de Esmeraldas</title>
+    <title>Joyeria de Esmeraldas - Certificación y Gemología</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #e6f5e6 0%, #c2e0c2 50%, #5d9e5d 100%);
+        }
         .certificate-container {
             perspective: 1000px;
         }
-        .certificate {
+        .certificate-image {
             transition: transform 0.5s;
-            transform-style: preserve-3d;
         }
-        .certificate:hover {
-            transform: rotateY(10deg);
+        .certificate-image:hover {
+            transform: scale(1.03);
         }
-        .admin-panel {
-            display: none;
+        .care-guide {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
         }
-        .info-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+        .map-container {
+            height: 400px;
+            background-color: #e8f4e8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .shape-selector {
+            transition: all 0.3s ease;
+        }
+        .shape-selector:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .shape-selector.active {
+            border: 3px solid #2e7d32;
+            transform: translateY(-5px);
         }
         .whatsapp-float {
             position: fixed;
@@ -40,1267 +56,792 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
-        .modal {
-            transition: opacity 0.3s ease;
-        }
-        .preview-image {
-            max-height: 150px;
-            object-fit: contain;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 5px;
-        }
-        .file-input-label {
-            display: inline-block;
-            padding: 6px 12px;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        .file-input-label:hover {
-            background-color: #e0e0e0;
-        }
-        .shape-preview {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
-            background-color: #10b981;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .map-container {
-            height: 400px;
-            background-color: #f0f0f0;
-            position: relative;
-            overflow: hidden;
-        }
-        .map-region {
-            position: absolute;
-            background-color: rgba(16, 185, 129, 0.5);
-            border: 2px solid #10b981;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .map-region:hover {
-            background-color: rgba(16, 185, 129, 0.8);
+        .whatsapp-float:hover {
+            background-color: #128C7E;
             transform: scale(1.1);
         }
-        .map-tooltip {
+        .tooltip {
             position: absolute;
-            background-color: white;
+            right: 80px;
+            bottom: 20px;
+            background: white;
             padding: 5px 10px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 100;
-            display: none;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .whatsapp-float:hover .tooltip {
+            opacity: 1;
         }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
-    <!-- WhatsApp Button -->
-    <a href="https://wa.me/573000000000?text=Hola,%20me%20interesan%20sus%20certificados%20gemológicos" class="whatsapp-float" target="_blank">
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/573001234567?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20sus%20esmeraldas" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
+        <span class="tooltip">Comunícate con nosotros</span>
     </a>
 
-    <!-- Header with Logo -->
-    <header class="bg-white shadow-sm py-4">
+    <!-- Header with Logo and Search -->
+    <header class="gradient-bg py-6 shadow-md">
         <div class="container mx-auto px-4">
-            <div class="flex justify-center mb-6">
-                <!-- Logo Space - Replace with your actual logo -->
-                <div class="w-64 h-32 bg-emerald-100 flex items-center justify-center rounded-lg border border-emerald-300">
-                    <span class="text-emerald-800 font-bold text-xl">LOGO DE LA TIENDA</span>
+            <div class="flex flex-col items-center">
+                <!-- Logo - Replace with your actual logo URL -->
+                <img src="https://via.placeholder.com/200x80?text=Emerald+Jewelry" alt="Joyeria de Esmeraldas" class="h-20 mb-6">
+                
+                <!-- Search by Certificate Code -->
+                <div class="w-full max-w-md">
+                    <div class="relative">
+                        <input type="text" id="certificateSearch" placeholder="Buscar certificado por código" 
+                               class="w-full px-4 py-3 rounded-full border-2 border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <button onclick="searchCertificate()" 
+                                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-700 text-white px-4 py-2 rounded-full hover:bg-emerald-800 transition">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Search Bar -->
-            <div class="max-w-2xl mx-auto relative">
-                <input type="text" id="certificateSearch" placeholder="Buscar certificado por código numérico..."
-                        class="w-full px-4 py-3 rounded-full border-2 border-emerald-300 focus:border-emerald-500 focus:outline-none shadow-sm">
-                <button onclick="searchCertificate()" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition">
-                    <i class="fas fa-search"></i>
-                </button>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
-        <!-- Certificate Display Area (initially hidden) -->
-        <div id="certificateDisplay" class="hidden bg-white rounded-xl shadow-md overflow-hidden p-6 mb-8">
-            <div class="flex flex-col md:flex-row gap-8 mb-8">
-                <!-- Front Certificate -->
-                <div class="certificate-container flex-1">
-                    <div class="certificate bg-gray-100 p-4 rounded-lg shadow-md">
-                        <img id="frontImage" src="" alt="Frente del certificado" class="w-full h-auto rounded border border-gray-300">
-                        <div class="mt-4 flex justify-center">
-                            <button onclick="downloadPDF()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded flex items-center">
-                                <i class="fas fa-file-pdf mr-2"></i> Descargar PDF Completo
+        <!-- Action Buttons -->
+        <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
+            <!-- Special Care Button -->
+            <button onclick="toggleCareGuide()" 
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
+                <i class="fas fa-gem"></i> Cuidados especiales para mis joyas
+            </button>
+            
+            <!-- Gemological Lab Button -->
+            <button onclick="toggleGemLab()" 
+                    class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
+                <i class="fas fa-microscope"></i> Laboratorio Gemológico
+            </button>
+            
+            <!-- Interactive Tools Button -->
+            <button onclick="toggleInteractiveTools()" 
+                    class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
+                <i class="fas fa-tools"></i> Herramientas interactivas
+            </button>
+        </div>
+
+        <!-- Special Care Guide (Hidden by default) -->
+        <div id="careGuide" class="care-guide hidden p-6 rounded-lg mb-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-emerald-800 mb-4">Cuidados especiales para tus esmeraldas</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2"><i class="fas fa-hand-holding-water mr-2"></i>Limpieza</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li>Limpia tus esmeraldas con un paño suave y seco.</li>
+                        <li>Evita el uso de productos químicos, ultrasonido o vapor.</li>
+                        <li>Puedes usar agua tibia con un jabón suave, pero enjuaga bien y seca inmediatamente.</li>
+                        <li>No sumerjas esmeraldas con tratamientos de aceite en solventes.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2"><i class="fas fa-shield-alt mr-2"></i>Almacenamiento</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li>Guarda cada pieza por separado para evitar rayones.</li>
+                        <li>Usa joyeros con compartimentos acolchados.</li>
+                        <li>Mantén alejadas de otras joyas más duras como diamantes.</li>
+                        <li>Evita cambios bruscos de temperatura.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2"><i class="fas fa-running mr-2"></i>Uso diario</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li>Quítate las joyas al hacer deporte o tareas domésticas.</li>
+                        <li>Evita el contacto con perfumes, lociones y cosméticos.</li>
+                        <li>No expongas a golpes o presión excesiva.</li>
+                        <li>Quítate anillos al lavarte las manos.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2"><i class="fas fa-calendar-check mr-2"></i>Mantenimiento</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li>Revisa periódicamente los engastes y soportes.</li>
+                        <li>Lleva a limpieza profesional cada 6-12 meses.</li>
+                        <li>Verifica tratamientos de aceite cada 2-3 años.</li>
+                        <li>Consulta con gemólogos certificados para cualquier duda.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gemological Lab (Hidden by default) -->
+        <div id="gemLab" class="hidden bg-white p-6 rounded-lg mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Laboratorio Gemológico</h2>
+            
+            <!-- How to recognize real emeralds -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Cómo reconocer una esmeralda auténtica</h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h4 class="text-xl font-medium text-emerald-600 mb-2">Esmeralda auténtica</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>Inclusiones naturales visibles (jardín)</li>
+                            <li>Color irregular con zonas más claras/oscuras</li>
+                            <li>Brillo vítreo característico</li>
+                            <li>Reacción específica bajo luz UV</li>
+                        </ul>
+                        <img src="https://via.placeholder.com/400x300?text=Esmeralda+Autentica" alt="Esmeralda auténtica" class="rounded-lg shadow">
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-medium text-emerald-600 mb-2">Esmeralda sintética/imitativa</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>Demasiado perfecta, sin inclusiones</li>
+                            <li>Color demasiado uniforme</li>
+                            <li>Burbujas de aire (en imitaciones de vidrio)</li>
+                            <li>Patrones de crecimiento anómalos</li>
+                        </ul>
+                        <img src="https://via.placeholder.com/400x300?text=Esmeralda+Sintetica" alt="Esmeralda sintética" class="rounded-lg shadow">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step by step analysis process -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Proceso de análisis gemológico paso a paso</h3>
+                <div class="relative">
+                    <!-- Process Steps -->
+                    <div class="flex flex-col space-y-8">
+                        <!-- Step 1 -->
+                        <div class="flex items-start">
+                            <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
+                                1
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-medium text-emerald-600 mb-2">Inspección visual inicial</h4>
+                                <p class="text-gray-700">Examen con lupa 10x para identificar inclusiones características, color y posibles tratamientos.</p>
+                                <img src="https://via.placeholder.com/600x200?text=Inspeccion+Visual" alt="Inspección visual" class="mt-2 rounded-lg shadow w-full max-w-md">
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="flex items-start">
+                            <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
+                                2
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-medium text-emerald-600 mb-2">Análisis refractométrico</h4>
+                                <p class="text-gray-700">Medición del índice de refracción para confirmar identidad como esmeralda.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="flex items-start">
+                            <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
+                                3
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-medium text-emerald-600 mb-2">Espectroscopía</h4>
+                                <p class="text-gray-700">Identificación de elementos cromóforos (Cr, V, Fe) que determinan el color.</p>
+                                <img src="https://via.placeholder.com/600x200?text=Espectroscopia" alt="Espectroscopía" class="mt-2 rounded-lg shadow w-full max-w-md">
+                            </div>
+                        </div>
+                        
+                        <!-- Step 4 -->
+                        <div class="flex items-start">
+                            <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
+                                4
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-medium text-emerald-600 mb-2">Fluorescencia UV</h4>
+                                <p class="text-gray-700">Evaluación de reacción bajo luz ultravioleta para detectar tratamientos.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 5 -->
+                        <div class="flex items-start">
+                            <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
+                                5
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-medium text-emerald-600 mb-2">Microscopía avanzada</h4>
+                                <p class="text-gray-700">Examen detallado de inclusiones para determinar origen geográfico.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gemological Glossary -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Glosario gemológico</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Inclusiones (Jardín)</h4>
+                        <p class="text-gray-700">Características internas naturales que son como la "huella digital" de una esmeralda, formadas durante su crecimiento.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Tratamiento con aceite</h4>
+                        <p class="text-gray-700">Proceso tradicional donde se llenan fisuras con aceite o resina para mejorar claridad y estabilidad.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Pleocroísmo</h4>
+                        <p class="text-gray-700">Fenómeno óptico donde la esmeralda muestra diferentes colores desde diferentes ángulos.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Dureza (Escala Mohs)</h4>
+                        <p class="text-gray-700">Las esmeraldas tienen dureza 7.5-8, lo que las hace resistentes pero no indestructibles.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blog Section -->
+            <div>
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Artículos de interés</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+                        <img src="https://via.placeholder.com/400x200?text=Tendencias+2023" alt="Tendencias 2023" class="w-full">
+                        <div class="p-4">
+                            <h4 class="text-lg font-medium text-emerald-600 mb-2">Tendencias en joyería de esmeraldas 2023</h4>
+                            <p class="text-gray-700 text-sm">Explora los diseños más innovadores que están marcando tendencia este año.</p>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+                        <img src="https://via.placeholder.com/400x200?text=Hallazgos" alt="Nuevos hallazgos" class="w-full">
+                        <div class="p-4">
+                            <h4 class="text-lg font-medium text-emerald-600 mb-2">Nuevos hallazgos en Colombia</h4>
+                            <p class="text-gray-700 text-sm">Descubre las últimas minas descubiertas y su impacto en el mercado.</p>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+                        <img src="https://via.placeholder.com/400x200?text=Tecnologia" alt="Tecnología" class="w-full">
+                        <div class="p-4">
+                            <h4 class="text-lg font-medium text-emerald-600 mb-2">Avances tecnológicos en gemología</h4>
+                            <p class="text-gray-700 text-sm">Cómo la tecnología está revolucionando la identificación y certificación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Tools (Hidden by default) -->
+        <div id="interactiveTools" class="hidden bg-white p-6 rounded-lg mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Herramientas Interactivas</h2>
+            
+            <!-- Emerald Shape Simulator -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Simulador de talla y forma de esmeralda</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="emerald">
+                                <img src="https://via.placeholder.com/100x100?text=Emerald" alt="Emerald Cut" class="mx-auto mb-2">
+                                <p>Emerald</p>
+                            </div>
+                            <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="oval">
+                                <img src="https://via.placeholder.com/100x100?text=Oval" alt="Oval Cut" class="mx-auto mb-2">
+                                <p>Oval</p>
+                            </div>
+                            <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="round">
+                                <img src="https://via.placeholder.com/100x100?text=Round" alt="Round Cut" class="mx-auto mb-2">
+                                <p>Round</p>
+                            </div>
+                            <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="pear">
+                                <img src="https://via.placeholder.com/100x100?text=Pear" alt="Pear Cut" class="mx-auto mb-2">
+                                <p>Pear</p>
+                            </div>
+                            <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="cushion">
+                                <img src="https://via.placeholder.com/100x100?text=Cushion" alt="Cushion Cut" class="mx-auto mb-2">
+                                <p>Cushion</p>
+                            </div>
+                            <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="heart">
+                                <img src="https://via.placeholder.com/100x100?text=Heart" alt="Heart Cut" class="mx-auto mb-2">
+                                <p>Heart</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <h4 class="text-lg font-medium text-emerald-600 mb-2">Calculadora de medidas</h4>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-1">Largo (mm)</label>
+                                    <input type="number" id="length" class="w-full px-3 py-2 border border-gray-300 rounded" value="6.5">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1">Ancho (mm)</label>
+                                    <input type="number" id="width" class="w-full px-3 py-2 border border-gray-300 rounded" value="5">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1">Profundidad (mm)</label>
+                                    <input type="number" id="depth" class="w-full px-3 py-2 border border-gray-300 rounded" value="3.5">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-1">Peso (ct)</label>
+                                    <input type="number" id="weight" class="w-full px-3 py-2 border border-gray-300 rounded" value="1.0">
+                                </div>
+                            </div>
+                            <button onclick="calculateDimensions()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
+                                Calcular
                             </button>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Back Certificate -->
-                <div class="certificate-container flex-1">
-                    <div class="certificate bg-gray-100 p-4 rounded-lg shadow-md">
-                        <img id="backImage" src="" alt="Reverso del certificado" class="w-full h-auto rounded border border-gray-300">
+                    <div class="flex items-center justify-center">
+                        <div id="shapeDisplay" class="relative">
+                            <img src="https://via.placeholder.com/300x300?text=Emerald+Cut" alt="Selected Shape" class="rounded-lg shadow-lg">
+                            <div id="dimensionDisplay" class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 rounded-b-lg">
+                                <p class="text-center">6.5mm × 5mm × 3.5mm ≈ 1.0 ct</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Certificate Information Table -->
-            <div class="bg-gray-50 rounded-lg shadow-sm p-6">
-                <h3 class="text-xl font-semibold text-emerald-800 mb-4">Información del Certificado</h3>
+            <!-- Emerald Production Map -->
+            <div>
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Mapa de zonas productoras de esmeraldas en Colombia</h3>
+                <div class="map-container relative">
+                    <!-- This would be replaced with an actual interactive map in a real implementation -->
+                    <img src="https://via.placeholder.com/800x400?text=Mapa+de+Zonas+Esmeralderas+Colombia" alt="Mapa de zonas esmeralderas" class="w-full h-full object-cover">
+                    <div class="absolute top-4 left-4 bg-white bg-opacity-90 p-3 rounded-lg shadow">
+                        <h4 class="font-bold text-emerald-800 mb-2">Principales zonas productoras</h4>
+                        <ul class="text-sm">
+                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-red-500 mr-2"></span> Muzo (Boyacá)</li>
+                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-blue-500 mr-2"></span> Chivor (Boyacá)</li>
+                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-green-500 mr-2"></span> Coscuez (Boyacá)</li>
+                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-yellow-500 mr-2"></span> Gachalá (Cundinamarca)</li>
+                            <li class="flex items-center"><span class="inline-block w-3 h-3 bg-purple-500 mr-2"></span> Peñas Blancas (Boyacá)</li>
+                        </ul>
+                    </div>
+                    <div class="absolute bottom-4 left-0 right-0 bg-white bg-opacity-80 p-2 text-center">
+                        <p class="text-sm text-gray-800">Las esmeraldas colombianas son reconocidas mundialmente por su incomparable color verde intenso y alta pureza.</p>
+                    </div>
+                </div>
+                <div class="mt-4 grid md:grid-cols-3 gap-4">
+                    <div class="bg-emerald-50 p-3 rounded-lg">
+                        <h4 class="font-semibold text-emerald-700 mb-1">Muzo</h4>
+                        <p class="text-sm text-gray-700">Famosas por su color verde intenso con tonos azulados, consideradas las más valiosas.</p>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-lg">
+                        <h4 class="font-semibold text-emerald-700 mb-1">Chivor</h4>
+                        <p class="text-sm text-gray-700">Esmeraldas con tonos más claros y brillantes, conocidas por su alta transparencia.</p>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-lg">
+                        <h4 class="font-semibold text-emerald-700 mb-1">Coscuez</h4>
+                        <p class="text-sm text-gray-700">Producen piedras con un verde profundo y excelente claridad, muy apreciadas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interesting Facts Section -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Datos interesantes sobre las esmeraldas</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- History -->
                 <div>
-                    <table id="certificateInfo" class="w-full text-left border-collapse">
-                        <tbody>
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Código</td>
-                                <td id="certCode" class="py-3 px-4 text-gray-600 editable">123456</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Peso (quilates)</td>
-                                <td id="weight" class="py-3 px-4 text-gray-600 editable">2.45</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Brillo</td>
-                                <td id="shine" class="py-3 px-4 text-gray-600 editable">Excelente</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Forma</td>
-                                <td id="shape" class="py-3 px-4 text-gray-600 editable">Oval</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Medidas (mm)</td>
-                                <td id="dimensions" class="py-3 px-4 text-gray-600 editable">8.5 x 6.2 x 4.3</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Material</td>
-                                <td id="material" class="py-3 px-4 text-gray-600 editable">Esmeralda Colombiana</td>
-                            </tr>
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Origen</td>
-                                <td id="origin" class="py-3 px-4 text-gray-600 editable">Muzo, Boyacá</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 px-4 font-medium text-gray-700 bg-gray-100">Tratamiento</td>
-                                <td id="treatment" class="py-3 px-4 text-gray-600 editable">Sin tratamiento</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Historia fascinante</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <p>Las esmeraldas han sido apreciadas desde la antigüedad. Cleopatra era conocida por su pasión por estas gemas, y los incas las consideraban piedras sagradas.</p>
+                        <p>Los conquistadores españoles encontraron esmeraldas colombianas en el siglo XVI, que rápidamente se convirtieron en las más valoradas de Europa.</p>
+                        <p>El nombre "esmeralda" proviene del griego antiguo "smaragdos", que significa "piedra verde".</p>
+                        <img src="https://via.placeholder.com/500x300?text=Historia+de+las+Esmeraldas" alt="Historia de las esmeraldas" class="rounded-lg shadow mt-4">
+                    </div>
+                </div>
+                
+                <!-- Cutting Styles -->
+                <div>
+                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Estilos de tallado</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-emerald-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-gem text-emerald-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-emerald-600">Talla esmeralda</h4>
+                                <p class="text-gray-700 text-sm">Rectangular con facetas escalonadas, realza el color y protege las esquinas.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-emerald-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-gem text-emerald-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-emerald-600">Tallas redondas y ovaladas</h4>
+                                <p class="text-gray-700 text-sm">Maximizan el peso en quilates y son populares en anillos.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-emerald-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-gem text-emerald-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-emerald-600">Tallas cabujón</h4>
+                                <p class="text-gray-700 text-sm">Superficie curva sin facetas, usada para esmeraldas con muchas inclusiones.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-emerald-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-gem text-emerald-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-emerald-600">Tallas fantasía</h4>
+                                <p class="text-gray-700 text-sm">Como pera, corazón o marquise, para diseños únicos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="https://via.placeholder.com/500x200?text=Tipos+de+Tallado" alt="Tipos de tallado" class="rounded-lg shadow mt-4">
+                </div>
+                
+                <!-- Colombian vs Other Emeralds -->
+                <div>
+                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Esmeraldas colombianas vs. otras</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-emerald-600 text-white">
+                                <tr>
+                                    <th class="py-2 px-4 text-left">Característica</th>
+                                    <th class="py-2 px-4 text-left">Colombia</th>
+                                    <th class="py-2 px-4 text-left">Brasil</th>
+                                    <th class="py-2 px-4 text-left">Zambia</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="py-2 px-4">Color</td>
+                                    <td class="py-2 px-4">Verde intenso con tonos azules</td>
+                                    <td class="py-2 px-4">Verde más claro, amarillento</td>
+                                    <td class="py-2 px-4">Verde azulado oscuro</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-2 px-4">Claridad</td>
+                                    <td class="py-2 px-4">Inclusiones visibles (jardín)</td>
+                                    <td class="py-2 px-4">Más limpias</td>
+                                    <td class="py-2 px-4">Menos inclusiones</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4">Tamaño</td>
+                                    <td class="py-2 px-4">Piedras grandes disponibles</td>
+                                    <td class="py-2 px-4">Generalmente más pequeñas</td>
+                                    <td class="py-2 px-4">Piedras medianas a grandes</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="py-2 px-4">Valor</td>
+                                    <td class="py-2 px-4">Las más valiosas</td>
+                                    <td class="py-2 px-4">Más accesibles</td>
+                                    <td class="py-2 px-4">Intermedio</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Chemical Composition -->
+                <div>
+                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Composición química y propiedades</h3>
+                    <div class="space-y-4 text-gray-700">
+                        <p>Las esmeraldas son una variedad del mineral berilo (Be₃Al₂Si₆O₁₈) coloreado por trazas de cromo y a veces vanadio.</p>
+                        <div class="bg-emerald-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-emerald-600 mb-2">Propiedades físicas:</h4>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Dureza: 7.5-8 en la escala de Mohs</li>
+                                <li>Densidad: 2.67-2.78 g/cm³</li>
+                                <li>Índice de refracción: 1.577-1.583</li>
+                                <li>Birrefringencia: 0.005-0.009</li>
+                            </ul>
+                        </div>
+                        <p>El color verde se debe a la presencia de cromo (Cr³⁺) que absorbe las longitudes de onda amarillas y rojas de la luz.</p>
+                        <p>Las esmeraldas colombianas suelen tener mayor contenido de cromo que de vanadio, lo que contribuye a su color único.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Action Buttons -->
-        <div class="flex flex-col md:flex-row gap-4 justify-center my-12">
-            <button onclick="openCareModal()" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-gem text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Cuidados Especiales para Mis Joyas</span>
-                </div>
-            </button>
+
+        <!-- Privacy Policy -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Políticas de Privacidad</h2>
             
-            <button onclick="openLabModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-microscope text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Laboratorio Gemológico</span>
-                </div>
-            </button>
-
-            <button onclick="openAuthenticityModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-certificate text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Reconocer Esmeraldas</span>
-                </div>
-            </button>
-
-            <button onclick="openToolsModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-tools text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Herramientas Interactivas</span>
-                </div>
-            </button>
-
-            <button onclick="openAuthenticityModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-certificate text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Reconocer Esmeraldas</span>
-                </div>
-            </button>
-
-            <button onclick="openToolsModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-4 rounded-lg shadow-sm transition flex-1 max-w-md">
-                <div class="flex items-center justify-center">
-                    <i class="fas fa-tools text-2xl mr-3"></i>
-                    <span class="text-lg font-semibold">Herramientas Interactivas</span>
-                </div>
-            </button>
-        </div>
-        
-        <!-- Emerald Information Section -->
-        <div class="info-section rounded-xl shadow-md overflow-hidden my-12">
-            <div class="p-8">
-                <h2 class="text-2xl font-bold text-emerald-800 mb-6">Datos Interesantes sobre las Esmeraldas</h2>
+            <div class="prose max-w-none text-gray-700">
+                <h3 class="text-xl font-semibold text-emerald-700">Recopilación de información</h3>
+                <p>Recopilamos información personal cuando usted busca un certificado, se comunica con nosotros o utiliza nuestras herramientas interactivas. Esta información puede incluir su nombre, dirección de correo electrónico y detalles de contacto.</p>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Info Card 1 -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
-                        <div class="text-emerald-600 text-4xl mb-3">
-                            <i class="fas fa-globe-americas"></i>
-                        </div>
-                        <h3 class="font-semibold text-lg mb-2">Origen Colombiano</h3>
-                        <p class="text-gray-600">Colombia produce entre el 70-90% de las esmeraldas más finas del mundo, con minas legendarias en Muzo, Chivor y Coscuez.</p>
-                    </div>
-                    
-                    <!-- Info Card 2 -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
-                        <div class="text-emerald-600 text-4xl mb-3">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <h3 class="font-semibold text-lg mb-2">Color Único</h3>
-                        <p class="text-gray-600">El verde intenso de las esmeraldas colombianas se debe a trazas de cromo y vanadio, creando un tono inigualable.</p>
-                    </div>
-                    
-                    <!-- Info Card 3 -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
-                        <div class="text-emerald-600 text-4xl mb-3">
-                            <i class="fas fa-history"></i>
-                        </div>
-                        <h3 class="font-semibold text-lg mb-2">Historia Milenaria</h3>
-                        <p class="text-gray-600">Los muiscas usaban esmeraldas en rituales sagrados hace más de 1000 años. Muchas piezas del tesoro de El Dorado incluían esmeraldas.</p>
-                    </div>
-                </div>
+                <h3 class="text-xl font-semibold text-emerald-700 mt-4">Uso de la información</h3>
+                <p>Utilizamos su información para:</p>
+                <ul class="list-disc pl-5">
+                    <li>Proveer los servicios solicitados (como verificación de certificados)</li>
+                    <li>Mejorar nuestra plataforma y servicios</li>
+                    <li>Responder a sus consultas y solicitudes</li>
+                    <li>Enviar información relevante sobre nuestros productos y servicios (solo si ha dado su consentimiento)</li>
+                </ul>
                 
-                <!-- Image Gallery -->
-                <div class="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="overflow-hidden rounded-lg shadow-md">
-                        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Esmeralda en bruto" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
-                    </div>
-                    <div class="overflow-hidden rounded-lg shadow-md">
-                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Mina de esmeraldas" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
-                    </div>
-                    <div class="overflow-hidden rounded-lg shadow-md">
-                        <img src="https://images.unsplash.com/photo-1600721391689-2169dd1577ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Joya con esmeralda" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Blog Section -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden my-12 p-8">
-            <h2 class="text-2xl font-bold text-emerald-800 mb-6">Blog Gemológico</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Blog Post 1 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tendencias en joyería" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Tendencias 2023 en Joyería con Esmeraldas</h3>
-                        <p class="text-gray-600 text-sm mb-3">Publicado el 15 de junio, 2023</p>
-                        <p class="text-gray-700 mb-4">Descubre las últimas tendencias en diseños de joyería con esmeraldas colombianas para este año.</p>
-                        <button class="text-emerald-600 font-medium">Leer más →</button>
-                    </div>
-                </div>
+                <h3 class="text-xl font-semibold text-emerald-700 mt-4">Protección de datos</h3>
+                <p>Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos personales contra accesos no autorizados, alteración, divulgación o destrucción.</p>
                 
-                <!-- Blog Post 2 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Hallazgo gemológico" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Nuevo Hallazgo en Minas de Muzo</h3>
-                        <p class="text-gray-600 text-sm mb-3">Publicado el 2 de mayo, 2023</p>
-                        <p class="text-gray-700 mb-4">Un descubrimiento extraordinario de esmeraldas con características únicas en las minas de Muzo.</p>
-                        <button class="text-emerald-600 font-medium">Leer más →</button>
-                    </div>
-                </div>
+                <h3 class="text-xl font-semibold text-emerald-700 mt-4">Cookies y tecnologías similares</h3>
+                <p>Utilizamos cookies para mejorar su experiencia en nuestro sitio web. Puede controlar el uso de cookies a través de la configuración de su navegador.</p>
                 
-                <!-- Blog Post 3 -->
-                <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition">
-                    <img src="https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tecnología gemológica" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Avances Tecnológicos en Gemología</h3>
-                        <p class="text-gray-600 text-sm mb-3">Publicado el 20 de abril, 2023</p>
-                        <p class="text-gray-700 mb-4">Cómo la tecnología está revolucionando la identificación y certificación de esmeraldas.</p>
-                        <button class="text-emerald-600 font-medium">Leer más →</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Privacy Policy Accordion -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden my-12">
-            <div class="p-6">
-                <h2 class="text-2xl font-bold text-emerald-800 mb-6">Políticas de Privacidad y Uso de Datos</h2>
+                <h3 class="text-xl font-semibold text-emerald-700 mt-4">Sus derechos</h3>
+                <p>Usted tiene derecho a acceder, corregir o eliminar sus datos personales. Para ejercer estos derechos, puede contactarnos a través de los medios proporcionados en este sitio.</p>
                 
-                <div class="space-y-4">
-                    <!-- Policy 1 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy1')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Recopilación de Información</span>
-                            <i id="policy1Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy1" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>Recopilamos información personal cuando usted utiliza nuestro sitio web, incluyendo pero no limitado a: nombre, dirección de correo electrónico, información de contacto y detalles de certificados gemológicos consultados. Esta información se utiliza únicamente para brindarle los servicios solicitados y mejorar su experiencia.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Policy 2 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy2')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Uso de la Información</span>
-                            <i id="policy2Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy2" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>La información recopilada se utiliza para: (1) Proporcionar y mantener nuestros servicios; (2) Notificarle sobre cambios en nuestros servicios; (3) Permitirle participar en funciones interactivas de nuestro servicio cuando así lo desee; (4) Proporcionar atención al cliente; (5) Recopilar análisis o información valiosa para mejorar nuestro servicio; (6) Monitorear el uso de nuestro servicio; (7) Detectar, prevenir y abordar problemas técnicos.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Policy 3 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy3')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Seguridad de los Datos</span>
-                            <i id="policy3Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy3" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>La seguridad de sus datos es importante para nosotros, pero recuerde que ningún método de transmisión por Internet o método de almacenamiento electrónico es 100% seguro. Si bien nos esforzamos por utilizar medios comercialmente aceptables para proteger su información personal, no podemos garantizar su seguridad absoluta. Implementamos medidas de seguridad físicas, electrónicas y administrativas para proteger contra el acceso no autorizado, la alteración, divulgación o destrucción de su información personal.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Policy 4 -->
-                    <div class="border border-gray-200 rounded-lg overflow-hidden">
-                        <button onclick="toggleAccordion('policy4')" class="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
-                            <span class="font-semibold">Divulgación a Terceros</span>
-                            <i id="policy4Icon" class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="policy4" class="accordion-content">
-                            <div class="p-4 text-gray-700">
-                                <p>No vendemos, comerciamos ni transferimos de otra manera su información personal identificable a terceros sin su consentimiento, excepto en las siguientes circunstancias: (1) A proveedores de servicios de confianza que nos ayudan a operar nuestro sitio web o realizar nuestro negocio, siempre que estas partes acuerden mantener esta información confidencial; (2) Cuando creemos que la divulgación es apropiada para cumplir con la ley, hacer cumplir las políticas de nuestro sitio, o proteger nuestros derechos, propiedad o seguridad, o los de otros; (3) En caso de una fusión, adquisición o venta de activos, notificaremos a los usuarios antes de que su información personal sea transferida y esté sujeta a una política de privacidad diferente.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h3 class="text-xl font-semibold text-emerald-700 mt-4">Cambios en esta política</h3>
+                <p>Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en el sitio.</p>
+                
+                <p class="mt-6">Última actualización: 15 de junio, 2023</p>
             </div>
         </div>
     </main>
 
-    <!-- Admin Login Modal -->
-    <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-md">
-            <h3 class="text-2xl font-bold text-emerald-800 mb-6 text-center">Acceso Administrativo</h3>
-            <div class="mb-4">
-                <label for="adminPassword" class="block text-gray-700 mb-2">Contraseña:</label>
-                <input type="password" id="adminPassword" class="w-full px-4 py-2 border border-gray-300 rounded focus:border-emerald-500 focus:outline-none">
-            </div>
-            <div class="flex justify-between">
-                <button onclick="closeAdminModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">
-                    Cancelar
-                </button>
-                <button onclick="checkAdminPassword()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
-                    Ingresar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Panel -->
-    <div id="adminPanel" class="admin-panel fixed inset-0 bg-white z-50 overflow-y-auto p-6">
-        <div class="container mx-auto">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold text-emerald-800">Panel de Administración</h2>
-                <button onclick="closeAdminPanel()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
-            </div>
-            
-            <div class="bg-gray-50 p-6 rounded-lg shadow-sm mb-8">
-                <h3 class="text-xl font-semibold text-emerald-700 mb-4">Subir Nuevo Certificado</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-gray-700 mb-2">Código del Certificado:</label>
-                        <input type="text" id="adminCertCode" class="w-full px-4 py-2 border border-gray-300 rounded">
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-gray-700 mb-2">Imagen Frontal:</label>
-                        <label for="frontImageFile" class="file-input-label">
-                            <i class="fas fa-upload mr-2"></i> Seleccionar archivo
-                        </label>
-                        <input type="file" id="frontImageFile" accept="image/*" class="hidden" onchange="previewImage(this, 'frontImagePreview')">
-                        <div id="frontImagePreviewContainer" class="hidden">
-                            <img id="frontImagePreview" class="preview-image" src="" alt="Vista previa frontal">
-                            <button onclick="removeImage('frontImageFile', 'frontImagePreviewContainer')" class="mt-2 text-red-600 text-sm">
-                                <i class="fas fa-trash mr-1"></i> Eliminar
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Imagen Posterior:</label>
-                        <label for="backImageFile" class="file-input-label">
-                            <i class="fas fa-upload mr-2"></i> Seleccionar archivo
-                        </label>
-                        <input type="file" id="backImageFile" accept="image/*" class="hidden" onchange="previewImage(this, 'backImagePreview')">
-                        <div id="backImagePreviewContainer" class="hidden">
-                            <img id="backImagePreview" class="preview-image" src="" alt="Vista previa posterior">
-                            <button onclick="removeImage('backImageFile', 'backImagePreviewContainer')" class="mt-2 text-red-600 text-sm">
-                                <i class="fas fa-trash mr-1"></i> Eliminar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <h4 class="font-medium text-gray-700 mb-3">Información del Certificado:</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div>
-                        <label class="block text-gray-700 mb-1">Peso (quilates):</label>
-                        <input type="text" id="adminWeight" class="w-full px-3 py-1 border border-gray-300 rounded">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-1">Brillo:</label>
-                        <input type="text" id="adminShine" class="w-full px-3 py-1 border border-gray-300 rounded">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-1">Forma:</label>
-                        <input type="text" id="adminShape" class="w-full px-3 py-1 border border-gray-300 rounded">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-1">Medidas (mm):</label>
-                        <input type="text" id="adminDimensions" class="w-full px-3 py-1 border border-gray-300 rounded">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-1">Material:</label>
-                        <input type="text" id="adminMaterial" class="w-full px-3 py-1 border border-gray-300 rounded">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-1">Origen:</label>
-                        <input type="text" id="adminOrigin" class="w-full px-3 py-1 border border-gray-300 rounded">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-gray-700 mb-1">Tratamiento:</label>
-                        <input type="text" id="adminTreatment" class="w-full px-3 py-1 border border-gray-300 rounded">
-                    </div>
-                </div>
-                
-                <div class="flex justify-end">
-                    <button onclick="uploadCertificate()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
-                        <i class="fas fa-upload mr-2"></i> Subir Certificado
-                    </button>
-                </div>
-            </div>
-            
-            <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-                <h3 class="text-xl font-semibold text-emerald-700 mb-4">Certificados Existentes</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
-                        <thead>
-                            <tr class="bg-gray-200">
-                                <th class="py-2 px-4 text-left">Código</th>
-                                <th class="py-2 px-4 text-left">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="certificatesList">
-                            <!-- Certificates will be listed here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Care Modal -->
-    <div id="careModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-start mb-6">
-                <h3 class="text-2xl font-bold text-emerald-800">Cuidados Especiales para Joyas con Esmeraldas</h3>
-                <button onclick="closeCareModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="space-y-6">
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
-                        <i class="fas fa-hand-sparkles mr-2"></i> Limpieza
-                    </h4>
-                    <p class="text-gray-700">
-                        Las esmeraldas requieren un cuidado especial debido a sus inclusiones naturales y posibles tratamientos:
-                    </p>
-                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
-                        <li>Limpie con un paño suave y seco para eliminar la grasa y el polvo</li>
-                        <li>Puede usar agua tibia con jabón neutro, pero evite remojar por mucho tiempo</li>
-                        <li>Nunca use limpiadores ultrasónicos o vapor, pueden dañar la piedra</li>
-                        <li>Evite productos químicos como perfumes, cloro o limpiadores domésticos</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
-                        <i class="fas fa-calendar-times mr-2"></i> Almacenamiento
-                    </h4>
-                    <p class="text-gray-700">
-                        Guarde sus joyas con esmeraldas correctamente para prevenir daños:
-                    </p>
-                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
-                        <li>Almacene por separado para evitar rayones con otras joyas</li>
-                        <li>Use una caja forrada en tela o un joyero con compartimentos individuales</li>
-                        <li>Evite cambios bruscos de temperatura y humedad</li>
-                        <li>No guarde en lugares con exposición directa a la luz solar prolongada</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
-                        <i class="fas fa-running mr-2"></i> Uso Diario
-                    </h4>
-                    <p class="text-gray-700">
-                        Precauciones al usar sus joyas con esmeraldas:
-                    </p>
-                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
-                        <li>Quítese las joyas antes de actividades físicas intensas o deportes</li>
-                        <li>Evite el contacto con superficies duras que puedan causar fracturas</li>
-                        <li>No use esmeraldas en piscinas o jacuzzis (el cloro es especialmente dañino)</li>
-                        <li>Retire las joyas antes de aplicar cosméticos o productos para el cabello</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3 flex items-center">
-                        <i class="fas fa-clipboard-check mr-2"></i> Mantenimiento Profesional
-                    </h4>
-                    <p class="text-gray-700">
-                        Recomendaciones para el cuidado a largo plazo:
-                    </p>
-                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
-                        <li>Haga revisar los engarces cada 2-3 años por un joyero profesional</li>
-                        <li>Las esmeraldas engarzadas en anillos pueden requerir más revisiones por el desgaste</li>
-                        <li>Considere un seguro especial para joyas con piedras preciosas</li>
-                        <li>Para limpiezas profundas, acuda a un especialista en gemas</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center">
-                <button onclick="closeCareModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Lab Modal -->
-    <div id="labModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-start mb-6">
-                <h3 class="text-2xl font-bold text-emerald-800">Laboratorio Gemológico Especializado en Esmeraldas Colombianas</h3>
-                <button onclick="closeLabModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Laboratorio Gemológico" class="w-full rounded-lg shadow-md">
-                </div>
-                <div>
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestra Experiencia y Credenciales</h4>
-                    <p class="text-gray-700 mb-4">
-                        Fundado en 1998, nuestro laboratorio es reconocido por la Asociación Colombiana de Gemología como el principal centro de certificación de esmeraldas del país. Contamos con acreditación ISO 17025 y somos miembros de:
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="flex items-center text-emerald-600">
-                            <i class="fas fa-certificate mr-2"></i>
-                            <span>Gemological Institute of America (GIA)</span>
-                        </div>
-                        <div class="flex items-center text-emerald-600">
-                            <i class="fas fa-globe-americas mr-2"></i>
-                            <span>International Gem Society (IGS)</span>
-                        </div>
-                        <div class="flex items-center text-emerald-600">
-                            <i class="fas fa-microscope mr-2"></i>
-                            <span>Federación Nacional de Esmeraldas</span>
-                        </div>
-                        <div class="flex items-center text-emerald-600">
-                            <i class="fas fa-gem mr-2"></i>
-                            <span>World Gemological Association</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        Nuestro laboratorio cuenta con tecnología de última generación:
-                    </p>
-                    <ul class="list-disc pl-5 space-y-1 text-gray-700 mb-4">
-                        <li>Espectroscopio Raman para identificación molecular</li>
-                        <li>Microscopio gemológico con cámara digital de alta resolución</li>
-                        <li>Refractómetro digital con precisión de ±0.001</li>
-                        <li>Espectrómetro UV-Vis-NIR para análisis de color</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="space-y-6">
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Metodología de Análisis</h4>
-                    <p class="text-gray-700 mb-3">
-                        Nuestro proceso de certificación sigue los más altos estándares internacionales:
-                    </p>
-                    <ol class="list-decimal pl-5 space-y-2 text-gray-700">
-                        <li><strong>Examen Visual:</strong> Identificación inicial de características gemológicas bajo iluminación controlada</li>
-                        <li><strong>Análisis de Inclusión:</strong> Estudio microscópico de las inclusiones naturales (jardín) para determinar origen</li>
-                        <li><strong>Pruebas Ópticas:</strong> Medición de índices de refracción y birrefringencia</li>
-                        <li><strong>Espectroscopia:</strong> Identificación de elementos cromóforos (cromo, vanadio, hierro)</li>
-                        <li><strong>Evaluación de Tratamientos:</strong> Detección de aceites, resinas u otros tratamientos de estabilización</li>
-                        <li><strong>Medición Precisas:</strong> Peso exacto en quilates y dimensiones en milímetros</li>
-                    </ol>
-                </div>
-                
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestros Servicios</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">Certificación Gemológica</h5>
-                            <p class="text-sm text-gray-600">Documento completo con todas las características de la esmeralda</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">Evaluación de Origen</h5>
-                            <p class="text-sm text-gray-600">Determinación precisa de la procedencia (Muzo, Chivor, Coscuez, etc.)</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">Detección de Tratamientos</h5>
-                            <p class="text-sm text-gray-600">Identificación y clasificación de cualquier tratamiento aplicado</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">Valuación Comercial</h5>
-                            <p class="text-sm text-gray-600">Estimación de valor basada en características gemológicas y mercado</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Nuestro Compromiso</h4>
-                    <p class="text-gray-700">
-                        En nuestro laboratorio entendemos que cada esmeralda es única. Nos comprometemos a:
-                    </p>
-                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
-                        <li>Precisión científica en todos nuestros informes</li>
-                        <li>Ética profesional y confidencialidad absoluta</li>
-                        <li>Educación continua sobre los últimos avances en gemología</li>
-                        <li>Preservación de la reputación de las esmeraldas colombianas en el mundo</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center">
-                <button onclick="closeLabModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Authenticity Modal -->
-    <div id="authenticityModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-start mb-6">
-                <h3 class="text-2xl font-bold text-emerald-800">Cómo Reconocer una Esmeralda Auténtica</h3>
-                <button onclick="closeAuthenticityModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="space-y-6">
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Características de las Esmeraldas Auténticas</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <img src="https://images.unsplash.com/photo-1600721391689-2169dd1577ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Esmeralda auténtica" class="w-full rounded-lg shadow-md mb-3">
-                            <p class="text-gray-700"><strong>Esmeralda auténtica:</strong> Notar el color verde profundo y las inclusiones naturales ("jardín") que son características de las esmeraldas colombianas genuinas.</p>
-                        </div>
-                        <div>
-                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Esmeralda sintética" class="w-full rounded-lg shadow-md mb-3">
-                            <p class="text-gray-700"><strong>Esmeralda sintética/imitativa:</strong> Color demasiado perfecto, falta de inclusiones naturales, y patrones de crecimiento anormales visibles bajo lupa.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Proceso de Análisis Gemológico Paso a Paso</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">1. Examen Visual</h5>
-                            <p class="text-sm text-gray-600">Evaluación inicial del color, claridad y características de la piedra bajo iluminación controlada.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">2. Microscopía</h5>
-                            <p class="text-sm text-gray-600">Análisis de inclusiones naturales (jardín) que sirven como "huella digital" de la esmeralda.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">3. Refractometría</h5>
-                            <p class="text-sm text-gray-600">Medición del índice de refracción para confirmar la identidad del material.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">4. Espectroscopia</h5>
-                            <p class="text-sm text-gray-600">Identificación de elementos cromóforos (cromo, vanadio) que dan el color característico.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">5. Fluorescencia UV</h5>
-                            <p class="text-sm text-gray-600">Evaluación de la reacción a luz ultravioleta para detectar tratamientos.</p>
-                        </div>
-                        <div class="border-l-4 border-emerald-500 pl-4">
-                            <h5 class="font-medium text-gray-800">6. Confirmación Final</h5>
-                            <p class="text-sm text-gray-600">Correlación de todos los datos para emitir veredicto sobre autenticidad.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-emerald-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-3">Glosario Gemológico</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <h5 class="font-medium text-gray-800">Birrefringencia</h5>
-                            <p class="text-sm text-gray-600">Doble refracción de la luz al pasar por un cristal anisotrópico como la esmeralda.</p>
-                        </div>
-                        <div>
-                            <h5 class="font-medium text-gray-800">Jardín</h5>
-                            <p class="text-sm text-gray-600">Inclusiones características en esmeraldas que ayudan a identificar su origen.</p>
-                        </div>
-                        <div>
-                            <h5 class="font-medium text-gray-800">Pleocroísmo</h5>
-                            <p class="text-sm text-gray-600">Fenómeno óptico donde el mineral muestra diferentes colores según el ángulo de observación.</p>
-                        </div>
-                        <div>
-                            <h5 class="font-medium text-gray-800">Tratamiento</h5>
-                            <p class="text-sm text-gray-600">Proceso para mejorar apariencia o durabilidad, como aceitado o resinas en esmeraldas.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center">
-                <button onclick="closeAuthenticityModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tools Modal -->
-    <div id="toolsModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl shadow-xl p-8 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-start mb-6">
-                <h3 class="text-2xl font-bold text-emerald-800">Herramientas Interactivas</h3>
-                <button onclick="closeToolsModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="space-y-8">
-                <!-- Shape Simulator -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-4">Simulador de Talla de Esmeralda</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Seleccione la forma:</label>
-                                <select id="shapeSelect" class="w-full px-4 py-2 border border-gray-300 rounded focus:border-emerald-500 focus:outline-none" onchange="updateShapePreview()">
-                                    <option value="oval">Oval</option>
-                                    <option value="round">Redonda</option>
-                                    <option value="pear">Perilla/Lágrima</option>
-                                    <option value="emerald">Esmeralda (escalonada)</option>
-                                    <option value="cushion">Cojín</option>
-                                    <option value="heart">Corazón</option>
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Tamaño (mm):</label>
-                                <input type="range" id="sizeSlider" min="5" max="15" step="0.5" value="10" class="w-full" oninput="updateShapePreview()">
-                                <div class="text-center mt-2">
-                                    <span id="sizeValue" class="font-medium">10 mm</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <div id="shapePreview" class="shape-preview" style="width: 150px; height: 150px; clip-path: ellipse(40% 50% at 50% 50%);"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Weight Calculator -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-4">Calculadora de Peso y Quilates</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Forma:</label>
-                                <select id="weightShape" class="w-full px-4 py-2 border border-gray-300 rounded focus:border-emerald-500 focus:outline-none" onchange="calculateWeight()">
-                                    <option value="round">Redonda</option>
-                                    <option value="oval">Oval</option>
-                                    <option value="pear">Perilla/Lágrima</option>
-                                    <option value="emerald">Esmeralda (rectangular)</option>
-                                    <option value="cushion">Cojín</option>
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Largo (mm):</label>
-                                <input type="number" id="lengthInput" min="1" max="20" step="0.1" value="6" class="w-full px-4 py-2 border border-gray-300 rounded" oninput="calculateWeight()">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Ancho (mm):</label>
-                                <input type="number" id="widthInput" min="1" max="20" step="0.1" value="4" class="w-full px-4 py-2 border border-gray-300 rounded" oninput="calculateWeight()">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-gray-700 mb-2">Profundidad (mm):</label>
-                                <input type="number" id="depthInput" min="1" max="10" step="0.1" value="3" class="w-full px-4 py-2 border border-gray-300 rounded" oninput="calculateWeight()">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="bg-white p-6 rounded-lg shadow-sm border border-emerald-200 h-full flex flex-col justify-center">
-                                <h5 class="font-semibold text-center text-lg mb-4">Resultados</h5>
-                                <div class="text-center mb-2">
-                                    <span class="block text-gray-600">Peso estimado:</span>
-                                    <span id="weightResult" class="text-2xl font-bold text-emerald-700">0.75 ct</span>
-                                </div>
-                                <div class="text-center">
-                                    <span class="block text-gray-600">Relación largo/ancho:</span>
-                                    <span id="ratioResult" class="text-xl font-medium">1.50</span>
-                                </div>
-                                <div class="mt-6 text-sm text-gray-500">
-                                    <p>Nota: Este cálculo es una estimación basada en fórmulas gemológicas estándar. Para medidas exactas, consulte a un gemólogo certificado.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Colombia Map -->
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-lg text-emerald-700 mb-4">Mapa de Zonas Productoras en Colombia</h4>
-                    <div class="map-container relative">
-                        <!-- Background map image -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Colombia_-_Mao_%28orthographic_projection%29.svg/1200px-Colombia_-_Mao_%28orthographic_projection%29.svg.png" alt="Mapa de Colombia" class="w-full h-full object-contain">
-                        
-                        <!-- Mining regions -->
-                        <div id="muzoRegion" class="map-region" style="width: 80px; height: 80px; left: 30%; top: 40%;" onmouseover="showTooltip(event, 'Muzo, Boyacá')" onmouseout="hideTooltip()">
-                            Muzo
-                        </div>
-                        <div id="chivorRegion" class="map-region" style="width: 70px; height: 70px; left: 50%; top: 45%;" onmouseover="showTooltip(event, 'Chivor, Boyacá')" onmouseout="hideTooltip()">
-                            Chivor
-                        </div>
-                        <div id="coscuezRegion" class="map-region" style="width: 60px; height: 60px; left: 35%; top: 45%;" onmouseover="showTooltip(event, 'Coscuez, Boyacá')" onmouseout="hideTooltip()">
-                            Coscuez
-                        </div>
-                        <div id="gachalaRegion" class="map-region" style="width: 50px; height: 50px; left: 45%; top: 50%;" onmouseover="showTooltip(event, 'Gachalá, Cundinamarca')" onmouseout="hideTooltip()">
-                            Gachalá
-                        </div>
-                        
-                        <div id="mapTooltip" class="map-tooltip"></div>
-                    </div>
-                    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></div>
-                            <span class="text-sm">Muzo: Esmeraldas más valiosas</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-600 rounded-full mr-2"></div>
-                            <span class="text-sm">Chivor: Color azulado único</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-700 rounded-full mr-2"></div>
-                            <span class="text-sm">Coscuez: Alta producción</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-4 h-4 bg-emerald-800 rounded-full mr-2"></div>
-                            <span class="text-sm">Gachalá: Calidad excepcional</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center">
-                <button onclick="closeToolsModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer with contact information -->
-    <footer class="bg-emerald-900 text-white py-12">
+    <!-- Footer -->
+    <footer class="gradient-bg py-8 text-white">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Nuestra Joyería</h3>
-                    <p class="mb-4">Especialistas en esmeraldas colombianas desde 1985</p>
-                    <p><i class="fas fa-map-marker-alt mr-2"></i> Carrera 7 # 12-45, Bogotá, Colombia</p>
-                    <p class="mt-2"><i class="fas fa-phone mr-2"></i> +57 1 123 4567</p>
-                    <p class="mt-2"><i class="fas fa-envelope mr-2"></i> info@joyeriaesmeraldas.com</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Horario de Atención</h3>
-                    <p class="mb-2">Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-                    <p>Sábados: 10:00 AM - 4:00 PM</p>
-                    <div class="mt-4">
-                        <h4 class="font-semibold mb-2">Síguenos:</h4>
-                        <div class="flex space-x-4">
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-tiktok"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-youtube"></i></a>
-                            <a href="#" class="text-2xl hover:text-emerald-300"><i class="fab fa-linkedin"></i></a>
-                        </div>
+                    <h3 class="text-xl font-bold mb-4">Joyeria de Esmeraldas</h3>
+                    <p class="mb-4">Expertos en esmeraldas colombianas de la más alta calidad con certificación gemológica.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-emerald-200 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-emerald-200 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-emerald-200 transition"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="hover:text-emerald-200 transition"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Laboratorio Gemológico</h3>
-                    <p class="mb-2">Certificaciones avaladas por la Federación Nacional de Esmeraldas</p>
-                    <p><i class="fas fa-certificate mr-2"></i> Acreditación ISO 17025</p>
-                    <p class="mt-2"><i class="fas fa-clock mr-2"></i> Horario laboratorio: L-V 8:00 AM - 5:00 PM</p>
-                    <p class="mt-2"><i class="fas fa-phone mr-2"></i> Laboratorio: +57 1 987 6543</p>
+                    <h3 class="text-xl font-bold mb-4">Contacto</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Carrera 7 # 12-45, Bogotá, Colombia</li>
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i> +57 300 123 4567</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> info@joyeriaesmeraldas.com</li>
+                        <li class="flex items-center"><i class="fas fa-clock mr-2"></i> Lunes a Viernes: 9am - 6pm</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Enlaces rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-emerald-200 transition">Inicio</a></li>
+                        <li><a href="#" class="hover:text-emerald-200 transition">Certificación</a></li>
+                        <li><a href="#" class="hover:text-emerald-200 transition">Cuidados</a></li>
+                        <li><a href="#" class="hover:text-emerald-200 transition">Gemología</a></li>
+                        <li><a href="#" class="hover:text-emerald-200 transition">Herramientas</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Boletín informativo</h3>
+                    <p class="mb-4">Suscríbete para recibir noticias y promociones especiales.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Tu correo electrónico" class="px-3 py-2 text-gray-800 rounded-l w-full">
+                        <button class="bg-emerald-800 hover:bg-emerald-900 px-4 py-2 rounded-r">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="border-t border-emerald-700 mt-8 pt-8 text-center">
-                <p>&copy; 2023 Joyería Esmeraldas Colombianas. Todos los derechos reservados.</p>
+            <div class="border-t border-emerald-800 mt-8 pt-6 text-center">
+                <p>&copy; 2023 Joyeria de Esmeraldas. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Admin Access Button -->
-    <div class="fixed bottom-4 left-4">
-        <button onclick="openAdminModal()" class="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-full shadow-lg">
-            <i class="fas fa-lock"></i>
-        </button>
+    <!-- Certificate Modal (Hidden by default) -->
+    <div id="certificateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-emerald-800">Certificado de Autenticidad</h2>
+                    <button onclick="closeCertificateModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="certificate-container grid md:grid-cols-2 gap-6 mb-6">
+                    <!-- Replace these with your actual certificate images -->
+                    <div class="certificate-image">
+                        <img src="https://via.placeholder.com/600x800?text=Frente+Certificado" alt="Frente del Certificado" class="w-full rounded-lg shadow">
+                    </div>
+                    <div class="certificate-image">
+                        <img src="https://via.placeholder.com/600x800?text=Reverso+Certificado" alt="Reverso del Certificado" class="w-full rounded-lg shadow">
+                    </div>
+                </div>
+                
+                <div class="bg-emerald-50 p-4 rounded-lg mb-6">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-emerald-600 text-white rounded-full p-2 mr-3">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-emerald-800">Indicador de Autenticidad</h3>
+                    </div>
+                    <p class="text-gray-700">Este certificado ha sido verificado como auténtico y corresponde a una esmeralda natural colombiana certificada por nuestro laboratorio gemológico.</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3">Análisis Gemológico</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <h4 class="font-medium text-emerald-600 mb-1">Identificación</h4>
+                            <p class="text-sm text-gray-700">Esmeralda natural (Berilo verde)</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <h4 class="font-medium text-emerald-600 mb-1">Peso</h4>
+                            <p class="text-sm text-gray-700">1.25 quilates</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <h4 class="font-medium text-emerald-600 mb-1">Dimensiones</h4>
+                            <p class="text-sm text-gray-700">6.5 × 5 × 3.5 mm</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <h4 class="font-medium text-emerald-600 mb-1">Color</h4>
+                            <p class="text-sm text-gray-700">Verde intenso (Vivid Green)</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <h4 class="font-medium text-emerald-600 mb-1">Claridad</h4>
+                            <p class="text-sm text-gray-700">Ligeramente incluida (SI1)</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-gray-200">
+                            <h4 class="font-medium text-emerald-600 mb-1">Origen</h4>
+                            <p class="text-sm text-gray-700">Muzo, Colombia</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-emerald-700 mb-2">Proceso de certificación</h4>
+                    <p class="text-gray-700 text-sm mb-3">Cada esmeralda es analizada por nuestro equipo de gemólogos certificados utilizando tecnología de punta para garantizar su autenticidad y calidad. El proceso incluye:</p>
+                    <ul class="list-disc pl-5 text-gray-700 text-sm space-y-1">
+                        <li>Examen microscópico para identificar inclusiones naturales</li>
+                        <li>Espectroscopía para determinar elementos cromóforos</li>
+                        <li>Pruebas de refracción y densidad</li>
+                        <li>Análisis de fluorescencia bajo luz UV</li>
+                        <li>Evaluación de posibles tratamientos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        const { jsPDF } = window.jspdf;
-        // Load certificates from localStorage or use default sample
-        // Inicializar base de datos con el certificado 2788
-        let certificatesDB = JSON.parse(localStorage.getItem('certificatesDB')) || {};
-                
-        // Asegurarse que el certificado 2788 siempre existe con los datos correctos
-        if (!certificatesDB["2788"]) {
-            certificatesDB["2788"] = {
-                frontImage: "https://i.imgur.com/XxtpbE5.png",
-                backImage: "https://i.imgur.com/BATKv5X.png",
-                info: {
-                    code: "2788",
-                    weight: "0.10",
-                    shine: "Claro",
-                    shape: "Lágrima",
-                    dimensions: "10mm",
-                    material: "Esmeralda Colombiana",
-                    origin: "Colombia",
-                    treatment: "Natural"
-                }
-            };
-            saveCertificates(); // Guardar inmediatamente
-        }
-                
-        // También inicializar el certificado de ejemplo si no existe
-        if (!certificatesDB["123456"]) {
-            certificatesDB["123456"] = {
-                frontImage: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                backImage: "https://images.unsplash.com/photo-1589149098285-aec28f6e6476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                info: {
-                    code: "123456",
-                    weight: "2.45",
-                    shine: "Excelente",
-                    shape: "Oval",
-                    dimensions: "8.5 x 6.2 x 4.3",
-                    material: "Esmeralda Colombiana",
-                    origin: "Muzo, Boyacá",
-                    treatment: "Sin tratamiento"
-                }
-            };
-            saveCertificates(); // Guardar inmediatamente
-        }
-
-        // Save certificates to localStorage
-        function saveCertificates() {
-            try {
-                localStorage.setItem('certificatesDB', JSON.stringify(certificatesDB));
-                console.log('Certificados guardados:', certificatesDB);
-            } catch (e) {
-                console.error('Error al guardar certificados:', e);
-                alert('Error al guardar los certificados. Intente nuevamente.');
-            }
-        }
-
-        // Search function
+        // Certificate Search Function
         function searchCertificate() {
-            const searchInput = document.getElementById('certificateSearch');
-            const code = searchInput.value.trim();
-            
-            if (!code) {
-                alert("Por favor ingrese un código de certificado");
-                return;
-            }
-
-            try {
-                const storedData = localStorage.getItem('certificatesDB');
-                if (storedData) {
-                    certificatesDB = JSON.parse(storedData);
-                }
-                
-                const cert = certificatesDB[code];
-                if (cert) {
-                    displayCertificate(code);
-                } else {
-                    alert("Certificado no encontrado. Por favor verifique el código.");
-                }
-            } catch (e) {
-                console.error('Error:', e);
-                alert("Ocurrió un error al buscar el certificado");
-            }
-        }
-
-        // PDF Download function
-        function downloadPDF() {
-            const code = document.getElementById('certCode').textContent;
-            const cert = certificatesDB[code];
-            
-            if (!cert) {
-                alert("No se puede generar PDF: certificado no encontrado");
-                return;
-            }
-
-            try {
-                const doc = new jsPDF();
-                doc.text(`Certificado Gemológico - Código: ${code}`, 10, 10);
-                doc.text(`Peso: ${cert.info.weight} quilates`, 10, 20);
-                doc.text(`Forma: ${cert.info.shape}`, 10, 30);
-                doc.text(`Origen: ${cert.info.origin}`, 10, 40);
-                doc.save(`certificado_${code}.pdf`);
-            } catch (e) {
-                console.error('Error al generar PDF:', e);
-                alert("Error al generar el PDF");
-            }
-        }
-
-        // Modal functions
-        function openCareModal() {
-            document.getElementById('careModal').classList.remove('hidden');
-        }
-
-        function closeCareModal() {
-            document.getElementById('careModal').classList.add('hidden');
-        }
-
-        function openLabModal() {
-            document.getElementById('labModal').classList.remove('hidden');
-        }
-
-        function closeLabModal() {
-            document.getElementById('labModal').classList.add('hidden');
-        }
-
-        function openAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.remove('hidden');
-        }
-
-        function closeAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.add('hidden');
-        }
-
-        function openToolsModal() {
-            document.getElementById('toolsModal').classList.remove('hidden');
-        }
-
-        function closeToolsModal() {
-            document.getElementById('toolsModal').classList.add('hidden');
-        }
-
-        // Admin functions
-        function openAdminModal() {
-            document.getElementById('adminLoginModal').classList.remove('hidden');
-        }
-
-        function closeAdminModal() {
-            document.getElementById('adminLoginModal').classList.add('hidden');
-        }
-
-        function checkAdminPassword() {
-            const password = document.getElementById('adminPassword').value;
-            if (password === "admin123") { // Cambia esto por una contraseña segura
-                closeAdminModal();
-                document.getElementById('adminPanel').style.display = 'block';
+            const code = document.getElementById('certificateSearch').value.trim();
+            if (code) {
+                // In a real implementation, this would check against a database
+                // For demo purposes, we'll just show the modal for any non-empty code
+                document.getElementById('certificateModal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
             } else {
-                alert("Contraseña incorrecta");
+                alert('Por favor ingrese un código de certificado válido');
             }
         }
 
-        function closeAdminPanel() {
-            document.getElementById('adminPanel').style.display = 'none';
+        function closeCertificateModal() {
+            document.getElementById('certificateModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
-        // Display certificate
-        function displayCertificate(code) {
-            const cert = certificatesDB[code];
-            document.getElementById('frontImage').src = cert.frontImage;
-            document.getElementById('backImage').src = cert.backImage || cert.frontImage;
-            
-            // Fill in the information
-            document.getElementById('certCode').textContent = cert.info.code;
-            document.getElementById('weight').textContent = cert.info.weight;
-            document.getElementById('shine').textContent = cert.info.shine;
-            document.getElementById('shape').textContent = cert.info.shape;
-            document.getElementById('dimensions').textContent = cert.info.dimensions;
-            document.getElementById('material').textContent = cert.info.material;
-            document.getElementById('origin').textContent = cert.info.origin;
-            document.getElementById('treatment').textContent = cert.info.treatment;
-            
-            // Show the certificate display
-            document.getElementById('certificateDisplay').classList.remove('hidden');
-            
-            // Scroll to the certificate
-            document.getElementById('certificateDisplay').scrollIntoView({ behavior: 'smooth' });
+        // Toggle Sections
+        function toggleCareGuide() {
+            document.getElementById('careGuide').classList.toggle('hidden');
+            document.getElementById('gemLab').classList.add('hidden');
+            document.getElementById('interactiveTools').classList.add('hidden');
         }
 
-        // Modal functions for new modals
-        function openAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.remove('hidden');
+        function toggleGemLab() {
+            document.getElementById('gemLab').classList.toggle('hidden');
+            document.getElementById('careGuide').classList.add('hidden');
+            document.getElementById('interactiveTools').classList.add('hidden');
         }
 
-        function closeAuthenticityModal() {
-            document.getElementById('authenticityModal').classList.add('hidden');
+        function toggleInteractiveTools() {
+            document.getElementById('interactiveTools').classList.toggle('hidden');
+            document.getElementById('careGuide').classList.add('hidden');
+            document.getElementById('gemLab').classList.add('hidden');
         }
 
-        function openToolsModal() {
-            document.getElementById('toolsModal').classList.remove('hidden');
-        }
-
-        function closeToolsModal() {
-            document.getElementById('toolsModal').classList.add('hidden');
-        }
-
-        // Shape preview functions
-        function updateShapePreview() {
-            const shapeSelect = document.getElementById('shapeSelect');
-            const sizeSlider = document.getElementById('sizeSlider');
-            const shapePreview = document.getElementById('shapePreview');
-            const sizeValue = document.getElementById('sizeValue');
-            
-            sizeValue.textContent = `${sizeSlider.value} mm`;
-            
-            switch(shapeSelect.value) {
-                case 'oval':
-                    shapePreview.style.clipPath = 'ellipse(40% 50% at 50% 50%)';
-                    break;
-                case 'round':
-                    shapePreview.style.clipPath = 'circle(50% at 50% 50%)';
-                    break;
-                case 'pear':
-                    shapePreview.style.clipPath = 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)';
-                    break;
-                case 'emerald':
-                    shapePreview.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)';
-                    break;
-                case 'cushion':
-                    shapePreview.style.clipPath = 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)';
-                    break;
-                case 'heart':
-                    shapePreview.style.clipPath = 'path("M10 6 Q15 -10 25 6 T40 6 Q50 -10 60 6 T80 6 Q100 30 50 80 Q0 30 20 6 Q25 -10 30 6 T40 6")';
-                    break;
-            }
-        }
-
-        // Weight calculator function
-        function calculateWeight() {
-            const shape = document.getElementById('weightShape').value;
-            const length = parseFloat(document.getElementById('lengthInput').value);
-            const width = parseFloat(document.getElementById('widthInput').value);
-            const depth = parseFloat(document.getElementById('depthInput').value);
-            
-            let weight = 0;
-            const ratio = (length / width).toFixed(2);
-            
-            // Simplified calculation based on shape
-            switch(shape) {
-                case 'round':
-                    weight = (Math.pow((length/2), 2) * depth * 0.0061).toFixed(2);
-                    break;
-                case 'oval':
-                    weight = (length * width * depth * 0.0062).toFixed(2);
-                    break;
-                case 'pear':
-                    weight = (length * width * depth * 0.00615).toFixed(2);
-                    break;
-                case 'emerald':
-                    weight = (length * width * depth * 0.0080).toFixed(2);
-                    break;
-                case 'cushion':
-                    weight = (length * width * depth * 0.0091).toFixed(2);
-                    break;
-            }
-            
-            document.getElementById('weightResult').textContent = `${weight} ct`;
-            document.getElementById('ratioResult').textContent = ratio;
-        }
-
-        // Map tooltip functions
-        function showTooltip(event, text) {
-            const tooltip = document.getElementById('mapTooltip');
-            tooltip.textContent = text;
-            tooltip.style.display = 'block';
-            tooltip.style.left = `${event.clientX + 10}px`;
-            tooltip.style.top = `${event.clientY + 10}px`;
-        }
-
-        function hideTooltip() {
-            document.getElementById('mapTooltip').style.display = 'none';
-        }
-
-        // Accordion function
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            const icon = document.getElementById(`${id}Icon`);
-            
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            }
-        }
-
-        // Initialize interactive tools
+        // Shape Selector for Interactive Tools
         document.addEventListener('DOMContentLoaded', function() {
-            updateShapePreview();
-            calculateWeight();
+            const shapeSelectors = document.querySelectorAll('.shape-selector');
             
-            // Allow search on Enter key
-            document.getElementById('certificateSearch').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    searchCertificate();
-                }
+            shapeSelectors.forEach(selector => {
+                selector.addEventListener('click', function() {
+                    // Remove active class from all
+                    shapeSelectors.forEach(s => s.classList.remove('active'));
+                    // Add to clicked one
+                    this.classList.add('active');
+                    
+                    // Update shape display
+                    const shape = this.getAttribute('data-shape');
+                    const shapeDisplay = document.getElementById('shapeDisplay');
+                    shapeDisplay.querySelector('img').src = `https://via.placeholder.com/300x300?text=${shape.charAt(0).toUpperCase() + shape.slice(1)}+Cut`;
+                    
+                    // Update default dimensions based on shape
+                    const lengthInput = document.getElementById('length');
+                    const widthInput = document.getElementById('width');
+                    const depthInput = document.getElementById('depth');
+                    const weightInput = document.getElementById('weight');
+                    
+                    // These are example values - in a real app you'd have more precise calculations
+                    if (shape === 'emerald') {
+                        lengthInput.value = '6.5';
+                        widthInput.value = '5';
+                        depthInput.value = '3.5';
+                        weightInput.value = '1.0';
+                    } else if (shape === 'oval') {
+                        lengthInput.value = '7.0';
+                        widthInput.value = '5.0';
+                        depthInput.value = '3.0';
+                        weightInput.value = '1.0';
+                    } else if (shape === 'round') {
+                        lengthInput.value = '6.0';
+                        widthInput.value = '6.0';
+                        depthInput.value = '3.7';
+                        weightInput.value = '1.0';
+                    } else if (shape === 'pear') {
+                        lengthInput.value = '8.0';
+                        widthInput.value = '5.0';
+                        depthInput.value = '3.0';
+                        weightInput.value = '1.0';
+                    } else if (shape === 'cushion') {
+                        lengthInput.value = '5.5';
+                        widthInput.value = '5.5';
+                        depthInput.value = '4.0';
+                        weightInput.value = '1.0';
+                    } else if (shape === 'heart') {
+                        lengthInput.value = '6.5';
+                        widthInput.value = '6.5';
+                        depthInput.value = '3.5';
+                        weightInput.value = '1.0';
+                    }
+                    
+                    // Update display
+                    updateDimensionDisplay();
+                });
+            });
+            
+            // Set first shape as active by default
+            if (shapeSelectors.length > 0) {
+                shapeSelectors[0].classList.add('active');
+            }
+            
+            // Add event listeners to dimension inputs
+            const dimensionInputs = document.querySelectorAll('#length, #width, #depth, #weight');
+            dimensionInputs.forEach(input => {
+                input.addEventListener('input', updateDimensionDisplay);
             });
         });
+
+        // Calculate dimensions and weight
+        function calculateDimensions() {
+            // In a real app, this would do precise calculations based on shape and dimensions
+            // For demo, we'll just update the display with the entered values
+            updateDimensionDisplay();
+        }
+
+        function updateDimensionDisplay() {
+            const length = document.getElementById('length').value;
+            const width = document.getElementById('width').value;
+            const depth = document.getElementById('depth').value;
+            const weight = document.getElementById('weight').value;
+            
+            const display = document.getElementById('dimensionDisplay');
+            display.innerHTML = `<p class="text-center">${length}mm × ${width}mm × ${depth}mm ≈ ${weight} ct</p>`;
+        }
+    </script>
 </body>
 </html>
