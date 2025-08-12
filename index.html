@@ -362,15 +362,14 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Forma</label>
-                                   <select id="shape" class="w-full px-3 py-2 border border-gray-300 rounded">
-                                       <option value="rectangular">Rectangular</option>
-                                       <option value="ovalada">Ovalada</option>
-                                       <option value="redonda">Redonda</option>
-                                       <option value="lágrima">Lágrima</option>
-                                       <option value="cuadrada">Cuadrada</option>
-                                       <option value="corazón">Corazón</option
+                                    <select id="shape" class="w-full px-3 py-2 border border-gray-300 rounded">
+                                        <option value="rectangular">Rectangular</option>
+                                        <option value="ovalada">Ovalada</option>
+                                        <option value="redonda">Redonda</option>
+                                        <option value="lágrima">Lágrima</option>
+                                        <option value="cuadrada">Cuadrada</option>
+                                        <option value="corazón">Corazón</option>
                                     </select>
-
                                 </div>
                             </div>
                             <button onclick="calculateCarats()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
@@ -385,9 +384,9 @@
                     </div>
                     <div class="flex items-center justify-center">
                         <div id="shapeDisplay" class="relative">
-                            <img src="https://i.imgur.com/qeleK4t.png/300x300?text=Emerald+Cut" alt="Selected Shape" class="rounded-lg shadow-lg">
+                            <img src="https://i.imgur.com/Tx2hNlu.png/300x300?text=Emerald+Cut" alt="Selected Shape" class="rounded-lg shadow-lg">
                             <div id="dimensionDisplay" class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 rounded-b-lg">
-                                <p class="text-center">.</p>
+                                <p class="text-center">6.5mm × 5mm × 3.5mm ≈ 1.0 ct</p>
                             </div>
                         </div>
                     </div>
@@ -793,55 +792,47 @@
             }
         });
 
+        // Calculate carats based on dimensions and shape
         function calculateCarats() {
-    const length = parseFloat(document.getElementById('length').value);
-    const width = parseFloat(document.getElementById('width').value);
-    const depth = parseFloat(document.getElementById('depth').value);
-    const shape = document.getElementById('shape').value;
-
-    if (isNaN(length) || length <= 0 || isNaN(width) || width <= 0 || isNaN(depth) || depth <= 0) {
-        alert('Por favor ingresa valores válidos y mayores que cero para todas las dimensiones.');
-        return;
-    }
-
-    let carats = 0;
-
-    switch (shape) {
-        case 'rectangular':
-            carats = length * width * depth * 0.0027 * 1.7;
-            break;
-        case 'ovalada':
-            carats = length * width * depth * 0.0027;
-            break;
-        case 'redonda':
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const depth = parseFloat(document.getElementById('depth').value) || 0;
+            const shape = document.getElementById('shape').value;
+            
+            // Calculate average diameter for round shapes
             const avgDiameter = (length + width) / 2;
-            carats = avgDiameter * avgDiameter * depth * 0.002;
-            break;
-        case 'lágrima':
-            carats = length * width * depth * 0.0026;
-            break;
-        case 'cuadrada':
-            carats = length * width * depth * 0.0027 * 1.6;
-            break;
-        case 'corazón':
-            carats = length * width * depth * 0.0027;
-            break;
-        default:
-            alert('Por favor selecciona una forma válida.');
-            return;
-    }
-
-    carats = Math.round(carats * 100) / 100;
-
-    document.getElementById('caratValue').textContent = `${carats} ct`;
-    document.getElementById('dimensionText').textContent = `Dimensiones: ${length}mm × ${width}mm × ${depth}mm`;
-    document.getElementById('caratResult').classList.remove('hidden');
-}
-
-
-    updateDimensionDisplay(length, width, depth, carats);
-}
-     
+            
+            // Shape factors (approximate conversion factors for different shapes)
+            const shapeFactors = {
+                'emerald': 0.0027 * 1.7,  // ≈ 0.00459, incluye factor de forma rectangular
+                'oval': 0.0027,
+                'round': 0.002,            // para diámetro en mm
+                'pear': 0.0026,
+                'cushion': 0.0027 * 1.6,   // ≈ 0.00432
+                'heart': 0.0027
+            };
+        
+            // Basic carat calculation formula (simplified)
+            let carats;
+            if (shape === 'round') {
+                carats = avgDiameter * avgDiameter * depth * shapeFactors[shape];
+            } else {
+                carats = length * width * depth * shapeFactors[shape];
+            }
+            
+            // Round to 2 decimal places
+            carats = Math.round(carats * 100) / 100;
+            
+            // Display the result
+            const resultElement = document.getElementById('caratResult');
+            document.getElementById('caratValue').textContent = `${carats} ct`;
+            document.getElementById('dimensionText').textContent = `Dimensiones: ${length}mm × ${width}mm × ${depth}mm`;
+            resultElement.classList.remove('hidden');
+            
+            // Also update the shape display dimensions
+            updateDimensionDisplay(length, width, depth, carats);
+        }
+        
         function updateDimensionDisplay(length, width, depth, carats) {
             const display = document.getElementById('dimensionDisplay');
             if (length && width && depth && carats) {
