@@ -99,18 +99,16 @@
     </a>
 
     <!-- Header with Logo and Search -->
-   <!-- Header con logo ajustado -->
 <header class="gradient-bg shadow-md py-0">
   <div class="container mx-auto px-4">
-    <div class="flex flex-col items-center">
-
+    <div class="flex flex-col items-center -mt-6 -mb-6"> <!-- márgenes negativos -->
       <!-- Logo grande -->
       <img src="https://i.imgur.com/d65hZqr.png"
            alt="Joyeria de Esmeraldas"
-           class="h-80 my-0">
+           class="h-72 my-0"> <!-- ligeramente más pequeño que h-80 -->
 
-      <!-- Search by Certificate Code (único, centrado debajo del logo) -->
-      <div class="w-full max-w-md mt-4">
+      <!-- Search by Certificate Code -->
+      <div class="w-full max-w-md mt-2"> <!-- menos separación del buscador -->
         <div class="relative">
           <input type="text" id="certificateSearch" placeholder="Buscar certificado por código"
                  class="w-full px-4 py-3 rounded-full border-2 border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
@@ -126,7 +124,6 @@
     </div>
   </div>
 </header>
-
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
