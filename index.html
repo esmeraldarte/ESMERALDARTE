@@ -792,46 +792,52 @@
             }
         });
 
-        // Calculate carats based on dimensions and shape
         function calculateCarats() {
-            const length = parseFloat(document.getElementById('length').value) || 0;
-            const width = parseFloat(document.getElementById('width').value) || 0;
-            const depth = parseFloat(document.getElementById('depth').value) || 0;
-            const shape = document.getElementById('shape').value;
-            
-            // Calculate average diameter for round shapes
-            const avgDiameter = (length + width) / 2;
-            
-            // Shape factors (approximate conversion factors for different shapes)
-            const shapeFactors = {
-                'emerald': 0.0027 * 1.7,  // ≈ 0.00459, incluye factor de forma rectangular
-                'oval': 0.0027,
-                'round': 0.002,            // para diámetro en mm
-                'pear': 0.0026,
-                'cushion': 0.0027 * 1.6,   // ≈ 0.00432
-                'heart': 0.0027
-            };
-        
-            // Basic carat calculation formula (simplified)
-            let carats;
-            if (shape === 'round') {
-                carats = avgDiameter * avgDiameter * depth * shapeFactors[shape];
-            } else {
-                carats = length * width * depth * shapeFactors[shape];
-            }
-            
-            // Round to 2 decimal places
-            carats = Math.round(carats * 100) / 100;
-            
-            // Display the result
-            const resultElement = document.getElementById('caratResult');
-            document.getElementById('caratValue').textContent = `${carats} ct`;
-            document.getElementById('dimensionText').textContent = `Dimensiones: ${length}mm × ${width}mm × ${depth}mm`;
-            resultElement.classList.remove('hidden');
-            
-            // Also update the shape display dimensions
-            updateDimensionDisplay(length, width, depth, carats);
-        }
+    const length = parseFloat(document.getElementById('length').value) || 0;
+    const width = parseFloat(document.getElementById('width').value) || 0;
+    const depth = parseFloat(document.getElementById('depth').value) || 0;
+    const shape = document.getElementById('shape').value;
+
+    const shapeFactors = {
+        'emerald': 0.0027 * 1.7,  // ≈ 0.00459
+        'oval': 0.0027,
+        'round': 0.002,
+        'pear': 0.0026,
+        'cushion': 0.0027 * 1.6,  // ≈ 0.00432
+        'heart': 0.0027
+    };
+
+    const factor = shapeFactors[shape] || 0;
+    if (factor === 0) {
+        alert('Por favor selecciona una forma válida');
+        return;
+    }
+
+    if (length <= 0 || width <= 0 || depth <= 0) {
+        alert('Por favor ingresa valores positivos para las dimensiones');
+        return;
+    }
+
+    // Calcular promedio para redonda
+    const avgDiameter = (length + width) / 2;
+
+    let carats;
+    if (shape === 'round') {
+        carats = avgDiameter * avgDiameter * depth * factor;
+    } else {
+        carats = length * width * depth * factor;
+    }
+
+    carats = Math.round(carats * 100) / 100;
+
+    const resultElement = document.getElementById('caratResult');
+    document.getElementById('caratValue').textContent = `${carats} ct`;
+    document.getElementById('dimensionText').textContent = `Dimensiones: ${length}mm × ${width}mm × ${depth}mm`;
+    resultElement.classList.remove('hidden');
+
+    updateDimensionDisplay(length, width, depth, carats);
+}
+
         
         function updateDimensionDisplay(length, width, depth, carats) {
             const display = document.getElementById('dimensionDisplay');
