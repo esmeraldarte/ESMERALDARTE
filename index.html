@@ -89,6 +89,37 @@
             color: #2e7d32;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+        @media (max-width: 640px) {
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .action-buttons button {
+                width: 100%;
+                padding: 0.75rem;
+            }
+            .shape-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .tooltip {
+                right: 60px;
+                bottom: 10px;
+                font-size: 12px;
+            }
+            .logo-img {
+                height: 180px !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -97,14 +128,14 @@
         <i class="fab fa-whatsapp"></i>
         <span class="tooltip">Comunícate con nosotros</span>
     </a>
-    
-<!-- Header with Logo and Search -->
- <header class="gradient-bg py-1 shadow-md">
+
+    <!-- Header with Logo and Search -->
+    <header class="gradient-bg py-1 shadow-md">
         <div class="container mx-auto px-4">
             <div class="flex flex-col items-center">
                 <!-- Logo - Updated with your logo -->
-                <img src="https://i.imgur.com/7ySsxSp.png" alt="Joyeria de Esmeraldas" class="h-64 mb-1">
-                
+                <img src="https://i.imgur.com/7ySsxSp.png" alt="Joyeria de Esmeraldas" class="h-64 mb-1 logo-img">
+
                 <!-- Search by Certificate Code -->
                 <div class="w-full max-w-md">
                     <div class="relative">
@@ -120,23 +151,22 @@
         </div>
     </header>
 
-
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <!-- Action Buttons -->
-        <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
+        <div class="flex flex-col md:flex-row justify-center gap-6 mb-12 action-buttons">
             <!-- Special Care Button -->
             <button onclick="toggleCareGuide()"
                     class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
                 <i class="fas fa-gem"></i> Cuidados especiales para mis joyas
             </button>
-            
+
             <!-- Gemological Lab Button -->
             <button onclick="toggleGemLab()"
                     class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
                 <i class="fas fa-microscope"></i> Laboratorio Gemológico
             </button>
-            
+
             <!-- Interactive Tools Button -->
             <button onclick="toggleInteractiveTools()"
                     class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
@@ -190,7 +220,7 @@
         <!-- Gemological Lab (Hidden by default) -->
         <div id="gemLab" class="hidden bg-white p-6 rounded-lg mb-8 shadow-lg">
             <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Laboratorio Gemológico</h2>
-            
+
             <!-- How to recognize real emeralds -->
             <div class="mb-10">
                 <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Cómo reconocer una esmeralda auténtica</h3>
@@ -217,7 +247,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Step by step analysis process -->
             <div class="mb-10">
                 <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Proceso de análisis gemológico paso a paso</h3>
@@ -235,7 +265,7 @@
                                 <img src="https://via.placeholder.com/600x200?text=Inspeccion+Visual" alt="Inspección visual" class="mt-2 rounded-lg shadow w-full max-w-md">
                             </div>
                         </div>
-                                                                
+
                         <!-- Step 2 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -246,7 +276,7 @@
                                 <p class="text-gray-700">Medición del índice de refracción para confirmar identidad como esmeralda.</p>
                             </div>
                         </div>
-                                                                
+
                         <!-- Step 3 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -258,7 +288,7 @@
                                 <img src="https://via.placeholder.com/600x200?text=Espectroscopia" alt="Espectroscopía" class="mt-2 rounded-lg shadow w-full max-w-md">
                             </div>
                         </div>
-                                                                
+
                         <!-- Step 4 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -269,7 +299,7 @@
                                 <p class="text-gray-700">Evaluación de reacción bajo luz ultravioleta para detectar tratamientos.</p>
                             </div>
                         </div>
-                                                                
+
                         <!-- Step 5 -->
                         <div class="flex items-start">
                             <div class="bg-emerald-600 text-white rounded-full h-10 w-10 flex items-center justify-center flex-shrink-0 mr-4">
@@ -283,7 +313,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Gemological Glossary -->
             <div class="mb-10">
                 <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Glosario gemológico</h3>
@@ -306,73 +336,72 @@
                     </div>
                 </div>
             </div>
-            
         </div>
 
         <!-- Interactive Tools (Hidden by default) -->
         <div id="interactiveTools" class="hidden bg-white p-6 rounded-lg mb-8 shadow-lg">
             <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Herramientas Interactivas</h2>
-            
+
             <!-- Emerald Shape Simulator -->
             <div class="mb-10">
                 <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Forma de esmeralda</h3>
-                <div class="grid md:grid-cols-2 gap-8">
+                <div class="grid md:grid-cols-2 gap-8 calculator-grid">
                     <div>
-                        <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="grid grid-cols-3 gap-4 mb-6 shape-grid">
                             <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="emerald">
-                                <img src="https://i.imgur.com/nYwSbAw.png/100x100?text=Emerald" alt="Emerald Cut" class="mx-auto mb-2">
-                                <p>Rectangular-Emerald</p>
+                                <img src="https://i.imgur.com/nYwSbAw.png/100x100?text=Emerald" alt="Emerald Cut" class="mx-auto mb-2 w-16 h-16 object-contain">
+                                <p class="text-sm">Rectangular-Emerald</p>
                             </div>
                             <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="oval">
-                                <img src="https://i.imgur.com/ltuO7pR.png/100x100?text=Oval" alt="Oval Cut" class="mx-auto mb-2">
-                                <p>Ovalada-Oval</p>
+                                <img src="https://i.imgur.com/ltuO7pR.png/100x100?text=Oval" alt="Oval Cut" class="mx-auto mb-2 w-16 h-16 object-contain">
+                                <p class="text-sm">Ovalada-Oval</p>
                             </div>
                             <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="round">
-                                <img src="https://i.imgur.com/PSAR2Ct.png/100x100?text=Round" alt="Round Cut" class="mx-auto mb-2">
-                                <p>Redonda-Round</p>
+                                <img src="https://i.imgur.com/PSAR2Ct.png/100x100?text=Round" alt="Round Cut" class="mx-auto mb-2 w-16 h-16 object-contain">
+                                <p class="text-sm">Redonda-Round</p>
                             </div>
                             <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="pear">
-                                <img src="https://i.imgur.com/OFlsNHU.png/100x100?text=Pear" alt="Pear Cut" class="mx-auto mb-2">
-                                <p>Pera-Pear</p>
+                                <img src="https://i.imgur.com/OFlsNHU.png/100x100?text=Pear" alt="Pear Cut" class="mx-auto mb-2 w-16 h-16 object-contain">
+                                <p class="text-sm">Pera-Pear</p>
                             </div>
                             <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="cushion">
-                                <img src="https://i.imgur.com/mpoogcS.png/100x100?text=Cushion" alt="Cushion Cut" class="mx-auto mb-2">
-                                <p>Cojin-Cushion</p>
+                                <img src="https://i.imgur.com/mpoogcS.png/100x100?text=Cushion" alt="Cushion Cut" class="mx-auto mb-2 w-16 h-16 object-contain">
+                                <p class="text-sm">Cojin-Cushion</p>
                             </div>
                             <div class="shape-selector cursor-pointer p-3 rounded-lg border border-gray-200 text-center" data-shape="heart">
-                                <img src="https://i.imgur.com/M0AXJ0Z.png/100x100?text=Heart" alt="Heart Cut" class="mx-auto mb-2">
-                                <p>Corazón-Heart</p>
+                                <img src="https://i.imgur.com/M0AXJ0Z.png/100x100?text=Heart" alt="Heart Cut" class="mx-auto mb-2 w-16 h-16 object-contain">
+                                <p class="text-sm">Corazón-Heart</p>
                             </div>
                         </div>
-                                                                
+
                         <div class="bg-gray-50 p-4 rounded-lg mb-4">
                             <h4 class="text-lg font-medium text-emerald-600 mb-2">Calculadora de quilates</h4>
                             <div class="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label class="block text-gray-700 mb-1">Largo (mm)</label>
-                                    <input type="number" id="length" class="w-full px-3 py-2 border border-gray-300 rounded" value="6.5" step="0.1">
+                                    <input type="number" id="length" class="w-full px-3 py-2 border border-gray-300 rounded" value="6.5" step="0.1" min="0.1">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Ancho (mm)</label>
-                                    <input type="number" id="width" class="w-full px-3 py-2 border border-gray-300 rounded" value="5" step="0.1">
+                                    <input type="number" id="width" class="w-full px-3 py-2 border border-gray-300 rounded" value="5" step="0.1" min="0.1">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Profundidad (mm)</label>
-                                    <input type="number" id="depth" class="w-full px-3 py-2 border border-gray-300 rounded" value="3.5" step="0.1">
+                                    <input type="number" id="depth" class="w-full px-3 py-2 border border-gray-300 rounded" value="3.5" step="0.1" min="0.1">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Forma</label>
                                     <select id="shape" class="w-full px-3 py-2 border border-gray-300 rounded">
-                                        <option value="rectangular">Rectangular</option>
-                                        <option value="ovalada">Ovalada</option>
-                                        <option value="redonda">Redonda</option>
-                                        <option value="lágrima">Lágrima</option>
-                                        <option value="cuadrada">Cuadrada</option>
-                                        <option value="corazón">Corazón</option>
+                                        <option value="emerald">Rectangular-Emerald</option>
+                                        <option value="oval">Ovalada-Oval</option>
+                                        <option value="round">Redonda-Round</option>
+                                        <option value="pear">Pera-Pear</option>
+                                        <option value="cushion">Cojin-Cushion</option>
+                                        <option value="heart">Corazón-Heart</option>
                                     </select>
                                 </div>
                             </div>
-                            <button onclick="calculateCarats()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
+                            <button onclick="calculateCarats()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded w-full md:w-auto">
                                 Calcular Quilates
                             </button>
                             <div id="caratResult" class="mt-4 p-3 bg-emerald-100 rounded-lg hidden">
@@ -384,15 +413,15 @@
                     </div>
                     <div class="flex items-center justify-center">
                         <div id="shapeDisplay" class="relative">
-                            <img src="https://i.imgur.com/Tx2hNlu.png/300x300?text=Emerald+Cut" alt="Selected Shape" class="rounded-lg shadow-lg">
+                            <img src="https://i.imgur.com/Tx2hNlu.png/300x300?text=Emerald+Cut" alt="Selected Shape" class="rounded-lg shadow-lg w-full max-w-xs">
                             <div id="dimensionDisplay" class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2 rounded-b-lg">
-                                <p class="text-center">6.5mm × 5mm × 3.5mm ≈ 1.0 ct</p>
+                                <p class="text-center text-sm md:text-base">6.5mm × 5mm × 3.5mm ≈ 1.0 ct</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Emerald Production Map -->
             <div>
                 <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Mapa de zonas productoras de esmeraldas en Colombia</h3>
@@ -433,7 +462,7 @@
         <!-- Interesting Facts Section -->
         <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
             <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Datos interesantes sobre las esmeraldas</h2>
-            
+
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- History -->
                 <div>
@@ -445,7 +474,7 @@
                         <img src="https://via.placeholder.com/500x300?text=Historia+de+las+Esmeraldas" alt="Historia de las esmeraldas" class="rounded-lg shadow mt-4">
                     </div>
                 </div>
-                                                
+
                 <!-- Cutting Styles -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Estilos de tallado</h3>
@@ -489,7 +518,7 @@
                     </div>
                     <img src="https://via.placeholder.com/500x200?text=Tipos+de+Tallado" alt="Tipos de tallado" class="rounded-lg shadow mt-4">
                 </div>
-                                                
+
                 <!-- Colombian vs Other Emeralds -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Esmeraldas colombianas vs. otras</h3>
@@ -532,7 +561,7 @@
                         </table>
                     </div>
                 </div>
-                                                
+
                 <!-- Chemical Composition -->
                 <div>
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Composición química y propiedades</h3>
@@ -557,14 +586,14 @@
         <!-- Privacy Policy -->
         <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
             <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Políticas de Privacidad</h2>
-            
+
             <div class="prose max-w-none text-gray-700">
                 <p>Respetamos su privacidad y protegemos sus datos personales. Solo recopilamos información necesaria para brindar nuestros servicios y mejorar su experiencia.</p>
-                
+
                 <p class="mt-4">Utilizamos medidas de seguridad para proteger sus datos y nunca compartiremos su información con terceros sin su consentimiento.</p>
-                
+
                 <p class="mt-4">Puede contactarnos en cualquier momento para ejercer sus derechos sobre sus datos personales.</p>
-                
+
                 <p class="mt-6">Última actualización: 15 de junio, 2023</p>
             </div>
         </div>
@@ -630,7 +659,7 @@
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                
+
                 <div class="certificate-container grid md:grid-cols-2 gap-6 mb-6">
                     <!-- Certificate Front -->
                     <div class="certificate-image relative">
@@ -643,7 +672,7 @@
                         <img id="certificateBack" src="https://via.placeholder.com/600x800/ffffff/2e7d32?text=Reverso+Certificado+7788" alt="Reverso del Certificado" class="w-full rounded-lg shadow">
                     </div>
                 </div>
-                
+
                 <div class="bg-emerald-50 p-4 rounded-lg mb-6">
                     <div class="flex items-center mb-3">
                         <div class="bg-emerald-600 text-white rounded-full p-2 mr-3">
@@ -653,14 +682,14 @@
                     </div>
                     <p class="text-gray-700">Este certificado ha sido verificado como auténtico y corresponde a una esmeralda natural colombiana certificada por nuestro laboratorio gemológico.</p>
                 </div>
-                
+
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold text-emerald-700 mb-3">Análisis Gemológico</h3>
                     <div class="grid md:grid-cols-2 gap-4" id="certificateDetails">
                         <!-- Details will be populated by JavaScript -->
                     </div>
                 </div>
-                
+
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h4 class="font-semibold text-emerald-700 mb-2">Proceso de certificación</h4>
                     <p class="text-gray-700 text-sm mb-3">Cada esmeralda es analizada por nuestro equipo de gemólogos certificados utilizando tecnología de punta para garantizar su autenticidad y calidad. El proceso incluye:</p>
@@ -684,7 +713,7 @@
                 // Show the modal with appropriate certificate
                 document.getElementById('certificateModal').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
-                
+
                 // Update images and details based on specific code
                 switch(code) {
                     case '7788':
@@ -728,12 +757,12 @@
         function updateCertificateDetails(code) {
             const detailsContainer = document.getElementById('certificateDetails');
             let details = [];
-            
+
             const allDetails = [
                 { title: 'Identificación', value: 'Esmeralda natural (Berilo verde)' },
                 { title: 'Origen', value: 'Colombia' }
             ];
-            
+
             // Clear and repopulate the container
             detailsContainer.innerHTML = '';
             allDetails.forEach(detail => {
@@ -768,19 +797,19 @@
         // Shape Selector for Interactive Tools
         document.addEventListener('DOMContentLoaded', function() {
             const shapeSelectors = document.querySelectorAll('.shape-selector');
-            
+
             shapeSelectors.forEach(selector => {
                 selector.addEventListener('click', function() {
                     // Remove active class from all
                     shapeSelectors.forEach(s => s.classList.remove('active'));
                     // Add to clicked one
                     this.classList.add('active');
-                    
+
                     // Update shape display
                     const shape = this.getAttribute('data-shape');
                     const shapeDisplay = document.getElementById('shapeDisplay');
                     shapeDisplay.querySelector('img').src = `https://via.placeholder.com/300x300?text=${shape.charAt(0).toUpperCase() + shape.slice(1)}+Cut`;
-                    
+
                     // Update the select dropdown
                     document.getElementById('shape').value = shape;
                 });
@@ -798,41 +827,43 @@
             const width = parseFloat(document.getElementById('width').value) || 0;
             const depth = parseFloat(document.getElementById('depth').value) || 0;
             const shape = document.getElementById('shape').value;
-            
+
             // Calculate average diameter for round shapes
             const avgDiameter = (length + width) / 2;
-            
-            // Shape factors (approximate conversion factors for different shapes)
+
+            // Shape factors updated to match exact conversion rates
             const shapeFactors = {
-                'emerald': 0.0027 * 1.7,  // ≈ 0.00459, incluye factor de forma rectangular
-                'oval': 0.0027,
-                'round': 0.002,            // para diámetro en mm
-                'pear': 0.0026,
-                'cushion': 0.0027 * 1.6,   // ≈ 0.00432
-                'heart': 0.0027
+                'emerald': 0.0080,  // Rectangular/Emerald cut (L×W×H×0.008)
+                'oval': 0.0061,     // Oval cut (L×W×H×0.0061)
+                'round': 0.0059,    // Round cut (D×D×H×0.0059)
+                'pear': 0.0057,     // Pear shape (L×W×H×0.0057)
+                'cushion': 0.0082,  // Cushion cut (L×W×H×0.0082)
+                'heart': 0.0055     // Heart shape (L×W×H×0.0055)
             };
-        
-            // Basic carat calculation formula (simplified)
+
+            // Carat calculation formula with exact factors
             let carats;
             if (shape === 'round') {
+                // For round shapes, use average diameter squared × depth × factor
                 carats = avgDiameter * avgDiameter * depth * shapeFactors[shape];
             } else {
+                // For other shapes, use length × width × depth × factor
                 carats = length * width * depth * shapeFactors[shape];
             }
-            
+
             // Round to 2 decimal places
             carats = Math.round(carats * 100) / 100;
-            
+
             // Display the result
             const resultElement = document.getElementById('caratResult');
             document.getElementById('caratValue').textContent = `${carats} ct`;
             document.getElementById('dimensionText').textContent = `Dimensiones: ${length}mm × ${width}mm × ${depth}mm`;
             resultElement.classList.remove('hidden');
-            
+
             // Also update the shape display dimensions
             updateDimensionDisplay(length, width, depth, carats);
         }
-        
+
         function updateDimensionDisplay(length, width, depth, carats) {
             const display = document.getElementById('dimensionDisplay');
             if (length && width && depth && carats) {
