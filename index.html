@@ -195,6 +195,15 @@
                 font-size: 12px;
                 padding: 6px 8px;
             }
+            .interesting-facts-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .interesting-fact-section {
+                margin-bottom: 2rem;
+            }
+            .map-image-container {
+                height: 250px !important;
+            }
         }
     </style>
 </head>
@@ -495,7 +504,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Profundidad (mm)</label>
-                                    <input type="number" id="depth" class="w-full px-3 py-2 border border-gray-300 rounded" value="3.5" step="0.1" min="0.1">
+                                    <input type="number" id="depth" class="w-full px-3 py-2 border border-gray-300 rounded" value="3.5" step="0.1, min="0.1">
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Forma</label>
@@ -533,24 +542,9 @@
             <!-- Emerald Production Map -->
             <div>
                 <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Mapa interactivo de zonas productoras de esmeraldas en Colombia</h3>
-                <div class="map-container">
-                    <!-- Interactive map with points -->
-                    <img src="https://i.imgur.com/5v9xZQj.jpg" alt="Mapa de zonas esmeralderas de Colombia" class="w-full h-full object-cover">
-                    
-                    <!-- Map points with tooltips -->
-                    <div class="map-point" style="top: 40%; left: 35%;" data-location="Muzo" data-details="Famosas por su color verde intenso con tonos azulados, consideradas las más valiosas."></div>
-                    <div class="map-point" style="top: 45%; left: 40%;" data-location="Chivor" data-details="Esmeraldas con tonos más claros y brillantes, conocidas por su alta transparencia."></div>
-                    <div class="map-point" style="top: 42%; left: 38%;" data-location="Coscuez" data-details="Producen piedras con un verde profundo y excelente claridad, muy apreciadas."></div>
-                    <div class="map-point" style="top: 38%; left: 42%;" data-location="Gachalá" data-details="Esmeraldas de color verde intenso con inclusiones características."></div>
-                    <div class="map-point" style="top: 43%; left: 36%;" data-location="Peñas Blancas" data-details="Productor importante con esmeraldas de alta calidad y pureza."></div>
-                    <div class="map-point" style="top: 39%; left: 39%;" data-location="La Pita" data-details="Yacimiento conocido por esmeraldas de tamaño medio con buen color."></div>
-                    <div class="map-point" style="top: 41%; left: 37%;" data-location="Quipama" data-details="Zona productora con esmeraldas de tonos verde oscuro muy valoradas."></div>
-                    
-                    <div class="map-tooltip" id="mapTooltip"></div>
-                    
-                    <div class="absolute bottom-4 left-0 right-0 bg-white bg-opacity-80 p-2 text-center">
-                        <p class="text-sm text-gray-800">Las esmeraldas colombianas son reconocidas mundialmente por su incomparable color verde intenso y alta pureza.</p>
-                    </div>
+                <div class="map-image-container bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center" style="height: 400px;">
+                    <!-- Aquí puedes reemplazar con tu imagen de mapa -->
+                    <img id="mapImage" src="https://via.placeholder.com/800x500?text=Insertar+Mapa+Ilustrado" alt="Mapa de zonas esmeralderas de Colombia" class="w-full h-full object-contain">
                 </div>
                 <div class="mt-4 grid md:grid-cols-3 gap-4">
                     <div class="bg-emerald-50 p-3 rounded-lg">
@@ -573,9 +567,9 @@
         <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
             <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Datos interesantes sobre las esmeraldas</h2>
 
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-8 interesting-facts-grid">
                 <!-- History -->
-                <div>
+                <div class="interesting-fact-section">
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Historia fascinante de las esmeraldas</h3>
                     <div class="space-y-4 text-gray-700">
                         <p>Las esmeraldas han sido apreciadas desde la antigüedad, con registros de su uso que datan del 3500 a.C. en Egipto. Cleopatra era conocida por su pasión por estas gemas, y los incas las consideraban piedras sagradas.</p>
@@ -590,12 +584,12 @@
                         
                         <p>En la cultura islámica, el verde es el color sagrado del Islam, y las esmeraldas eran consideradas símbolos de poder y protección. Muchos manuscritos antiguos mencionan esmeraldas como regalos entre monarcas.</p>
                         
-                        <img src="https://via.placeholder.com/500x300?text=Historia+de+las+Esmeraldas" alt="Historia de las esmeraldas" class="rounded-lg shadow mt-4">
+                        <img src="https://via.placeholder.com/500x300?text=Historia+de+las+Esmeraldas" alt="Historia de las esmeraldas" class="rounded-lg shadow mt-4 w-full">
                     </div>
                 </div>
 
                 <!-- Cutting Styles -->
-                <div>
+                <div class="interesting-fact-section">
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Estilos de tallado</h3>
                     <div class="space-y-4">
                         <div class="flex items-start">
@@ -635,11 +629,11 @@
                             </div>
                         </div>
                     </div>
-                    <img src="https://via.placeholder.com/500x200?text=Tipos+de+Tallado" alt="Tipos de tallado" class="rounded-lg shadow mt-4">
+                    <img src="https://via.placeholder.com/500x200?text=Tipos+de+Tallado" alt="Tipos de tallado" class="rounded-lg shadow mt-4 w-full">
                 </div>
 
                 <!-- Colombian vs Other Emeralds -->
-                <div>
+                <div class="interesting-fact-section">
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Esmeraldas colombianas vs. otras</h3>
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white rounded-lg overflow-hidden">
@@ -682,7 +676,7 @@
                 </div>
 
                 <!-- Chemical Composition -->
-                <div>
+                <div class="interesting-fact-section">
                     <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Composición química y propiedades</h3>
                     <div class="space-y-4 text-gray-700">
                         <p>Las esmeraldas son una variedad del mineral berilo (Be₃Al₂Si₆O₁₈) coloreado por trazas de cromo y a veces vanadio.</p>
@@ -945,32 +939,16 @@
                 shapeSelectors[0].classList.add('active');
             }
 
-            // Interactive map functionality
-            const mapPoints = document.querySelectorAll('.map-point');
-            const mapTooltip = document.getElementById('mapTooltip');
-
-            mapPoints.forEach(point => {
-                point.addEventListener('mouseenter', function() {
-                    const location = this.getAttribute('data-location');
-                    const details = this.getAttribute('data-details');
-                    
-                    // Position tooltip near the point
-                    const rect = this.getBoundingClientRect();
-                    const mapRect = document.querySelector('.map-container').getBoundingClientRect();
-                    
-                    const top = rect.top - mapRect.top + rect.height;
-                    const left = rect.left - mapRect.left + rect.width/2;
-                    
-                    mapTooltip.style.top = `${top}px`;
-                    mapTooltip.style.left = `${left}px`;
-                    mapTooltip.innerHTML = `<strong>${location}</strong><br>${details}`;
-                    mapTooltip.style.opacity = '1';
-                });
-
-                point.addEventListener('mouseleave', function() {
-                    mapTooltip.style.opacity = '0';
-                });
-            });
+            // Function to update map image with your custom link
+            function updateMapImage(imageUrl) {
+                const mapImage = document.getElementById('mapImage');
+                if (mapImage && imageUrl) {
+                    mapImage.src = imageUrl;
+                }
+            }
+            
+            // Example of how to use it (you can call this function when you have the image URL)
+            // updateMapImage('https://example.com/your-map-image.jpg');
         });
 
         // Calculate carats based on dimensions and shape
