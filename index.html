@@ -28,6 +28,7 @@
             background-color: #e8f4e8;
             border-radius: 10px;
             overflow: hidden;
+            position: relative;
         }
         .shape-selector {
             transition: all 0.3s ease;
@@ -89,6 +90,59 @@
             color: #2e7d32;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+        .map-point {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #e53e3e;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        .map-point:hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            z-index: 20;
+        }
+        .map-point::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(229, 62, 62, 0.4);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        }
+        .map-tooltip {
+            position: absolute;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 14px;
+            z-index: 30;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
         @media (max-width: 640px) {
             .action-buttons {
                 flex-direction: column;
@@ -97,6 +151,7 @@
             .action-buttons button {
                 width: 100%;
                 padding: 0.75rem;
+                font-size: 0.9rem;
             }
             .shape-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -118,6 +173,27 @@
             }
             .logo-img {
                 height: 180px !important;
+            }
+            .certificate-container {
+                grid-template-columns: 1fr;
+            }
+            .certificate-image {
+                margin-bottom: 1rem;
+            }
+            .map-container {
+                height: 300px;
+            }
+            .map-point {
+                width: 12px;
+                height: 12px;
+            }
+            .map-point::after {
+                width: 24px;
+                height: 24px;
+            }
+            .map-tooltip {
+                font-size: 12px;
+                padding: 6px 8px;
             }
         }
     </style>
@@ -316,8 +392,8 @@
 
             <!-- Gemological Glossary -->
             <div class="mb-10">
-                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Glosario gemológico</h3>
-                <div class="grid md:grid-cols-2 gap-6">
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Glosario gemológico ampliado</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <h4 class="text-lg font-medium text-emerald-600 mb-2">Inclusiones (Jardín)</h4>
                         <p class="text-gray-700">Características internas naturales que son como la "huella digital" de una esmeralda, formadas durante su crecimiento.</p>
@@ -333,6 +409,38 @@
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <h4 class="text-lg font-medium text-emerald-600 mb-2">Dureza (Escala Mohs)</h4>
                         <p class="text-gray-700">Las esmeraldas tienen dureza 7.5-8, lo que las hace resistentes pero no indestructibles.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Birrefringencia</h4>
+                        <p class="text-gray-700">Doble refracción de la luz al pasar por el cristal, característica de las esmeraldas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Índice de refracción</h4>
+                        <p class="text-gray-700">1.577-1.583, medida de cómo la luz se desvía al pasar a través de la gema.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Gravedad específica</h4>
+                        <p class="text-gray-700">2.67-2.78, densidad relativa de la esmeralda comparada con el agua.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Cristalografía</h4>
+                        <p class="text-gray-700">Sistema hexagonal, cristales prismáticos de seis caras con terminaciones planas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Fractura concoidea</h4>
+                        <p class="text-gray-700">Las esmeraldas tienden a romperse con superficies curvas como el vidrio.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Tratamiento sin residuos</h4>
+                        <p class="text-gray-700">Método moderno que mejora la apariencia sin dejar residuos visibles.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Jardin de esmeralda</h4>
+                        <p class="text-gray-700">Término poético para describir las inclusiones características que parecen un jardín bajo aumento.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-lg font-medium text-emerald-600 mb-2">Gotas de aceite</h4>
+                        <p class="text-gray-700">Inclusiones de fluidos que contienen burbujas de gas y líquido, comunes en esmeraldas colombianas.</p>
                     </div>
                 </div>
             </div>
@@ -424,20 +532,22 @@
 
             <!-- Emerald Production Map -->
             <div>
-                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Mapa de zonas productoras de esmeraldas en Colombia</h3>
-                <div class="map-container relative">
-                    <!-- This would be replaced with an actual interactive map in a real implementation -->
-                    <img src="https://via.placeholder.com/800x400?text=Mapa+de+Zonas+Esmeralderas+Colombia" alt="Mapa de zonas esmeralderas" class="w-full h-full object-cover">
-                    <div class="absolute top-4 left-4 bg-white bg-opacity-90 p-3 rounded-lg shadow">
-                        <h4 class="font-bold text-emerald-800 mb-2">Principales zonas productoras</h4>
-                        <ul class="text-sm">
-                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-red-500 mr-2"></span> Muzo (Boyacá)</li>
-                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-blue-500 mr-2"></span> Chivor (Boyacá)</li>
-                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-green-500 mr-2"></span> Coscuez (Boyacá)</li>
-                            <li class="flex items-center mb-1"><span class="inline-block w-3 h-3 bg-yellow-500 mr-2"></span> Gachalá (Cundinamarca)</li>
-                            <li class="flex items-center"><span class="inline-block w-3 h-3 bg-purple-500 mr-2"></span> Peñas Blancas (Boyacá)</li>
-                        </ul>
-                    </div>
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Mapa interactivo de zonas productoras de esmeraldas en Colombia</h3>
+                <div class="map-container">
+                    <!-- Interactive map with points -->
+                    <img src="https://i.imgur.com/5v9xZQj.jpg" alt="Mapa de zonas esmeralderas de Colombia" class="w-full h-full object-cover">
+                    
+                    <!-- Map points with tooltips -->
+                    <div class="map-point" style="top: 40%; left: 35%;" data-location="Muzo" data-details="Famosas por su color verde intenso con tonos azulados, consideradas las más valiosas."></div>
+                    <div class="map-point" style="top: 45%; left: 40%;" data-location="Chivor" data-details="Esmeraldas con tonos más claros y brillantes, conocidas por su alta transparencia."></div>
+                    <div class="map-point" style="top: 42%; left: 38%;" data-location="Coscuez" data-details="Producen piedras con un verde profundo y excelente claridad, muy apreciadas."></div>
+                    <div class="map-point" style="top: 38%; left: 42%;" data-location="Gachalá" data-details="Esmeraldas de color verde intenso con inclusiones características."></div>
+                    <div class="map-point" style="top: 43%; left: 36%;" data-location="Peñas Blancas" data-details="Productor importante con esmeraldas de alta calidad y pureza."></div>
+                    <div class="map-point" style="top: 39%; left: 39%;" data-location="La Pita" data-details="Yacimiento conocido por esmeraldas de tamaño medio con buen color."></div>
+                    <div class="map-point" style="top: 41%; left: 37%;" data-location="Quipama" data-details="Zona productora con esmeraldas de tonos verde oscuro muy valoradas."></div>
+                    
+                    <div class="map-tooltip" id="mapTooltip"></div>
+                    
                     <div class="absolute bottom-4 left-0 right-0 bg-white bg-opacity-80 p-2 text-center">
                         <p class="text-sm text-gray-800">Las esmeraldas colombianas son reconocidas mundialmente por su incomparable color verde intenso y alta pureza.</p>
                     </div>
@@ -445,15 +555,15 @@
                 <div class="mt-4 grid md:grid-cols-3 gap-4">
                     <div class="bg-emerald-50 p-3 rounded-lg">
                         <h4 class="font-semibold text-emerald-700 mb-1">Muzo</h4>
-                        <p class="text-sm text-gray-700">Famosas por su color verde intenso con tonos azulados, consideradas las más valiosas.</p>
+                        <p class="text-sm text-gray-700">Consideradas las esmeraldas más valiosas del mundo, con un verde intenso y tonos azulados característicos.</p>
                     </div>
                     <div class="bg-emerald-50 p-3 rounded-lg">
                         <h4 class="font-semibold text-emerald-700 mb-1">Chivor</h4>
-                        <p class="text-sm text-gray-700">Esmeraldas con tonos más claros y brillantes, conocidas por su alta transparencia.</p>
+                        <p class="text-sm text-gray-700">Esmeraldas con tonos más claros y brillantes, conocidas por su alta transparencia y menor cantidad de inclusiones.</p>
                     </div>
                     <div class="bg-emerald-50 p-3 rounded-lg">
                         <h4 class="font-semibold text-emerald-700 mb-1">Coscuez</h4>
-                        <p class="text-sm text-gray-700">Producen piedras con un verde profundo y excelente claridad, muy apreciadas.</p>
+                        <p class="text-sm text-gray-700">Producen piedras con un verde profundo y excelente claridad, con inclusiones características que las hacen únicas.</p>
                     </div>
                 </div>
             </div>
@@ -466,11 +576,20 @@
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- History -->
                 <div>
-                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Historia fascinante</h3>
+                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Historia fascinante de las esmeraldas</h3>
                     <div class="space-y-4 text-gray-700">
-                        <p>Las esmeraldas han sido apreciadas desde la antigüedad. Cleopatra era conocida por su pasión por estas gemas, y los incas las consideraban piedras sagradas.</p>
-                        <p>Los conquistadores españoles encontraron esmeraldas colombianas en el siglo XVI, que rápidamente se convirtieron en las más valoradas de Europa.</p>
-                        <p>El nombre "esmeralda" proviene del griego antiguo "smaragdos", que significa "piedra verde".</p>
+                        <p>Las esmeraldas han sido apreciadas desde la antigüedad, con registros de su uso que datan del 3500 a.C. en Egipto. Cleopatra era conocida por su pasión por estas gemas, y los incas las consideraban piedras sagradas.</p>
+                        
+                        <p>En la antigua Roma, el emperador Nerón usaba un lente tallado en esmeralda para ver los combates de gladiadores, creyendo que el color verde calmaba sus ojos.</p>
+                        
+                        <p>Los conquistadores españoles encontraron esmeraldas colombianas en el siglo XVI, que rápidamente se convirtieron en las más valoradas de Europa. Muchas de las esmeraldas que adornan las joyas de la corona europea provienen de Colombia.</p>
+                        
+                        <p>El nombre "esmeralda" proviene del griego antiguo "smaragdos", que significa "piedra verde". En la Edad Media, se creía que la esmeralda podía curar enfermedades como el cólera y la malaria, y que protegía contra los hechizos.</p>
+                        
+                        <p>La esmeralda más grande del mundo, la "Esmeralda de Fura", fue encontrada en Colombia en 1999, pesando 2.2 kg (11,000 quilates). Su hermana, la "Esmeralda de Tena", pesa 2,000 quilates.</p>
+                        
+                        <p>En la cultura islámica, el verde es el color sagrado del Islam, y las esmeraldas eran consideradas símbolos de poder y protección. Muchos manuscritos antiguos mencionan esmeraldas como regalos entre monarcas.</p>
+                        
                         <img src="https://via.placeholder.com/500x300?text=Historia+de+las+Esmeraldas" alt="Historia de las esmeraldas" class="rounded-lg shadow mt-4">
                     </div>
                 </div>
@@ -760,7 +879,13 @@
 
             const allDetails = [
                 { title: 'Identificación', value: 'Esmeralda natural (Berilo verde)' },
-                { title: 'Origen', value: 'Colombia' }
+                { title: 'Origen', value: 'Colombia' },
+                { title: 'Peso', value: '1.25 quilates' },
+                { title: 'Dimensiones', value: '6.5mm × 5.0mm × 3.5mm' },
+                { title: 'Color', value: 'Verde intenso (Grado AAA)' },
+                { title: 'Claridad', value: 'Ligeramente incluida (SI1)' },
+                { title: 'Tratamiento', value: 'Aceite tradicional (Sin residuos)' },
+                { title: 'Fecha de certificación', value: '15/06/2023' }
             ];
 
             // Clear and repopulate the container
@@ -819,6 +944,33 @@
             if (shapeSelectors.length > 0) {
                 shapeSelectors[0].classList.add('active');
             }
+
+            // Interactive map functionality
+            const mapPoints = document.querySelectorAll('.map-point');
+            const mapTooltip = document.getElementById('mapTooltip');
+
+            mapPoints.forEach(point => {
+                point.addEventListener('mouseenter', function() {
+                    const location = this.getAttribute('data-location');
+                    const details = this.getAttribute('data-details');
+                    
+                    // Position tooltip near the point
+                    const rect = this.getBoundingClientRect();
+                    const mapRect = document.querySelector('.map-container').getBoundingClientRect();
+                    
+                    const top = rect.top - mapRect.top + rect.height;
+                    const left = rect.left - mapRect.left + rect.width/2;
+                    
+                    mapTooltip.style.top = `${top}px`;
+                    mapTooltip.style.left = `${left}px`;
+                    mapTooltip.innerHTML = `<strong>${location}</strong><br>${details}`;
+                    mapTooltip.style.opacity = '1';
+                });
+
+                point.addEventListener('mouseleave', function() {
+                    mapTooltip.style.opacity = '0';
+                });
+            });
         });
 
         // Calculate carats based on dimensions and shape
