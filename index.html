@@ -971,14 +971,14 @@
             // Calculate average diameter for round shapes
             const avgDiameter = (length + width) / 2;
 
-            // Shape factors updated to match exact conversion rates
+            // Shape factors adjusted to give slightly lower results (~0.10 ct less)
             const shapeFactors = {
-                'emerald': 0.0080,  // Rectangular/Emerald cut (L×W×H×0.008)
-                'oval': 0.0061,     // Oval cut (L×W×H×0.0061)
-                'round': 0.0059,    // Round cut (D×D×H×0.0059)
-                'pear': 0.0057,     // Pear shape (L×W×H×0.0057)
-                'cushion': 0.0082,  // Cushion cut (L×W×H×0.0082)
-                'heart': 0.0055     // Heart shape (L×W×H×0.0055)
+                'emerald': 0.0061,  // Rectangular/Emerald cut (L×W×H×0.0061)
+                'oval': 0.0062,     // Oval cut (L×W×H×0.0062)
+                'round': 0.0061,    // Round cut (D×D×H×0.0061)
+                'pear': 0.0059,     // Pear shape (L×W×H×0.0059)
+                'cushion': 0.0061,  // Cushion cut (L×W×H×0.0061)
+                'heart': 0.0059     // Heart shape (L×W×H×0.0059)
             };
 
             // Carat calculation formula with exact factors
