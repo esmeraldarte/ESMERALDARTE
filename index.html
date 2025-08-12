@@ -804,14 +804,14 @@
             
             // Shape factors (approximate conversion factors for different shapes)
             const shapeFactors = {
-                'emerald': 0.0025,
-                'oval': 0.0023,
-                'round': 0.0021,
-                'pear': 0.0024,
-                'cushion': 0.0026,
+                'emerald': 0.0027 * 1.7,  // ≈ 0.00459, incluye factor de forma rectangular
+                'oval': 0.0027,
+                'round': 0.002,            // para diámetro en mm
+                'pear': 0.0026,
+                'cushion': 0.0027 * 1.6,   // ≈ 0.00432
                 'heart': 0.0027
             };
-            
+        
             // Basic carat calculation formula (simplified)
             let carats;
             if (shape === 'round') {
