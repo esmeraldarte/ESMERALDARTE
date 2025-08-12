@@ -99,30 +99,17 @@
     </a>
 
     <!-- Header with Logo and Search -->
-   <header class="gradient-bg shadow-md">
+   <!-- Header con logo ajustado -->
+<header class="gradient-bg shadow-md py-0">
     <div class="container mx-auto px-4">
-        <div class="flex flex-col items-center py-2">
-            
-            <!-- Logo grande -->
+        <div class="flex flex-col items-center">
+            <!-- Logo grande pero sin márgenes extras -->
             <img src="https://i.imgur.com/d65hZqr.png" 
                  alt="Joyeria de Esmeraldas" 
-                 class="h-80 mb-4">
-
-            <!-- Buscador centrado -->
-            <div class="flex items-center space-x-2">
-                <input type="text" id="codigoBusqueda" placeholder="Ingrese código"
-                       class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:ring-emerald-300">
-                <button onclick="buscarCertificado()" 
-                        class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700">
-                    Buscar
-                </button>
-            </div>
-
+                 class="h-80 my-0">
         </div>
     </div>
-</header>
-
-                
+</header> 
                 <!-- Search by Certificate Code -->
                 <div class="w-full max-w-md">
                     <div class="relative">
