@@ -798,34 +798,36 @@
     const depth = parseFloat(document.getElementById('depth').value) || 0;
     const shape = document.getElementById('shape').value;
 
-    const shapeFactors = {
-        'emerald': 0.0027 * 1.7,  // ≈ 0.00459
-        'oval': 0.0027,
-        'round': 0.002,
-        'pear': 0.0026,
-        'cushion': 0.0027 * 1.6,  // ≈ 0.00432
-        'heart': 0.0027
-    };
-
-    const factor = shapeFactors[shape] || 0;
-    if (factor === 0) {
-        alert('Por favor selecciona una forma válida');
-        return;
-    }
-
     if (length <= 0 || width <= 0 || depth <= 0) {
         alert('Por favor ingresa valores positivos para las dimensiones');
         return;
     }
 
-    // Calcular promedio para redonda
-    const avgDiameter = (length + width) / 2;
+    let carats = 0;
 
-    let carats;
-    if (shape === 'round') {
-        carats = avgDiameter * avgDiameter * depth * factor;
-    } else {
-        carats = length * width * depth * factor;
+    switch (shape) {
+        case 'emerald': // rectangular
+            carats = length * width * depth * 0.0027 * 1.7;
+            break;
+        case 'oval':
+            carats = length * width * depth * 0.0027;
+            break;
+        case 'round':
+            const avgDiameter = (length + width) / 2;
+            carats = avgDiameter * avgDiameter * depth * 0.002;
+            break;
+        case 'pear':
+            carats = length * width * depth * 0.0026;
+            break;
+        case 'cushion': // cuadrada tipo cushion
+            carats = length * width * depth * 0.0027 * 1.6;
+            break;
+        case 'heart':
+            carats = length * width * depth * 0.0027;
+            break;
+        default:
+            alert('Por favor selecciona una forma válida');
+            return;
     }
 
     carats = Math.round(carats * 100) / 100;
@@ -837,8 +839,7 @@
 
     updateDimensionDisplay(length, width, depth, carats);
 }
-
-        
+     
         function updateDimensionDisplay(length, width, depth, carats) {
             const display = document.getElementById('dimensionDisplay');
             if (length && width && depth && carats) {
