@@ -362,14 +362,15 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 mb-1">Forma</label>
-                                    <select id="shape" class="w-full px-3 py-2 border border-gray-300 rounded">
-                                        <option value="rectangular">Rectangular</option>
-                                        <option value="ovalada">Ovalada</option>
-                                        <option value="redonda">Redonda</option>
-                                        <option value="lágrima">Lágrima</option>
-                                        <option value="cuadrada">Cuadrada</option>
-                                        <option value="corazón">Corazón</option>
-                                    </select>
+                                   <select id="shape" class="w-full px-3 py-2 border border-gray-300 rounded">
+                                       <option value="emerald">Rectangular</option>
+                                       <option value="oval">Ovalada</option>
+                                       <option value="round">Redonda</option>
+                                       <option value="pear">Lágrima</option>
+                                       <option value="cushion">Cuadrada</option>
+                                       <option value="heart">Corazón</option>
+                                   </select>
+
                                 </div>
                             </div>
                             <button onclick="calculateCarats()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded">
@@ -806,29 +807,29 @@
     let carats = 0;
 
     switch (shape) {
-        case 'emerald': // rectangular
-            carats = length * width * depth * 0.0027 * 1.7;
-            break;
-        case 'oval':
-            carats = length * width * depth * 0.0027;
-            break;
-        case 'round':
-            const avgDiameter = (length + width) / 2;
-            carats = avgDiameter * avgDiameter * depth * 0.002;
-            break;
-        case 'pear':
-            carats = length * width * depth * 0.0026;
-            break;
-        case 'cushion': // cuadrada tipo cushion
-            carats = length * width * depth * 0.0027 * 1.6;
-            break;
-        case 'heart':
-            carats = length * width * depth * 0.0027;
-            break;
-        default:
-            alert('Por favor selecciona una forma válida');
-            return;
-    }
+    case 'rectangular': // emerald
+        carats = length * width * depth * 0.0027 * 1.7;
+        break;
+    case 'ovalada':
+        carats = length * width * depth * 0.0027;
+        break;
+    case 'redonda':
+        const avgDiameter = (length + width) / 2;
+        carats = avgDiameter * avgDiameter * depth * 0.002;
+        break;
+    case 'lágrima':
+        carats = length * width * depth * 0.0026;
+        break;
+    case 'cuadrada':
+        carats = length * width * depth * 0.0027 * 1.6;
+        break;
+    case 'corazón':
+        carats = length * width * depth * 0.0027;
+        break;
+    default:
+        alert('Por favor selecciona una forma válida.');
+        return;
+}
 
     carats = Math.round(carats * 100) / 100;
 
