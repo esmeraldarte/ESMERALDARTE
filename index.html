@@ -195,14 +195,24 @@
                 font-size: 12px;
                 padding: 6px 8px;
             }
-            .interesting-facts-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .interesting-fact-section {
-                margin-bottom: 2rem;
-            }
-            .map-image-container {
-                height: 250px !important;
+            @media (max-width: 640px) {
+                .interesting-facts-section img {
+                    width: 100%;
+                    height: auto;
+                    margin-top: 1rem;
+                }
+                table {
+                    font-size: 0.85rem;
+                }
+                table th, table td {
+                    padding: 0.5rem;
+                }
+                .bg-emerald-50 {
+                    padding: 0.75rem;
+                }
+                .list-disc {
+                    padding-left: 1.25rem;
+                }
             }
         }
     </style>
@@ -564,14 +574,14 @@
         </div>
 
         <!-- Interesting Facts Section -->
-        <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
-            <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Datos interesantes sobre las esmeraldas</h2>
+        <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl sm:text-3xl font-bold text-emerald-800 mb-6 text-center">Datos interesantes sobre las esmeraldas</h2>
 
-            <div class="grid md:grid-cols-2 gap-8 interesting-facts-grid">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- History -->
-                <div class="interesting-fact-section">
-                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Historia fascinante de las esmeraldas</h3>
-                    <div class="space-y-4 text-gray-700">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 border-b pb-2">Historia fascinante de las esmeraldas</h3>
+                    <div class="space-y-3 text-gray-700 text-base">
                         <p>Las esmeraldas han sido apreciadas desde la antigüedad, con registros de su uso que datan del 3500 a.C. en Egipto. Cleopatra era conocida por su pasión por estas gemas, y los incas las consideraban piedras sagradas.</p>
                         
                         <p>En la antigua Roma, el emperador Nerón usaba un lente tallado en esmeralda para ver los combates de gladiadores, creyendo que el color verde calmaba sus ojos.</p>
@@ -589,9 +599,9 @@
                 </div>
 
                 <!-- Cutting Styles -->
-                <div class="interesting-fact-section">
-                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Estilos de tallado</h3>
-                    <div class="space-y-4">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 border-b pb-2">Estilos de tallado</h3>
+                    <div class="space-y-3">
                         <div class="flex items-start">
                             <div class="bg-emerald-100 p-2 rounded-full mr-3">
                                 <i class="fas fa-gem text-emerald-600"></i>
@@ -633,9 +643,9 @@
                 </div>
 
                 <!-- Colombian vs Other Emeralds -->
-                <div class="interesting-fact-section">
-                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Esmeraldas colombianas vs. otras</h3>
-                    <div class="overflow-x-auto">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 border-b pb-2">Esmeraldas colombianas vs. otras</h3>
+                    <div class="overflow-x-auto text-base">
                         <table class="min-w-full bg-white rounded-lg overflow-hidden">
                             <thead class="bg-emerald-600 text-white">
                                 <tr>
@@ -676,9 +686,9 @@
                 </div>
 
                 <!-- Chemical Composition -->
-                <div class="interesting-fact-section">
-                    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">Composición química y propiedades</h3>
-                    <div class="space-y-4 text-gray-700">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 border-b pb-2">Composición química y propiedades</h3>
+                    <div class="space-y-3 text-gray-700 text-base">
                         <p>Las esmeraldas son una variedad del mineral berilo (Be₃Al₂Si₆O₁₈) coloreado por trazas de cromo y a veces vanadio.</p>
                         <div class="bg-emerald-50 p-4 rounded-lg">
                             <h4 class="font-medium text-emerald-600 mb-2">Propiedades físicas:</h4>
