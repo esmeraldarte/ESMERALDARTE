@@ -842,7 +842,7 @@
         // Certificate Search Function
         function searchCertificate() {
             const code = document.getElementById('certificateSearch').value.trim();
-            if (code === '7788' || code === '2025' || code === '2026' || code === '2027') {
+            if (code === '7788' || code === '100568' || code === '2026' || code === '2027') {
                 // Show the modal with appropriate certificate
                 document.getElementById('certificateModal').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
@@ -855,9 +855,9 @@
                         document.getElementById('certificateCode').textContent = `Código: ${code}`;
                         document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
                         break;
-                    case '2025':
-                        document.getElementById('certificateFront').src = 'https://i.imgur.com/V79AlHz.png';
-                        document.getElementById('certificateBack').src = 'https://i.imgur.com/bvvThXl.png';
+                    case '100568':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/6ZbhA08.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
                         document.getElementById('certificateCode').textContent = `Código: ${code}`;
                         document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
                         break;
