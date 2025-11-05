@@ -842,7 +842,7 @@
         // Certificate Search Function
         function searchCertificate() {
             const code = document.getElementById('certificateSearch').value.trim();
-            if (code === '7788' || code === '100568' || code === '200567' || code === '2026' || code === '2027') {
+            if (code === '7788' || code === '200101' || code === '200102' || code === '100568' || code === '200567' || code === '2026' || code === '2027') {
                 // Show the modal with appropriate certificate
                 document.getElementById('certificateModal').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
@@ -857,6 +857,18 @@
                         break;
                     case '100568':
                         document.getElementById('certificateFront').src = 'https://i.imgur.com/6ZbhA08.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200101':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/RwRWo47.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200102':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/qvih7HL.png';
                         document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
                         document.getElementById('certificateCode').textContent = `Código: ${code}`;
                         document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
@@ -900,7 +912,7 @@
             const allDetails = [
                 { title: 'Identificación', value: 'Esmeralda natural (Berilo verde)' },
                 { title: 'Origen', value: 'Colombia' },
-                { title: 'Fecha de certificación', value: '15/06/2024' }
+                { title: 'Fecha de certificación', value: '15/06/2025' }
             ];
 
             // Clear and repopulate the container
