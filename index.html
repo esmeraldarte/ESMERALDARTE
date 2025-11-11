@@ -842,7 +842,7 @@
         // Certificate Search Function
         function searchCertificate() {
             const code = document.getElementById('certificateSearch').value.trim();
-            if (code === '7788' || code === '200101' || code === '200102' || code === '200111' || code === '200118' || code === '100568' || code === '200567' || code === '2026' || code === '2027') {
+            if (code === '7788' || code === '200101' || code === '200102' || code === '200171' || code === '200111' || code === '200118' || code === '100568' || code === '200567' || code === '2026' || code === '2027') {
                 // Show the modal with appropriate certificate
                 document.getElementById('certificateModal').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
@@ -863,6 +863,12 @@
                         break;
                     case '200111':
                         document.getElementById('certificateFront').src = 'https://i.imgur.com/UCYhueM.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200171':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/6Tdxbad.png';
                         document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
                         document.getElementById('certificateCode').textContent = `Código: ${code}`;
                         document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
