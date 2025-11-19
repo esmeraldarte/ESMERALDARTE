@@ -842,7 +842,7 @@
         // Certificate Search Function
         function searchCertificate() {
             const code = document.getElementById('certificateSearch').value.trim();
-            if (code === '7788' || code === '200101' || code === '200106' || code === '200109' || code === '200110' || code === '200107' || code === '200108' || code === '200103' || code === '200105' || code === '200102' || code === '200104' || code === '200171' || code === '200111' || code === '200118' || code === '100568' || code === '200567' || code === '2026' || code === '2027') {
+            if (code === '7788' || code === '200101' || code === '200115' || code === '200116' || code === '200117' || code === '200106' || code === '200109' || code === '200112' || code === '200113' || code === '200114' || code === '200110' || code === '200107' || code === '200108' || code === '200103' || code === '200105' || code === '200102' || code === '200104' || code === '200171' || code === '200111' || code === '200118' || code === '100568' || code === '200567' || code === '2026' || code === '2027') {
                 // Show the modal with appropriate certificate
                 document.getElementById('certificateModal').classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
@@ -863,6 +863,42 @@
                         break;
                     case '200103':
                         document.getElementById('certificateFront').src = 'https://i.imgur.com/YdC5Wij.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200112':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/UCdTUgY.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200113':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/XafW0JD.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200114':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/nPFPEsB.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200115':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/J8c9kC2.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200116':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/jrScUAi.png';
+                        document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
+                        document.getElementById('certificateCode').textContent = `Código: ${code}`;
+                        document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
+                        break;
+                    case '200117':
+                        document.getElementById('certificateFront').src = 'https://i.imgur.com/XfGd560.png';
                         document.getElementById('certificateBack').src = 'https://i.imgur.com/H29SSnq.png';
                         document.getElementById('certificateCode').textContent = `Código: ${code}`;
                         document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
