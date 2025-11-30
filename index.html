@@ -241,6 +241,7 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
+                    <p class="text-center text-emerald-800 mt-2 text-sm">Somos un laboratorio especializado en esmeraldas</p>
                 </div>
             </div>
         </div>
@@ -266,6 +267,12 @@
             <button onclick="toggleInteractiveTools()"
                     class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
                 <i class="fas fa-tools"></i> Herramientas interactivas
+            </button>
+
+            <!-- Other Gems Button -->
+            <button onclick="toggleOtherGems()"
+                    class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg shadow-lg transition flex items-center justify-center gap-2">
+                <i class="fas fa-diamond"></i> Otras gemas
             </button>
         </div>
 
@@ -550,34 +557,106 @@
             </div>
 
             <!-- Emerald Production Map -->
-<div>
-    <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">
-        Mapa de zonas productoras de esmeraldas en Colombia
-    </h3>
-    
-    <div class="map-image-container bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center p-2">
-        <img 
-            id="mapImage" 
-            src="https://i.imgur.com/LXoEDkw.jpeg" 
-            alt="Mapa de zonas esmeralderas de Colombia" 
-            class="max-w-full h-auto object-contain"
-            style="aspect-ratio: 3 / 2;"
-        >
-    </div>
-</div>
+            <div>
+                <h3 class="text-2xl font-semibold text-emerald-700 mb-4 border-b pb-2">
+                    Mapa de zonas productoras de esmeraldas en Colombia
+                </h3>
+                
+                <div class="map-image-container bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center p-2">
+                    <img 
+                        id="mapImage" 
+                        src="https://i.imgur.com/LXoEDkw.jpeg" 
+                        alt="Mapa de zonas esmeralderas de Colombia" 
+                        class="max-w-full h-auto object-contain"
+                        style="aspect-ratio: 3 / 2;"
+                    >
+                </div>
+            </div>
 
-                <div class="mt-4 grid md:grid-cols-3 gap-4">
-                    <div class="bg-emerald-50 p-3 rounded-lg">
-                        <h4 class="font-semibold text-emerald-700 mb-1">Muzo</h4>
-                        <p class="text-sm text-gray-700">Consideradas las esmeraldas más valiosas del mundo, con un verde intenso y tonos azulados característicos.</p>
+            <div class="mt-4 grid md:grid-cols-3 gap-4">
+                <div class="bg-emerald-50 p-3 rounded-lg">
+                    <h4 class="font-semibold text-emerald-700 mb-1">Muzo</h4>
+                    <p class="text-sm text-gray-700">Consideradas las esmeraldas más valiosas del mundo, con un verde intenso y tonos azulados característicos.</p>
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-lg">
+                    <h4 class="font-semibold text-emerald-700 mb-1">Chivor</h4>
+                    <p class="text-sm text-gray-700">Esmeraldas con tonos más claros y brillantes, conocidas por su alta transparencia y menor cantidad de inclusiones.</p>
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-lg">
+                    <h4 class="font-semibold text-emerald-700 mb-1">Coscuez</h4>
+                    <p class="text-sm text-gray-700">Producen piedras con un verde profundo y excelente claridad, con inclusiones características que las hacen únicas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Gems Section (New) -->
+        <div id="otherGems" class="hidden bg-white p-6 rounded-lg mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-emerald-800 mb-6 text-center">Otras Gemas Preciosas</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Diamond -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <img src="https://i.imgur.com/example1.jpg" alt="Diamante" class="w-full h-48 object-cover rounded-lg mb-3">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Diamante</h3>
+                    <p class="text-gray-700 mb-2">El material natural más duro conocido, con índice de refracción de 2.42.</p>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-gem mr-1"></i>
+                        <span>Dureza: 10 (Mohs)</span>
                     </div>
-                    <div class="bg-emerald-50 p-3 rounded-lg">
-                        <h4 class="font-semibold text-emerald-700 mb-1">Chivor</h4>
-                        <p class="text-sm text-gray-700">Esmeraldas con tonos más claros y brillantes, conocidas por su alta transparencia y menor cantidad de inclusiones.</p>
+                </div>
+                
+                <!-- Ruby -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <img src="https://i.imgur.com/example2.jpg" alt="Rubí" class="w-full h-48 object-cover rounded-lg mb-3">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Rubí</h3>
+                    <p class="text-gray-700 mb-2">Variedad roja del corindón, considerado una de las cuatro gemas preciosas.</p>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-gem mr-1"></i>
+                        <span>Dureza: 9 (Mohs)</span>
                     </div>
-                    <div class="bg-emerald-50 p-3 rounded-lg">
-                        <h4 class="font-semibold text-emerald-700 mb-1">Coscuez</h4>
-                        <p class="text-sm text-gray-700">Producen piedras con un verde profundo y excelente claridad, con inclusiones características que las hacen únicas.</p>
+                </div>
+                
+                <!-- Sapphire -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <img src="https://i.imgur.com/example3.jpg" alt="Zafiro" class="w-full h-48 object-cover rounded-lg mb-3">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Zafiro</h3>
+                    <p class="text-gray-700 mb-2">Variedad azul del corindón, aunque puede encontrarse en otros colores excepto rojo.</p>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-gem mr-1"></i>
+                        <span>Dureza: 9 (Mohs)</span>
+                    </div>
+                </div>
+                
+                <!-- Aquamarine -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <img src="https://i.imgur.com/example4.jpg" alt="Aguamarina" class="w-full h-48 object-cover rounded-lg mb-3">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Aguamarina</h3>
+                    <p class="text-gray-700 mb-2">Variedad azul-verdosa del berilo, muy valorada en joyería por su transparencia.</p>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-gem mr-1"></i>
+                        <span>Dureza: 7.5-8 (Mohs)</span>
+                    </div>
+                </div>
+                
+                <!-- Tanzanite -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <img src="https://i.imgur.com/example5.jpg" alt="Tanzanita" class="w-full h-48 object-cover rounded-lg mb-3">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Tanzanita</h3>
+                    <p class="text-gray-700 mb-2">Variedad azul-violeta de zoisita, encontrada solo en Tanzania.</p>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-gem mr-1"></i>
+                        <span>Dureza: 6.5-7 (Mohs)</span>
+                    </div>
+                </div>
+                
+                <!-- Topaz -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <img src="https://i.imgur.com/example6.jpg" alt="Topacio" class="w-full h-48 object-cover rounded-lg mb-3">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Topacio</h3>
+                    <p class="text-gray-700 mb-2">Gema silicato de aluminio y flúor, disponible en varios colores.</p>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-gem mr-1"></i>
+                        <span>Dureza: 8 (Mohs)</span>
                     </div>
                 </div>
             </div>
@@ -1586,18 +1665,28 @@
             document.getElementById('careGuide').classList.toggle('hidden');
             document.getElementById('gemLab').classList.add('hidden');
             document.getElementById('interactiveTools').classList.add('hidden');
+            document.getElementById('otherGems').classList.add('hidden');
         }
 
         function toggleGemLab() {
             document.getElementById('gemLab').classList.toggle('hidden');
             document.getElementById('careGuide').classList.add('hidden');
             document.getElementById('interactiveTools').classList.add('hidden');
+            document.getElementById('otherGems').classList.add('hidden');
         }
 
         function toggleInteractiveTools() {
             document.getElementById('interactiveTools').classList.toggle('hidden');
             document.getElementById('careGuide').classList.add('hidden');
             document.getElementById('gemLab').classList.add('hidden');
+            document.getElementById('otherGems').classList.add('hidden');
+        }
+
+        function toggleOtherGems() {
+            document.getElementById('otherGems').classList.toggle('hidden');
+            document.getElementById('careGuide').classList.add('hidden');
+            document.getElementById('gemLab').classList.add('hidden');
+            document.getElementById('interactiveTools').classList.add('hidden');
         }
 
         // Shape Selector for Interactive Tools
@@ -1688,5 +1777,6 @@
             }
         }
     </script>
+<script src="https://huggingface.co/deepsite/deepsite-badge.js"></script>
 </body>
 </html>
