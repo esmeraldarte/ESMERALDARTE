@@ -6,6 +6,8 @@
     <title>Joyeria de Esmeraldas - Certificación y Gemología</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #e6f5e6 0%, #c2e0c2 50%, #5d9e5d 100%);
@@ -91,6 +93,23 @@
             font-size: 1.2rem;
             color: #2e7d32;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .download-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2e7d32;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .certificate-image:hover .download-btn {
+            opacity: 1;
         }
         .map-point {
             position: absolute;
@@ -196,6 +215,10 @@
             .map-tooltip {
                 font-size: 12px;
                 padding: 6px 8px;
+            }
+            .download-btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
             }
             @media (max-width: 640px) {
                 .interesting-facts-section img {
@@ -887,7 +910,13 @@
                         <div id="certificateCodeBack" class="certificate-code">Código: 7788</div>
                         <img id="certificateBack" src="https://via.placeholder.com/600x800/ffffff/2e7d32?text=Reverso+Certificado+7788" alt="Reverso del Certificado" class="w-full rounded-lg shadow">
                     </div>
-                </div>
+                    <!-- Single Download Button -->
+                    <div class="col-span-full flex justify-center mt-4">
+                        <button onclick="downloadBothCertificateSides()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg shadow-lg transition">
+                            <i class="fas fa-download mr-2"></i> Descargar Certificado Completo
+                        </button>
+                    </div>
+</div>
 
                 <div class="bg-emerald-50 p-4 rounded-lg mb-6">
                     <div class="flex items-center mb-3">
@@ -1672,7 +1701,7 @@
                         document.getElementById('certificateCodeBack').textContent = `Código: ${code}`;
                         break;
                 }
-                updateCertificateDetails(code);
+updateCertificateDetails(code);
             } else if (code) {
                 alert('Certificado no encontrado. Por favor verifique el código e intente nuevamente.');
             } else {
@@ -1684,9 +1713,34 @@
             document.getElementById('certificateModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
+        function downloadBothCertificateSides() {
+            const code = document.getElementById('certificateSearch').value.trim() || '7788';
+            const frontSrc = document.getElementById('certificateFront').src;
+            const backSrc = document.getElementById('certificateBack').src;
+            
+            // Create a hidden iframe to trigger downloads one after another
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            // Download front first
+            iframe.onload = function() {
+                setTimeout(() => {
+                    // Then download back after a short delay
+                    iframe.src = `${backSrc}?download=1&filename=certificado_reverso_${code}.png`;
+                    
+                    // Clean up after both downloads
+                    setTimeout(() => {
+                        document.body.removeChild(iframe);
+                    }, 1000);
+                }, 500);
+            };
+            
+            iframe.src = `${frontSrc}?download=1&filename=certificado_frente_${code}.png`;
+        }
 
         function updateCertificateDetails(code) {
-            const detailsContainer = document.getElementById('certificateDetails');
+const detailsContainer = document.getElementById('certificateDetails');
             let details = [];
 
             const allDetails = [
