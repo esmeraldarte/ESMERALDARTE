@@ -1713,33 +1713,7 @@ updateCertificateDetails(code);
             document.getElementById('certificateModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-        function downloadBothCertificateSides() {
-            const code = document.getElementById('certificateSearch').value.trim() || '7788';
-            const frontSrc = document.getElementById('certificateFront').src;
-            const backSrc = document.getElementById('certificateBack').src;
-            
-            // Create a hidden iframe to trigger downloads one after another
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
-            
-            // Download front first
-            iframe.onload = function() {
-                setTimeout(() => {
-                    // Then download back after a short delay
-                    iframe.src = `${backSrc}?download=1&filename=certificado_reverso_${code}.png`;
-                    
-                    // Clean up after both downloads
-                    setTimeout(() => {
-                        document.body.removeChild(iframe);
-                    }, 1000);
-                }, 500);
-            };
-            
-            iframe.src = `${frontSrc}?download=1&filename=certificado_frente_${code}.png`;
-        }
-
-        function updateCertificateDetails(code) {
+function updateCertificateDetails(code) {
 const detailsContainer = document.getElementById('certificateDetails');
             let details = [];
 
